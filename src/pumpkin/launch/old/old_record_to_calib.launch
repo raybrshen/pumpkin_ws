@@ -1,0 +1,14 @@
+<xml xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<xacro:include filename="$(find pumpkin)/config/pumpkin_ports.xacro" />
+<launch>
+    <group ns="pumpkin">
+	<rosparam file="$(find pumpkin)/config/pumpkin_config.yaml" command="load" />
+	<!-- <node name="mosfet_status_publisher" pkg="pumpkin" type="mosfet_status_publisher" args="true" /> -->
+    </group>
+    <!-- <param name="ports" command="$(find xacro)/xacro.py $(find pumpkin)/config/pumpkin_ports.xacro"/>-->
+    <!-- <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="${ard_port}"/> -->
+
+    <arg name="output_file" default="raw-an_read" />
+    <node name="recorder" pkg="pumpkin" type="recorder" args="$(find pumpkin)/calib/$(arg output_file)"/>
+</launch>
+</xml>

@@ -1,0 +1,11 @@
+<xml xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<xacro:include filename="$(find pumpkin)/config/pumpkin_ports.xacro" />
+<launch>
+    <group ns="pumpkin">
+	<rosparam file="$(find pumpkin)/config/pumpkin_config.yaml" command="load" />
+    </group>
+
+    <arg name="output_file" default="raw-an_read" />
+    <node name="recorder" pkg="pumpkin" type="recorder" args="$(find pumpkin)/playback/$(arg output_file)" />
+</launch>
+</xml>

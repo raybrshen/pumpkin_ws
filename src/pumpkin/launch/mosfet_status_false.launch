@@ -1,0 +1,3 @@
+<launch>
+    <node name="mosfet_status_publisher" pkg="pumpkin" type="mosfet_status_publisher" args="false"/>
+</launch>

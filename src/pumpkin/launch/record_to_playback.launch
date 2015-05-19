@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find pumpkin)/launch/arduino.launch" />
+    <include file="$(find pumpkin)/launch/mosfet_status_true.launch" />
+
+    <group ns="pumpkin">
+	<rosparam file="$(find pumpkin)/config/pumpkin_config.yaml" command="load" />
+    </group>
+
+    <arg name="output_file" default="raw-an_read" />
+    <node name="recorder" pkg="pumpkin" type="recorder" args="$(find pumpkin)/playback/$(arg output_file)" />
+</launch>

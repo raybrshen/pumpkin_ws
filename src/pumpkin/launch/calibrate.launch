@@ -1,0 +1,3 @@
+<launch>
+    <node name="calibrate" pkg="pumpkin" type="calibrate" args="$(find pumpkin)/calib/$(arg input_file) $(find pumpkin)/config/pumpkin_config.yaml  $(find pumpkin)/config/pumpkin_config_calib.yaml"/>
+</launch>
