@@ -1,0 +1,1014 @@
+<robot
+  name="pumpkin_description">
+  <link
+    name="map">
+    <inertial>
+      <origin
+        xyz="-0.29356 -0.175 0.45135"
+        rpy="0 0 0" />
+      <mass
+        value="13.982" />
+      <inertia
+        ixx="2.3196"
+        ixy="-8.625E-17"
+        ixz="0.0096879"
+        iyy="2.4878"
+        iyz="-1.5037E-16"
+        izz="0.42458" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/map.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.50196 0.50196 0.50196 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/map.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.29356 -0.175 0.45135"
+        rpy="0 0 0" />
+      <mass
+        value="13.982" />
+      <inertia
+        ixx="2.3196"
+        ixy="-8.7112E-17"
+        ixz="0.0096879"
+        iyy="2.4878"
+        iyz="-1.5549E-16"
+        izz="0.42458" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.50196 0.50196 0.50196 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="map_base"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="map" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="chest_link">
+    <inertial>
+      <origin
+        xyz="0.07 0.086132 0.20644"
+        rpy="0 0 0" />
+      <mass
+        value="10.022" />
+      <inertia
+        ixx="0.13958"
+        ixy="2.3825E-08"
+        ixz="-9.3686E-08"
+        iyy="0.12652"
+        iyz="0.020291"
+        izz="0.051192" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/chest_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.50196 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/chest_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_chest"
+    type="fixed">
+    <origin
+      xyz="-0.225 -0.0975 1.061"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="chest_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="neck1_link">
+    <inertial>
+      <origin
+        xyz="1.3878E-17 0.0011458 0.014278"
+        rpy="0 0 0" />
+      <mass
+        value="0.041592" />
+      <inertia
+        ixx="2.2923E-05"
+        ixy="-9.5248E-22"
+        ixz="-2.0023E-21"
+        iyy="2.7209E-05"
+        iyz="-8.5099E-07"
+        izz="2.0902E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/neck1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/neck1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="neck_0"
+    type="revolute">
+    <origin
+      xyz="0.069268 0.042993 0.38107"
+      rpy="1.8504E-15 0 0" />
+    <parent
+      link="chest_link" />
+    <child
+      link="neck1_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="neck2_Link">
+    <inertial>
+      <origin
+        xyz="-0.013186 1.4317E-05 0.01784"
+        rpy="0 0 0" />
+      <mass
+        value="0.049043" />
+      <inertia
+        ixx="4.6998E-05"
+        ixy="-3.8995E-09"
+        ixz="9.5973E-16"
+        iyy="4.876E-05"
+        iyz="-1.022E-18"
+        izz="1.8765E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/neck2_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/neck2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="neck_1"
+    type="revolute">
+    <origin
+      xyz="-0.018635 -0.0027867 0.0327"
+      rpy="0 1.5708 0" />
+    <parent
+      link="neck1_link" />
+    <child
+      link="neck2_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="head_link">
+    <inertial>
+      <origin
+        xyz="-0.011175 0.088655 -4.2266E-12"
+        rpy="0 0 0" />
+      <mass
+        value="2.4557" />
+      <inertia
+        ixx="0.015009"
+        ixy="-0.0003677"
+        ixz="3.2051E-13"
+        iyy="0.011887"
+        iyz="4.5413E-13"
+        izz="0.0056147" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/head_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.50196 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/head_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="neck2_head"
+    type="fixed">
+    <origin
+      xyz="-0.02824 0 0.01784"
+      rpy="3.1416 2.6791E-16 -1.5708" />
+    <parent
+      link="neck2_Link" />
+    <child
+      link="head_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="r_shoulder1_link">
+    <inertial>
+      <origin
+        xyz="-0.044868 0.0029358 0.034803"
+        rpy="0 0 0" />
+      <mass
+        value="0.9973" />
+      <inertia
+        ixx="0.0010727"
+        ixy="-8.1153E-06"
+        ixz="-0.00010634"
+        iyy="0.002707"
+        iyz="0.00011088"
+        izz="0.0025815" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_shoulder1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_shoulder1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_shoulder_0"
+    type="revolute">
+    <origin
+      xyz="-0.033 0.085 0.22432"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="chest_link" />
+    <child
+      link="r_shoulder1_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_shoulder2_link">
+    <inertial>
+      <origin
+        xyz="0.081811 0.00026825 0.096829"
+        rpy="0 0 0" />
+      <mass
+        value="0.67222" />
+      <inertia
+        ixx="0.0013812"
+        ixy="5.2294E-06"
+        ixz="-0.00015679"
+        iyy="0.0014319"
+        iyz="-7.1587E-06"
+        izz="0.00075297" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_shoulder2_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_shoulder2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_shoulder_1"
+    type="revolute">
+    <origin
+      xyz="0.0018931 0.04856 0.03917"
+      rpy="1.5708 -0.80995 1.8385E-15" />
+    <parent
+      link="r_shoulder1_link" />
+    <child
+      link="r_shoulder2_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1.3"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_upperarm_link">
+    <inertial>
+      <origin
+        xyz="-0.0079367 0 0.073949"
+        rpy="0 0 0" />
+      <mass
+        value="0.80246" />
+      <inertia
+        ixx="0.0022608"
+        ixy="-5.4759E-20"
+        ixz="-5.704E-05"
+        iyy="0.00216"
+        iyz="5.6235E-19"
+        izz="0.00065121" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_upperarm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_upperarm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_shoulder_2"
+    type="revolute">
+    <origin
+      xyz="0.12866 0 0.0575"
+      rpy="-1.5708 6.9696E-18 -1.5708" />
+    <parent
+      link="r_shoulder2_link" />
+    <child
+      link="r_upperarm_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_forerarm_link">
+    <inertial>
+      <origin
+        xyz="0.0013201 -0.096023 0.04158"
+        rpy="0 0 0" />
+      <mass
+        value="0.46025" />
+      <inertia
+        ixx="0.00080369"
+        ixy="2.1097E-05"
+        ixz="-3.5677E-12"
+        iyy="0.00030413"
+        iyz="2.4401E-10"
+        izz="0.00080909" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_forerarm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_forerarm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_elbow"
+    type="revolute">
+    <origin
+      xyz="0.032685 0 0.14623"
+      rpy="-1.5708 2.3453E-16 1.5708" />
+    <parent
+      link="r_upperarm_link" />
+    <child
+      link="r_forerarm_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_wrist0_link">
+    <inertial>
+      <origin
+        xyz="-1.9429E-16 0.0011458 0.014278"
+        rpy="0 0 0" />
+      <mass
+        value="0.041592" />
+      <inertia
+        ixx="2.2923E-05"
+        ixy="-7.72E-21"
+        ixz="1.5247E-20"
+        iyy="2.7209E-05"
+        iyz="-8.5099E-07"
+        izz="2.0902E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_wrist0_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_wrist0_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_wrist_0"
+    type="revolute">
+    <origin
+      xyz="0.0015954 -0.17436 0.04158"
+      rpy="-2.2 -1.5708 -2.428" />
+    <parent
+      link="r_forerarm_link" />
+    <child
+      link="r_wrist0_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_wrist1_link">
+    <inertial>
+      <origin
+        xyz="0.00048698 0.013177 0.01784"
+        rpy="0 0 0" />
+      <mass
+        value="0.049043" />
+      <inertia
+        ixx="4.8757E-05"
+        ixy="6.7026E-08"
+        ixz="6.6425E-16"
+        iyy="4.7E-05"
+        iyz="-8.3214E-15"
+        izz="1.8765E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_wrist1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/r_wrist1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_wrist_1"
+    type="revolute">
+    <origin
+      xyz="0.018635 -0.0027867 0.0327"
+      rpy="1.5708 -2.498E-16 -1.5708" />
+    <parent
+      link="r_wrist0_link" />
+    <child
+      link="r_wrist1_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_shoulder1_link">
+    <inertial>
+      <origin
+        xyz="0.044868 0.0029358 0.034803"
+        rpy="0 0 0" />
+      <mass
+        value="0.9973" />
+      <inertia
+        ixx="0.0010727"
+        ixy="8.1153E-06"
+        ixz="0.00010634"
+        iyy="0.002707"
+        iyz="0.00011088"
+        izz="0.0025815" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_shoulder1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_shoulder1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_shoulder_0"
+    type="revolute">
+    <origin
+      xyz="0.173 0.085 0.22432"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="chest_link" />
+    <child
+      link="l_shoulder1_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_shoulder2_link">
+    <inertial>
+      <origin
+        xyz="-0.059498 -0.056152 0.096829"
+        rpy="0 0 0" />
+      <mass
+        value="0.67222" />
+      <inertia
+        ixx="0.0014"
+        ixy="2.5045E-05"
+        ixz="0.0001186"
+        iyy="0.0014131"
+        iyz="0.0001028"
+        izz="0.00075297" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_shoulder2_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_shoulder2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_shoulder_1"
+    type="revolute">
+    <origin
+      xyz="-0.0018931 0.04856 0.03917"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="l_shoulder1_link" />
+    <child
+      link="l_shoulder2_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_upperarm_link">
+    <inertial>
+      <origin
+        xyz="0.0079367 1.1102E-16 0.073949"
+        rpy="0 0 0" />
+      <mass
+        value="0.80246" />
+      <inertia
+        ixx="0.0022608"
+        ixy="-2.9893E-20"
+        ixz="5.704E-05"
+        iyy="0.00216"
+        iyz="-1.4252E-19"
+        izz="0.00065121" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_upperarm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_upperarm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_shoulder_2"
+    type="revolute">
+    <origin
+      xyz="-0.093277 -0.088613 0.0575"
+      rpy="-1.5708 -1.9127E-16 2.3306" />
+    <parent
+      link="l_shoulder2_link" />
+    <child
+      link="l_upperarm_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_forearm_link">
+    <inertial>
+      <origin
+        xyz="-0.096023 0.0013201 0.04154"
+        rpy="0 0 0" />
+      <mass
+        value="0.46025" />
+      <inertia
+        ixx="0.00030413"
+        ixy="2.1097E-05"
+        ixz="-2.4599E-10"
+        iyy="0.00080369"
+        iyz="1.6733E-12"
+        izz="0.00080909" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_forearm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_forearm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_elbow"
+    type="revolute">
+    <origin
+      xyz="-0.032685 0 0.14623"
+      rpy="0 1.5708 0" />
+    <parent
+      link="l_upperarm_link" />
+    <child
+      link="l_forearm_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_wrist0_link">
+    <inertial>
+      <origin
+        xyz="-1.6653E-16 0.0011458 0.014278"
+        rpy="0 0 0" />
+      <mass
+        value="0.041592" />
+      <inertia
+        ixx="2.2923E-05"
+        ixy="-1.0579E-20"
+        ixz="-2.287E-20"
+        iyy="2.7209E-05"
+        iyz="-8.5099E-07"
+        izz="2.0902E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_wrist0_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_wrist0_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_wrist_0"
+    type="revolute">
+    <origin
+      xyz="-0.17436 0.0015954 0.04154"
+      rpy="3.1416 1.5708 0" />
+    <parent
+      link="l_forearm_link" />
+    <child
+      link="l_wrist0_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_wrist1_link">
+    <inertial>
+      <origin
+        xyz="1.4317E-05 0.013186 -0.01784"
+        rpy="0 0 0" />
+      <mass
+        value="0.049043" />
+      <inertia
+        ixx="4.876E-05"
+        ixy="3.8995E-09"
+        ixz="9.3379E-18"
+        iyy="4.6998E-05"
+        iyz="3.428E-15"
+        izz="1.8765E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_wrist1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pumpkin_description/meshes/l_wrist1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_wrist_1"
+    type="revolute">
+    <origin
+      xyz="-0.018635 -0.0027867 0.0327"
+      rpy="1.5708 -2.6021E-16 -1.5708" />
+    <parent
+      link="l_wrist0_link" />
+    <child
+      link="l_wrist1_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

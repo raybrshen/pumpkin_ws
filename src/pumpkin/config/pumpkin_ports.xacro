@@ -1,0 +1,7 @@
+<xml xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:property name="ard_port" value="$(arg arduino_port)" />
+<xacro:property name="s_port" value="$(arg ssc_port)" />
+
+<!-- <args name="arduino_port" value="${ard_port}" /> -->
+<!-- <args name="ssc_port" value="${s_port}" /> -->
+</xml>

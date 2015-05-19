@@ -1,0 +1,129 @@
+left_arm:
+  shoulder_1:
+    ssc:
+      pulse_max: 1950
+      pulse_min: 1025
+      pin: 7
+      pulse_rest: 1150
+    arduino:
+      analog_read_min: 0
+      analog_read_max: 0
+      pin: 7
+  elbow:
+    ssc:
+      pulse_max: 1800
+      pin: 9
+      pulse_rest: 1500
+      pulse_min: 1050
+    arduino:
+      analog_read_min: 0
+      analog_read_max: 0
+      pin: 9
+  shoulder_0:
+    ssc:
+      pulse_rest: 2250
+      pulse_max: 2450
+      pulse_min: 650
+      pin: 6
+    arduino:
+      analog_read_max: 0
+      analog_read_min: 0
+      pin: 6
+  arduino:
+    port: /dev/ttyACM0
+  shoulder_2:
+    ssc:
+      pulse_max: 1850
+      pulse_rest: 1500
+      pin: 8
+      pulse_min: 1175
+    arduino:
+      analog_read_min: 0
+      analog_read_max: 0
+      pin: 8
+  wrist_0:
+    ssc:
+      pulse_min: 650
+      pulse_max: 2400
+      pin: 10
+      pulse_rest: 1500
+    arduino:
+      analog_read_min: 0
+      analog_read_max: 0
+      pin: 10
+  wrist_1:
+    ssc:
+      pulse_min: 0
+      pin: 11
+      pulse_max: 0
+      pulse_rest: 0
+    arduino:
+      analog_read_min: 0
+      analog_read_max: 0
+      pin: 11
+arduino:
+  port: /dev/ttyACM0
+right_arm:
+  elbow:
+    ssc:
+      pulse_max: 1925
+      pulse_rest: 1500
+      pin: 3
+      pulse_min: 1200
+    arduino:
+      analog_read_max: 656
+      pin: 3
+      analog_read_min: 410
+  arduino:
+    port: /dev/ttyACM0
+  shoulder_0:
+    ssc:
+      pulse_min: 675
+      pulse_max: 2400
+      pin: 0
+      pulse_rest: 800
+    arduino:
+      analog_read_max: 911
+      analog_read_min: 230
+      pin: 0
+  shoulder_1:
+    arduino:
+      analog_read_min: 351
+      pin: 1
+      analog_read_max: 722
+    ssc:
+      pulse_max: 2025
+      pin: 1
+      pulse_min: 1050
+      pulse_rest: 1925
+  shoulder_2:
+    ssc:
+      pulse_min: 1150
+      pulse_max: 1825
+      pin: 2
+      pulse_rest: 1500
+    arduino:
+      analog_read_max: 617
+      pin: 2
+      analog_read_min: 380
+  wrist_1:
+    ssc:
+      pulse_rest: 1500
+      pin: 5
+      pulse_max: 2125
+      pulse_min: 600
+    arduino:
+      analog_read_max: 742
+      analog_read_min: 178
+      pin: 5
+  wrist_0:
+    ssc:
+      pin: 4
+      pulse_max: 2400
+      pulse_min: 700
+      pulse_rest: 1500
+    arduino:
+      analog_read_min: 152
+      analog_read_max: 880
+      pin: 4
+ros_rate: 98.47674418604652
