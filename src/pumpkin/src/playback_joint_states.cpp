@@ -2,7 +2,7 @@
  *  playback_joint_states.cpp
  *
  *  Created on: 2015-03-03
- *      Author: Vinicius (vncprado@gmail.com)
+ *      Author: Vinicius Prado (vncprado@gmail.com)
  */
 
 #include "ros/ros.h"
@@ -14,7 +14,7 @@ double map2joint_states(YAML::Node servo,
 		boost::shared_ptr<const urdf::Joint>::element_type* joint,
 		std::vector<uint16_t> an_read) {
 
-	ROS_INFO("%s", joint->name.c_str());
+	ROS_DEBUG("%s", joint->name.c_str());
 
 	int in_min = servo["arduino"]["analog_read_min"].as<uint16_t>();
 	int in_max = servo["arduino"]["analog_read_max"].as<uint16_t>();
@@ -22,7 +22,7 @@ double map2joint_states(YAML::Node servo,
 	double out_max = joint->limits->upper;
 	int pin = servo["arduino"]["pin"].as<int>();
 
-	ROS_INFO("%d %d %f %f %d", in_min, in_max, out_min, out_max, pin);
+	ROS_DEBUG("%d %d %f %f %d", in_min, in_max, out_min, out_max, pin);
 
 	if (pin > an_read.size())
 		return 0;
@@ -31,7 +31,7 @@ double map2joint_states(YAML::Node servo,
 	double pos = (double) ((an_read[pin] - in_min) * (out_max - out_min)
 			/ (in_max - in_min) + out_min);
 
-	ROS_INFO("%f", pos);
+	ROS_DEBUG("%f", pos);
 
 	if (pos > out_max)
 		return out_max;
@@ -50,10 +50,14 @@ int main(int argc, char** argv) {
 
 	std::string input_file, input_config_calib, input_urdf;
 	if (argc >= 4) {
-		input_file = argv[1];
-		input_config_calib = argv[2];
-		input_urdf = argv[3];
+		input_config_calib = argv[1];
+		input_urdf = argv[2];
+		input_file = argv[3];
 	} else {
+		ROS_INFO(
+				"Usage: playback_joint_states INPUT_CONFIG_CALIB INPUT_URDF INPUT_FILE.");
+		ROS_INFO(
+				"Playback INPUT_FILE to playback_joint_states topic which must be subscribed by joint_state_publisher.");
 		exit(-1);
 	}
 
@@ -97,15 +101,19 @@ int main(int argc, char** argv) {
 			}
 		}
 	}
+	ROS_INFO("All joints assigned");
 
+	ROS_INFO("Start publishing on %s", joint_pub.getTopic().c_str());
 	for (int r = 0; r < reads.size(); r++) {
 		sensor_msgs::JointState joint_state;
 		if (!reads[r].IsNull() && ros::ok()) {
-			if (reads[r]["an_read"].IsNull())
-				ROS_FATAL("NULL");
+			if (reads[r]["an_read"].IsNull()) {
+				ROS_FATAL("There is no an_reads.");
+				exit(-1);
+			}
 			std::vector<uint16_t> an_read = reads[r]["an_read"].as<
 					std::vector<uint16_t> >();
-			std::ostringstream stringStream;
+
 			for (int i = 0; i < reads[r]["an_read"].size(); i++) {
 				double pos = map2joint_states(servos[i], joints[i], an_read);
 				joint_state.header.stamp = ros::Time::now();
