@@ -2,20 +2,6 @@
   name="pumpkin_description">
   <link
     name="map">
-    <inertial>
-      <origin
-        xyz="-0.29356 -0.175 0.45135"
-        rpy="0 0 0" />
-      <mass
-        value="13.982" />
-      <inertia
-        ixx="2.3196"
-        ixy="-8.625E-17"
-        ixz="0.0096879"
-        iyy="2.4878"
-        iyz="-1.5037E-16"
-        izz="0.42458" />
-    </inertial>
     <visual>
       <origin
         xyz="0 0 0"
@@ -203,6 +189,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="neck2_Link">
@@ -261,6 +248,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="head_link">
@@ -372,6 +360,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="r_shoulder2_link">
@@ -426,10 +415,11 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-1"
-      upper="1.3"
+      lower="-2"
+      upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="r_upperarm_link">
@@ -488,6 +478,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="r_forerarm_link">
@@ -546,6 +537,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="r_wrist0_link">
@@ -604,6 +596,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="r_wrist1_link">
@@ -662,6 +655,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="l_shoulder1_link">
@@ -720,6 +714,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="l_shoulder2_link">
@@ -778,6 +773,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="l_upperarm_link">
@@ -836,6 +832,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="l_forearm_link">
@@ -894,6 +891,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="l_wrist0_link">
@@ -952,6 +950,7 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
   <link
     name="l_wrist1_link">
@@ -1010,5 +1009,6 @@
       upper="2"
       effort="0"
       velocity="0" />
+    <safety_controller k_position="0" k_velocity="1.5" soft_lower_limit="-1.9" soft_upper_limit="1.9"/>
   </joint>
 </robot>

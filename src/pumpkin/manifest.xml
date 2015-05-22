@@ -1,0 +1,6 @@
+<package>
+  <description brief="pumpkin">pumpkin</description>
+  <depend package="gazebo" />
+  <author>BioIn Robotics UOttawa</author>
+  <license>BSD</license>
+</package>
