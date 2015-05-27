@@ -198,6 +198,16 @@
       link="neck1_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="neck2_Link">
@@ -251,6 +261,16 @@
       link="neck2_Link" />
     <axis
       xyz="0 0 -1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="head_link">
@@ -357,6 +377,16 @@
       link="r_shoulder1_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="r_shoulder2_link">
@@ -410,6 +440,16 @@
       link="r_shoulder2_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="r_upperarm_link">
@@ -463,6 +503,16 @@
       link="r_upperarm_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="r_forerarm_link">
@@ -516,6 +566,16 @@
       link="r_forerarm_link" />
     <axis
       xyz="0 0 -1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="r_wrist0_link">
@@ -569,6 +629,16 @@
       link="r_wrist0_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="r_wrist1_link">
@@ -622,6 +692,16 @@
       link="r_wrist1_link" />
     <axis
       xyz="0 0 -1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="l_shoulder1_link">
@@ -675,6 +755,16 @@
       link="l_shoulder1_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="l_shoulder2_link">
@@ -728,6 +818,16 @@
       link="l_shoulder2_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="l_upperarm_link">
@@ -781,6 +881,16 @@
       link="l_upperarm_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="l_forearm_link">
@@ -834,6 +944,16 @@
       link="l_forearm_link" />
     <axis
       xyz="0 0 -1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="l_wrist0_link">
@@ -887,6 +1007,16 @@
       link="l_wrist0_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
   <link
     name="l_wrist1_link">
@@ -940,5 +1070,15 @@
       link="l_wrist1_link" />
     <axis
       xyz="0 0 1" />
+    <limit
+        effort="30"
+        velocity="1.0"
+        lower="-2"
+        upper="2" />
+    <safety_controller
+        k_velocity="10"
+        k_position="15"
+        soft_lower_limit="-1.9"
+        soft_upper_limit="1.9" />
   </joint>
 </robot>
