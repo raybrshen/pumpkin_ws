@@ -2,20 +2,6 @@
   name="pumpkin_description">
   <link
     name="map">
-    <inertial>
-      <origin
-        xyz="-0.293555847956034 -0.175 0.45135148693391"
-        rpy="0 0 0" />
-      <mass
-        value="13.9816322818673" />
-      <inertia
-        ixx="2.31964529303823"
-        ixy="-8.70728028355655E-17"
-        ixz="0.00968793131939128"
-        iyy="2.48778234634525"
-        iyz="-1.57639120302397E-16"
-        izz="0.424581095909644" />
-    </inertial>
     <visual>
       <origin
         xyz="0 0 0"
