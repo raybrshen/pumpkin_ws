@@ -19,3 +19,19 @@ controller_list:
     joints:
       - neck_0
       - neck_1
+  - name: fake_pumpkin_base_controller
+    joints:
+      - l_shoulder_0
+      - l_shoulder_1
+      - l_shoulder_2
+      - l_elbow
+      - l_wrist_0
+      - l_wrist_1
+      - neck_0
+      - neck_1
+      - r_shoulder_0
+      - r_shoulder_1
+      - r_shoulder_2
+      - r_elbow
+      - r_wrist_0
+      - r_wrist_1

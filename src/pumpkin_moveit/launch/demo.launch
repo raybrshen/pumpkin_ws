@@ -1,5 +1,4 @@
 <launch>
-
   <!-- By default, we do not start a database (it can be large) -->
   <arg name="db" default="false" />
 

@@ -97,3 +97,16 @@ neck:
     - PRMstarkConfigDefault
   projection_evaluator: joints(neck_0,neck_1)
   longest_valid_segment_fraction: 0.05
+pumpkin_base:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
