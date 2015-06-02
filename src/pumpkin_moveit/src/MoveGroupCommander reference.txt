@@ -1,0 +1,24 @@
+MoveGroupCommander reference
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│allow_looking                    allow_replanning                 attach_object                                       │
+│clear_path_constraints           clear_pose_target                clear_pose_targets                                  │
+│compute_cartesian_path           detach_object                    execute                                             │
+│forget_joint_values              get_active_joints                get_current_joint_values                            │
+│get_current_pose                 get_current_rpy                  get_end_effector_link                               │
+│get_goal_joint_tolerance         get_goal_orientation_tolerance   get_goal_position_tolerance                         │
+│get_goal_tolerance               get_joints                       get_known_constraints                               │
+│get_name                         get_path_constraints             get_planning_frame                                  │
+│get_planning_time                get_pose_reference_frame         get_random_joint_values                             │
+│get_random_pose                  get_remembered_joint_values      get_variable_count                                  │
+│go                               has_end_effector_link            pick                                                │
+│place                            plan                             remember_joint_values                               │
+│set_constraints_database         set_end_effector_link            set_goal_joint_tolerance                            │
+│set_goal_orientation_tolerance   set_goal_position_tolerance      set_goal_tolerance                                  │
+│set_joint_value_target           set_named_target                 set_orientation_target                              │
+│set_path_constraints             set_planner_id                   set_planning_time                                   │
+│set_pose_reference_frame         set_pose_target                  set_pose_targets                                    │
+│set_position_target              set_random_target                set_rpy_target                                      │
+│set_start_state                  set_start_state_to_current_state set_support_surface_name                            │
+│set_workspace                    shift_pose_target                stop                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
