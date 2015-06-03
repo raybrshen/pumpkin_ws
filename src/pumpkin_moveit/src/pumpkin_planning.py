@@ -35,14 +35,13 @@ if __name__ == '__main__':
       z: 0.0230085660007
       w: 0.706661033853
     """
-    gain = 0.05;
+    gain = 0.1;
     r = 0.3
-    a = -0.0255748513923 # waypoints[0].position.x
-    b = 1.227117687 # waypoints[0].position.z
+    a = waypoints[0].position.x
+    b = waypoints[0].position.z
     waypoints[0].position.x = a + r
-    
 
-    points = 30
+    points = 20
     for i in xrange(points):
         wpose = geometry_msgs.msg.Pose()
         wpose.orientation.w = waypoints[i-1].orientation.w
@@ -50,27 +49,19 @@ if __name__ == '__main__':
         wpose.orientation.y = waypoints[i-1].orientation.y
         wpose.orientation.z = waypoints[i-1].orientation.z
         wpose.position.y = waypoints[i-1].position.y
-        wpose.position.z = waypoints[i-1].position.z
-        wpose.position.x = r*sin(r*pi-r*pi*i)
-        print r*sin(r*pi-r*pi*i)
-    
-        right_arm.set_pose_target(wpose)
-        right_arm.plan()
-        right_arm.go(wait=True)
-        rospy.spin()
-        #wpose.position.x = waypoints[i-1].position.x + gain/2
-        #wpose.position.z = waypoints[i-1].position.z + copysign(gain, sin(i))/2
+        wpose.position.x = waypoints[i-1].position.x - gain
+        wpose.position.z = waypoints[i-1].position.z #+ copysign(gain, sin(i))/2
         
-        #waypoints.append(copy.deepcopy(wpose))
+        waypoints.append(copy.deepcopy(wpose))
 
-    """
+
     (plan, fraction) = right_arm.compute_cartesian_path(
                                                          waypoints,   # waypoints to follow
                                                          0.01,        # eef_step
                                                          0.0)         # jump_threshold
-    """
-    #print "============ Waiting while RVIZ displays plan3..."
-    #rospy.sleep(5)
+
+    print "============ Waiting while RVIZ displays plan..."
+    rospy.sleep(5)
     #right_arm.execute(plan)
     #print "============ Waiting while RVIZ execute?..."
     #rospy.sleep(5)
