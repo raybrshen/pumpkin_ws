@@ -1,5 +1,5 @@
 <launch>
-    <include file="$(find pumpkin)/launch/arduino.launch" />
+    <!--<include file="$(find pumpkin)/launch/arduino.launch" />-->
     <include file="$(find pumpkin)/launch/mosfet_status_true.launch" />
 
     <group ns="pumpkin">

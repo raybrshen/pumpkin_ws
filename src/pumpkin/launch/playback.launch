@@ -1,8 +1,8 @@
 <launch>
-    <include file="$(find pumpkin)/launch/arduino.launch" />
+    <!-- <include file="$(find pumpkin)/launch/arduino.launch" /> -->
     <include file="$(find pumpkin)/launch/mosfet_status_false.launch" />
 
     <arg name="ssc_port" default="$(env SSC_PORT)" />
-    <arg name="input_file" default="test.yaml" />
+    <arg name="input_file" />
     <node name="playback" pkg="pumpkin" type="playback" args="$(arg ssc_port) $(find pumpkin)/playback/$(arg input_file) $(find pumpkin)/config/pumpkin_config_calib.yaml" />
 </launch>
