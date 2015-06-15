@@ -342,19 +342,15 @@ if __name__ == '__main__':
       y: -0.706807582674
       z: 0.0230085660007
       w: 0.706661033853
-<<<<<<< HEAD
     
     gain = 0.05;
-=======
-    """
-    gain = 0.1;
->>>>>>> 3a014624627c5a11df0403eddf41d36a43e9dbcf
     r = 0.3
-    a = waypoints[0].position.x
-    b = waypoints[0].position.z
+    a = -0.0255748513923 # waypoints[0].position.x
+    b = 1.227117687 # waypoints[0].position.z
     waypoints[0].position.x = a + r
+    
 
-    points = 20
+    points = 30
     for i in xrange(points):
         wpose = geometry_msgs.msg.Pose()
         wpose.orientation.w = waypoints[i-1].orientation.w
@@ -362,13 +358,19 @@ if __name__ == '__main__':
         wpose.orientation.y = waypoints[i-1].orientation.y
         wpose.orientation.z = waypoints[i-1].orientation.z
         wpose.position.y = waypoints[i-1].position.y
-        wpose.position.x = waypoints[i-1].position.x - gain
-        wpose.position.z = waypoints[i-1].position.z #+ copysign(gain, sin(i))/2
+        wpose.position.z = waypoints[i-1].position.z
+        wpose.position.x = r*sin(r*pi-r*pi*i)
+        print r*sin(r*pi-r*pi*i)
+    
+        right_arm.set_pose_target(wpose)
+        right_arm.plan()
+        right_arm.go(wait=True)
+        rospy.spin()
+        #wpose.position.x = waypoints[i-1].position.x + gain/2
+        #wpose.position.z = waypoints[i-1].position.z + copysign(gain, sin(i))/2
         
-        waypoints.append(copy.deepcopy(wpose))
+        #waypoints.append(copy.deepcopy(wpose))
 
-
-<<<<<<< HEAD
     
     (plan3, fraction) = right_arm.compute_cartesian_path(
                                                          waypoints,   # waypoints to follow
@@ -376,14 +378,6 @@ if __name__ == '__main__':
                                                          0.0)         # jump_threshold
     
     print "============ Waiting while RVIZ displays plan3..."
-=======
-    (plan, fraction) = right_arm.compute_cartesian_path(
-                                                         waypoints,   # waypoints to follow
-                                                         0.01,        # eef_step
-                                                         0.0)         # jump_threshold
-
-    print "============ Waiting while RVIZ displays plan..."
->>>>>>> 3a014624627c5a11df0403eddf41d36a43e9dbcf
     rospy.sleep(5)
     #right_arm.execute(plan)
     #print "============ Waiting while RVIZ execute?..."

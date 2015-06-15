@@ -12,7 +12,7 @@ from moveit_commander import PlanningSceneInterface, roscpp_initialize, roscpp_s
 from math import sin, copysign, sqrt, pi
    
 if __name__ == '__main__':
-    print "============ Dynamic hand gestures: Rectangle"
+    print "============ Dynamic hand gestures: Circle"
     roscpp_initialize(sys.argv)
     rospy.init_node('pumpkin_planning', anonymous=True)
 
@@ -52,54 +52,59 @@ if __name__ == '__main__':
         wpose.orientation.y = waypoints[i-1].orientation.y 
         wpose.orientation.z = waypoints[i-1].orientation.z 
         wpose.position.y = waypoints[i-1].position.y 
-        wpose.position.z = b + r
+        wpose.position.z = b 
         wpose.position.x = a - r
 
         waypoints.append(copy.deepcopy(wpose))
+
+    points = 10
+    for i in xrange(points):
+        wpose = geometry_msgs.msg.Pose()
+        wpose.orientation.w = waypoints[i-1].orientation.w 
+        wpose.orientation.x = waypoints[i-1].orientation.x 
+        wpose.orientation.y = waypoints[i-1].orientation.y 
+        wpose.orientation.z = waypoints[i-1].orientation.z 
+        wpose.position.y = waypoints[i-1].position.y 
+        wpose.position.z = b - r
+        wpose.position.x = a
+
+        waypoints.append(copy.deepcopy(wpose))
+
+    points = 10
+    for i in xrange(points):
+        wpose = geometry_msgs.msg.Pose()
+        wpose.orientation.w = waypoints[i-1].orientation.w 
+        wpose.orientation.x = waypoints[i-1].orientation.x 
+        wpose.orientation.y = waypoints[i-1].orientation.y 
+        wpose.orientation.z = waypoints[i-1].orientation.z 
+        wpose.position.y = waypoints[i-1].position.y 
+        wpose.position.z = b 
+        wpose.position.x = a + r
+        
+        waypoints.append(copy.deepcopy(wpose))
+
+    points = 10
+    for i in xrange(points):
+        wpose = geometry_msgs.msg.Pose()
+        wpose.orientation.w = waypoints[i-1].orientation.w 
+        wpose.orientation.x = waypoints[i-1].orientation.x 
+        wpose.orientation.y = waypoints[i-1].orientation.y 
+        wpose.orientation.z = waypoints[i-1].orientation.z 
+        wpose.position.y = waypoints[i-1].position.y 
+        wpose.position.z = b + r
+        wpose.position.x = a
+        
+        waypoints.append(copy.deepcopy(wpose))
+
     
-    points = 10
-    for i in xrange(points):
-        wpose = geometry_msgs.msg.Pose()
-        wpose.orientation.w = waypoints[i-1].orientation.w 
-        wpose.orientation.x = waypoints[i-1].orientation.x 
-        wpose.orientation.y = waypoints[i-1].orientation.y 
-        wpose.orientation.z = waypoints[i-1].orientation.z 
-        wpose.position.y = waypoints[i-1].position.y 
-        wpose.position.z = b - r
-        wpose.position.x = a - r
-        waypoints.append(copy.deepcopy(wpose))
-
-    points = 10
-    for i in xrange(points):
-        wpose = geometry_msgs.msg.Pose()
-        wpose.orientation.w = waypoints[i-1].orientation.w 
-        wpose.orientation.x = waypoints[i-1].orientation.x 
-        wpose.orientation.y = waypoints[i-1].orientation.y 
-        wpose.orientation.z = waypoints[i-1].orientation.z 
-        wpose.position.y = waypoints[i-1].position.y 
-        wpose.position.z = b - r
-        wpose.position.x = a + r
-        waypoints.append(copy.deepcopy(wpose))
-
-    points = 10
-    for i in xrange(points):
-        wpose = geometry_msgs.msg.Pose()
-        wpose.orientation.w = waypoints[i-1].orientation.w 
-        wpose.orientation.x = waypoints[i-1].orientation.x 
-        wpose.orientation.y = waypoints[i-1].orientation.y 
-        wpose.orientation.z = waypoints[i-1].orientation.z 
-        wpose.position.y = waypoints[i-1].position.y 
-        wpose.position.z = b + r
-        wpose.position.x = a + r
-        waypoints.append(copy.deepcopy(wpose))
-
-    (rectangle, fraction) = right_arm.compute_cartesian_path(
+    (circle, fraction) = right_arm.compute_cartesian_path(
                                                          waypoints,   # waypoints to follow
                                                          0.01,        # eef_step
                                                          0.0)         # jump_threshold
-    
-    print "============ Waiting while RVIZ displays rectangle..."
+        
+    print "============ Waiting while RVIZ displays Circle..."
     rospy.sleep(5)
-    right_arm.execute(rectangle)
+    right_arm.execute(circle)
+    rospy.sleep(5)
 
     roscpp_shutdown()
