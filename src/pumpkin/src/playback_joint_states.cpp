@@ -1,6 +1,6 @@
 /*
  *  playback_joint_states.cpp
- *
+ *  This implements playback files recorded from real robot to joint in 3d model
  *  Created on: 2015-03-03
  *      Author: Vinicius (vncprado@gmail.com)
  */
@@ -54,6 +54,8 @@ int main(int argc, char** argv) {
 		input_config_calib = argv[2];
 		input_urdf = argv[3];
 	} else {
+	    printf("Usage: rosrun pumpkin playback_joint_states <input_file> <input_config_calib> <input_urdf>\n");
+    	ROS_ERROR("Failed to parse input files");
 		exit(-1);
 	}
 
@@ -66,7 +68,7 @@ int main(int argc, char** argv) {
 	urdf::Model model;
 	if (!model.initFile(input_urdf)) {
 		ROS_ERROR("Failed to parse urdf file");
-		return -1;
+		exit(-1);
 	}
 	ROS_INFO("Successfully parsed urdf file");
 

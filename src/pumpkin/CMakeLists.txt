@@ -25,6 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
   analog_read
   serial
   roslib
+  urdf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -127,6 +128,8 @@ add_executable(mosfet_status_publisher src/mosfet_status_publisher.cpp)
 add_executable(recorder src/recorder.cpp)
 add_executable(playback src/playback.cpp)
 add_executable(calibrate src/calibrate.cpp)
+add_executable(playback_joint_states src/playback_joint_states.cpp)
+add_executable(playback_moveit src/playback_moveit.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -142,6 +145,8 @@ target_link_libraries(mosfet_status_publisher ${catkin_LIBRARIES})
 target_link_libraries(recorder ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(playback ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(calibrate ${catkin_LIBRARIES} yaml-cpp)
+target_link_libraries(playback_joint_states ${catkin_LIBRARIES} yaml-cpp)
+target_link_libraries(playback_moveit ${catkin_LIBRARIES} yaml-cpp)
 
 #############
 ## Install ##
