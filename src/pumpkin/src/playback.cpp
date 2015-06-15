@@ -14,11 +14,7 @@
 #include <ros/ros.h>
 #include "serial/serial.h"
 
-#define TEST_FILE "/home/thiago/catkin_ws/src/pumpkin/calib/raw-an_reads-000001.yaml"
-#define CONF_FILE "/home/thiago/catkin_ws/src/pumpkin/config/pumpkin_config_calib.yaml"
-
 #define SSC_BAUDRATE 115200
-#define SSC_SERIALPORT "/dev/ttyUSB0"
 
 uint16_t map(YAML::Node servo, std::vector<uint16_t> an_read) {
 
@@ -45,16 +41,16 @@ uint16_t map(YAML::Node servo, std::vector<uint16_t> an_read) {
 
 
 int main(int argc, char *argv[]) {
-	std::string ssc_port, input_file, input_config_calib; //, path;
-	//ROS_FATAL("ARGC: %d", argc);
+	std::string ssc_port, input_file, input_config_calib;
+
 	if (argc >= 2) {
 		ssc_port = argv[1];
-		input_file = argv[2];
-		input_config_calib = argv[3];
-		//ROS_FATAL("1");
+		input_config_calib = argv[2];
+		input_file = argv[3];
 	} else {
-//TODO: write usage
-		//ROS_FATAL("2");
+	    printf("Usage: rosrun pumpkin playback <ssc_port> <input_config_calib> <input_file>\n");
+    	ROS_ERROR("Failed to parse input files");
+		exit(-1);
 		exit(-1);
 	}
 
@@ -83,29 +79,19 @@ int main(int argc, char *argv[]) {
 	double ros_rate = pumpkin_config["ros_rate"].as<double>();
 	ros::Rate loop_rate(ros_rate);
 
-	//ROS_FATAL("3");
-
-	//std::string ssc_port = pumpkin_config["ssc"]["port"].as<std::string>();
 	serial::Serial ssc(ssc_port, SSC_BAUDRATE, serial::Timeout::simpleTimeout(1000));
 	for (int r = 0; r < reads.size(); r++) {
-		//ROS_FATAL("4 %d", (int)reads.size());
 		if (!reads[r].IsNull() && ros::ok()){
-			//ROS_FATAL("5 %d", (int)reads[r].size());
 			if(reads[r]["an_read"].IsNull()) ROS_FATAL("NULL");
-			//ROS_FATAL("6 %d", (int)reads[r]["an_read"].size());
 			std::vector<uint16_t> an_read =
 				reads[r]["an_read"].as<std::vector<uint16_t> >();
-			//ROS_FATAL("7 %d", (int)an_read.size());
 			std::ostringstream stringStream;
 			for (int i = 0; i < reads[r]["an_read"].size(); i++) {
-				//ROS_FATAL("8 %d", (int)an_read.size());
 				uint16_t pulse = map(servos[i], an_read);
 				stringStream << "#" << servos[i]["ssc"]["pin"] << " " << "P" << pulse << " " ;
 			}
-			//stringStream << " S50 " << "\r" ;
 			stringStream << "\r";
 			// Send to ssc
-//			std::cout << stringStream.str() << std::endl;
 			ssc.write(stringStream.str());
 			loop_rate.sleep();
 		}

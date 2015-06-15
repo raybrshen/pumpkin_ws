@@ -1,6 +1,6 @@
 /*
  *  playback_joint_states.cpp
- *  This implements playback files recorded from real robot to joint in 3d model
+ *  Implements playback recorded files from real robot to joint state publisher in the model
  *  Created on: 2015-03-03
  *      Author: Vinicius (vncprado@gmail.com)
  */
@@ -14,15 +14,15 @@ double map2joint_states(YAML::Node servo,
 		boost::shared_ptr<const urdf::Joint>::element_type* joint,
 		std::vector<uint16_t> an_read) {
 
-	ROS_INFO("%s", joint->name.c_str());
+	//ROS_INFO("%s", joint->name.c_str());
 
 	int in_min = servo["arduino"]["analog_read_min"].as<uint16_t>();
 	int in_max = servo["arduino"]["analog_read_max"].as<uint16_t>();
-	double out_min = joint->limits->lower; // understand and invert urdf (solidworks)
+	double out_min = joint->limits->lower;
 	double out_max = joint->limits->upper;
 	int pin = servo["arduino"]["pin"].as<int>();
 
-	ROS_INFO("%d %d %f %f %d", in_min, in_max, out_min, out_max, pin);
+	//ROS_INFO("%d %d %f %f %d", in_min, in_max, out_min, out_max, pin);
 
 	if (pin > an_read.size())
 		return 0;
@@ -31,7 +31,7 @@ double map2joint_states(YAML::Node servo,
 	double pos = (double) ((an_read[pin] - in_min) * (out_max - out_min)
 			/ (in_max - in_min) + out_min);
 
-	ROS_INFO("%f", pos);
+	//ROS_INFO("%f", pos);
 
 	if (pos > out_max)
 		return out_max;
@@ -50,11 +50,11 @@ int main(int argc, char** argv) {
 
 	std::string input_file, input_config_calib, input_urdf;
 	if (argc >= 4) {
-		input_file = argv[1];
-		input_config_calib = argv[2];
-		input_urdf = argv[3];
+		input_config_calib = argv[1];
+		input_urdf = argv[2];
+		input_file = argv[3];
 	} else {
-	    printf("Usage: rosrun pumpkin playback_joint_states <input_file> <input_config_calib> <input_urdf>\n");
+	    printf("Usage: rosrun pumpkin playback_joint_states <input_config_calib> <input_urdf> <input_file>\n");
     	ROS_ERROR("Failed to parse input files");
 		exit(-1);
 	}
@@ -83,14 +83,14 @@ int main(int argc, char** argv) {
 		const boost::shared_ptr<const urdf::Joint>& urdf_joint =
 				joint_it->second;
 		if (urdf_joint->type == 1) { // all servo joints are revolute
-			if (urdf_joint->name[0] == 'r') { //ROS_INFO("right arm");
+			if (urdf_joint->name[0] == 'r') {
 				std::string joint_name = urdf_joint->name;
 				servos.push_back(
 						pumpkin_config["right_arm"][joint_name.substr(
 								joint_name.find_first_of('_') + 1).c_str()]);
 				joints.push_back(urdf_joint.get());
 			}
-			if (urdf_joint->name[0] == 'l') { //ROS_INFO("left arm");
+			if (urdf_joint->name[0] == 'l') {
 				std::string joint_name = urdf_joint->name;
 				servos.push_back(
 						pumpkin_config["left_arm"][joint_name.substr(
