@@ -14,9 +14,6 @@
 #include <cstdlib>
 #include <ros/ros.h>
 #include <urdf/model.h>
-#include <sensor_msgs/JointState.h>
-#include <trajectory_msgs/JointTrajectory.h>
-#include <trajectory_msgs/JointTrajectoryPoint.h>
 #include <moveit_msgs/RobotTrajectory.h>
 #include <moveit_msgs/DisplayTrajectory.h>
 
@@ -51,21 +48,16 @@ double mapJointStates2pumpkin(YAML::Node servo,
 	return 0;
 }
 
-moveit_msgs::RobotState trajectory_start;
-moveit_msgs::RobotTrajectory trajectory;
-std::vector<trajectory_msgs::JointTrajectoryPoint> points;
-std::string ssc_port, input_config_calib, input_urdf, input_file;
-std::vector<std::string> joint_names;
 std::vector<YAML::Node> servos;
 std::vector<boost::shared_ptr<const urdf::Joint>::element_type*> joints;
 double ros_rate;
 
 void plannedPathCallback(
 		const moveit_msgs::DisplayTrajectoryConstPtr& trajectories) {
-	trajectory_start = trajectories->trajectory_start;
-	trajectory = trajectories->trajectory[0];
-	points = trajectory.joint_trajectory.points;
-	joint_names = trajectory.joint_trajectory.joint_names;
+	moveit_msgs::RobotState trajectory_start = trajectories->trajectory_start;
+	moveit_msgs::RobotTrajectory trajectory = trajectories->trajectory[0];
+	std::vector<trajectory_msgs::JointTrajectoryPoint> points = trajectory.joint_trajectory.points;
+	std::vector<std::string> joint_names = trajectory.joint_trajectory.joint_names;
 
 	ros::Rate loop_rate(ros_rate);
 //	serial::Serial ssc(ssc_port, SSC_BAUDRATE,
@@ -86,8 +78,8 @@ void plannedPathCallback(
 			}
 			stringStream << "\r";
 			ROS_INFO("%s", stringStream.str().c_str());
-			// Send to ssc
-//			ssc.write(stringStream.str());
+
+//			ssc.write(stringStream.str()); // Send to ssc
 			loop_rate.sleep();
 		}
 	}
@@ -100,7 +92,7 @@ void plannedPathCallback(
 }
 
 int main(int argc, char *argv[]) {
-
+	std::string ssc_port, input_config_calib, input_urdf, input_file;
 	if (argc >= 2) {
 		ssc_port = argv[1];
 		input_config_calib = argv[2];
