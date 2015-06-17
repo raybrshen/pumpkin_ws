@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
 		ssc_port = argv[1];
 		input_config_calib = argv[2];
 		input_urdf = argv[3];
-		input_file = argv[4];
+//		input_file = argv[4];
 	} else {
 		printf(
 				"Usage: rosrun pumpkin playback_moveit <ssc_port> <input_config_calib> <input_urdf> <input_file>\n");

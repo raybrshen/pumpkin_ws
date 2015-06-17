@@ -28,12 +28,12 @@ if __name__ == '__main__':
     start_pose.position.x = 0.243500142238
     right_arm.set_pose_target(start_pose)
     plan_start = right_arm.plan()
-    rospy.sleep(5)
     print "============ Waiting while RVIZ displays plan_start..."
-    right_arm.execute(plan_start)
     rospy.sleep(5)
+    right_arm.execute(plan_start)
     print "============ Waiting while RVIZ executes plan_start..."
-
+    rospy.sleep(5)
+    
     waypoints = []
     waypoints.append(right_arm.get_current_pose().pose)
 
@@ -47,21 +47,21 @@ if __name__ == '__main__':
         wpose.orientation.z = waypoints[i-1].orientation.z
         wpose.position.y = waypoints[i-1].position.y
         wpose.position.z = waypoints[i-1].position.z
-        wpose.position.x = waypoints[i-1].position.x + gain
-
+        wpose.position.x = waypoints[i-1].position.x - gain
 
         waypoints.append(copy.deepcopy(wpose))
 
     
-    (plan3, fraction) = right_arm.compute_cartesian_path(
-                                                         waypoints,   # waypoints to follow
-                                                         0.01,        # eef_step
-                                                         0.0)         # jump_threshold
+    (plan_waypoints, fraction) = right_arm.compute_cartesian_path(
+                                                             waypoints,   # waypoints to follow
+                                                             0.01,        # eef_step
+                                                             0.0)         # jump_threshold
+    print "fraction", fraction
     
     print "============ Waiting while RVIZ displays plan3..."
-    rospy.sleep(5)
+    rospy.sleep(5)    
     #right_arm.execute(plan)
     #print "============ Waiting while RVIZ execute?..."
     #rospy.sleep(5)
-
+    rospy.signal_shutdown("--- bye ---")
     roscpp_shutdown()
