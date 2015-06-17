@@ -22,9 +22,9 @@
 double mapJointStates2pumpkin(YAML::Node servo,
 		boost::shared_ptr<const urdf::Joint>::element_type* joint,
 		std::vector<double> positions, int positions_i) {
-
-	int in_min = joint->limits->lower;
-	int in_max = joint->limits->upper;
+    
+	double in_min = joint->limits->lower;
+	double in_max = joint->limits->upper;
 	double out_min = servo["ssc"]["pulse_min"].as<uint16_t>();
 	double out_max = servo["ssc"]["pulse_max"].as<uint16_t>();
 	int pin = servo["ssc"]["pin"].as<int>();
@@ -37,7 +37,7 @@ double mapJointStates2pumpkin(YAML::Node servo,
 			* (out_max - out_min) / (in_max - in_min) + out_min);
 
 //	ROS_INFO("%s", joint->name.c_str());
-//	ROS_INFO("%d %d %f %f %d", in_min, in_max, out_min, out_max, pin);
+//	ROS_INFO("%f %f %f %f %d", in_min, in_max, out_min, out_max, pin);
 //	ROS_INFO("%f", pos);
 	if (pos > out_max)
 		return out_max;
@@ -50,6 +50,7 @@ double mapJointStates2pumpkin(YAML::Node servo,
 
 std::vector<YAML::Node> servos;
 std::vector<boost::shared_ptr<const urdf::Joint>::element_type*> joints;
+std::string ssc_port;
 double ros_rate;
 
 void plannedPathCallback(
@@ -71,6 +72,9 @@ void plannedPathCallback(
 				int positions_i = std::find(joint_names.begin(),
 						joint_names.end(), joints[i]->name.c_str())
 						- joint_names.begin();
+                if (positions_i >= positions.size()) {
+                    continue;
+                }
 				uint16_t pulse = mapJointStates2pumpkin(servos[i], joints[i],
 						positions, positions_i);
 				stringStream << "#" << servos[i]["ssc"]["pin"] << " " << "P"
@@ -92,15 +96,14 @@ void plannedPathCallback(
 }
 
 int main(int argc, char *argv[]) {
-	std::string ssc_port, input_config_calib, input_urdf, input_file;
+	std::string input_config_calib, input_urdf, input_file;
 	if (argc >= 2) {
 		ssc_port = argv[1];
 		input_config_calib = argv[2];
 		input_urdf = argv[3];
-//		input_file = argv[4];
 	} else {
 		printf(
-				"Usage: rosrun pumpkin playback_moveit <ssc_port> <input_config_calib> <input_urdf> <input_file>\n");
+				"Usage: rosrun pumpkin playback_moveit <ssc_port> <input_config_calib> <input_urdf>\n");
 		ROS_ERROR("Failed to parse input files");
 		exit(-1);
 	}
