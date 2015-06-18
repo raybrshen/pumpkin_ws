@@ -24,13 +24,7 @@ if __name__ == '__main__':
     start_pose.orientation.y = 0.5
     start_pose.orientation.z = 0.5
     start_pose.orientation.w = 0.5
-#     start_pose.orientation.w = 0
-#     start_pose.orientation.x = 0
-#     start_pose.orientation.y = 1
-#     start_pose.orientation.z = 0
-#     start_pose.position.y = 0.0256415233819
-#     start_pose.position.z = 1.25871460368
-#     start_pose.position.x = 0.243500142238
+
     right_arm.set_pose_target(start_pose)
     plan_start = right_arm.plan()
     print "============ Waiting while RVIZ displays plan_start..."
@@ -51,8 +45,8 @@ if __name__ == '__main__':
         wpose.orientation.y = waypoints[i-1].orientation.y
         wpose.orientation.z = waypoints[i-1].orientation.z
         wpose.position.y = waypoints[i-1].position.y
-        wpose.position.z = waypoints[i-1].position.z
-        wpose.position.x = waypoints[i-1].position.x + gain
+        wpose.position.z = waypoints[i-1].position.z + gain
+        wpose.position.x = waypoints[i-1].position.x
  
         waypoints.append(copy.deepcopy(wpose))
  
