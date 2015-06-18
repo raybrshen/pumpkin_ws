@@ -106,8 +106,6 @@
     <disable_collisions link1="l_shoulder2_link" link2="r_wrist1_link" reason="Never" />
     <disable_collisions link1="l_upperarm_link" link2="l_wrist0_link" reason="Never" />
     <disable_collisions link1="l_upperarm_link" link2="l_wrist1_link" reason="Never" />
-    <disable_collisions link1="l_upperarm_link" link2="r_forerarm_link" reason="Never" />
-    <disable_collisions link1="l_upperarm_link" link2="r_upperarm_link" reason="Never" />
     <disable_collisions link1="l_wrist0_link" link2="l_wrist1_link" reason="Adjacent" />
     <disable_collisions link1="map" link2="neck1_link" reason="Never" />
     <disable_collisions link1="map" link2="neck2_Link" reason="Never" />

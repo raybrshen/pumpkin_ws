@@ -21,11 +21,21 @@ void jointStatesExecutionCallback(const sensor_msgs::JointStateConstPtr& ptr) {
 	printf("\n");
 }
 
+void fakeControllerJointStatesExecutionCallback(const sensor_msgs::JointStateConstPtr& ptr) {
+	std::vector<double> positions = ptr.get()->position;
+
+	for (int i=0; i<positions.size(); i++)
+		printf("event! %f ", positions[i]);
+	printf("\n");
+}
+
 int main(int argc, char *argv[]) {
 	ros::init(argc, argv, "pumpkin_trajectory_exec");
 	ros::NodeHandle nh;
 //	ros::Subscriber planned_path = nh.subscribe("/trajector_execution_event", 1000, trajectorExecutionCallback);
-	ros::Subscriber planned_path = nh.subscribe("/joint_states", 1000,
-			jointStatesExecutionCallback);
+//	ros::Subscriber planned_path = nh.subscribe("/joint_states", 1000,
+//			jointStatesExecutionCallback);
+	ros::Subscriber planned_path = nh.subscribe("/move_group/fake_controller_joint_states", 1000,
+			fakeControllerJointStatesExecutionCallback);
 	ros::spin();
 }

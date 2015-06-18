@@ -4,71 +4,71 @@
 joint_limits:
   l_elbow:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   l_shoulder_0:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   l_shoulder_1:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   l_shoulder_2:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   l_wrist_0:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   l_wrist_1:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   neck_0:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   neck_1:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   r_elbow:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   r_shoulder_0:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   r_shoulder_1:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   r_shoulder_2:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   r_wrist_0:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0
   r_wrist_1:
     has_velocity_limits: true
-    max_velocity: 1
+    max_velocity: 0.1
     has_acceleration_limits: false
     max_acceleration: 0

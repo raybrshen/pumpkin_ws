@@ -50,19 +50,23 @@ double mapJointStates2pumpkin(YAML::Node servo,
 
 std::vector<YAML::Node> servos;
 std::vector<boost::shared_ptr<const urdf::Joint>::element_type*> joints;
+std::vector<trajectory_msgs::JointTrajectoryPoint> points;
+std::vector<std::string> joint_names;
 std::string ssc_port;
 double ros_rate;
 
-void plannedPathCallback(
-		const moveit_msgs::DisplayTrajectoryConstPtr& trajectories) {
-	moveit_msgs::RobotState trajectory_start = trajectories->trajectory_start;
-	moveit_msgs::RobotTrajectory trajectory = trajectories->trajectory[0];
-	std::vector<trajectory_msgs::JointTrajectoryPoint> points = trajectory.joint_trajectory.points;
-	std::vector<std::string> joint_names = trajectory.joint_trajectory.joint_names;
+void fakeControllerJointStatesExecutionCallback(const sensor_msgs::JointStateConstPtr& ptr) {
+	ROS_INFO("Starting execution of planned path");
+
+//	std::vector<double> positions = ptr.get()->position;
+//
+//	for (int i=0; i<positions.size(); i++)
+//		printf(" --- fake_controller_joint_states event! %f ", positions[i]);
+//	printf("\n");
 
 	ros::Rate loop_rate(ros_rate);
-	serial::Serial ssc(ssc_port, SSC_BAUDRATE,
-			serial::Timeout::simpleTimeout(1000));
+//	serial::Serial ssc(ssc_port, SSC_BAUDRATE,
+//			serial::Timeout::simpleTimeout(1000));
 	for (int p = 0; p < points.size(); p++) {
 		if (!points.empty() && ros::ok()) {
 			std::vector<double> positions = points[p].positions;
@@ -83,7 +87,7 @@ void plannedPathCallback(
 			stringStream << "\r";
 			ROS_INFO("%s", stringStream.str().c_str());
 
-			ssc.write(stringStream.str()); // Send to ssc
+//			ssc.write(stringStream.str()); // Send to ssc
 			loop_rate.sleep();
 		}
 	}
@@ -92,7 +96,18 @@ void plannedPathCallback(
 //			"#0 P0 #1 P0 #2 P0 #3 P0 #4 P0 #5 P0 #6 P0 #7 P0 #8 P0 #9 P0 #10 P0 #11 P0 #12 P0 #13 P0 #14 P0 #15 P0\r");
 //	ssc.write(
 //			"#16 P0 #17 P0 #18 P0 #19 P0 #20 P0 #21 P0 #22 P0 #23 P0 #24 P0 #25 P0 #26 P0 #27 P0 #28 P0 #29 P0 #30 P0 #31 P0 #31 P0\r");
-	ssc.close();
+//	ssc.close();
+}
+
+void plannedPathCallback(
+		const moveit_msgs::DisplayTrajectoryConstPtr& trajectories) {
+	ROS_INFO("Successfully get path planning");
+	moveit_msgs::RobotState trajectory_start = trajectories->trajectory_start;
+	moveit_msgs::RobotTrajectory trajectory = trajectories->trajectory[0];
+	points = trajectory.joint_trajectory.points;
+	joint_names = trajectory.joint_trajectory.joint_names;
+
+
 }
 
 int main(int argc, char *argv[]) {
@@ -112,9 +127,11 @@ int main(int argc, char *argv[]) {
 	ros::NodeHandle nh;
 	ros::Subscriber planned_path = nh.subscribe(
 			"/move_group/display_planned_path", 1000, plannedPathCallback);
-
+	ros::Subscriber fake_controller_joint_states = nh.subscribe("/move_group/fake_controller_joint_states", 1000,
+			fakeControllerJointStatesExecutionCallback);
 	YAML::Node pumpkin_config = YAML::LoadFile(input_config_calib);
-	ros_rate = pumpkin_config["ros_rate"].as<double>();
+	ros_rate = pumpkin_config["ros_rate"].as<double>()/10;
+	ROS_INFO("ros_rate %f", ros_rate);
 
 	urdf::Model model;
 	if (!model.initFile(input_urdf)) {

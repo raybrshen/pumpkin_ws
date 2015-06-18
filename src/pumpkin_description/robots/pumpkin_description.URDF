@@ -187,12 +187,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="neck2_Link">
@@ -249,12 +249,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="head_link">
@@ -364,12 +364,12 @@
     <limit
       lower="-1.94"
       upper="1.94"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="1.93"
       soft_lower_limit="-1.93"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="r_shoulder2_link">
@@ -426,12 +426,12 @@
     <limit
       lower="-0.7"
       upper="0.7"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="0.69"
       soft_lower_limit="-0.69"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="r_upperarm_link">
@@ -488,12 +488,12 @@
     <limit
       lower="-1.94"
       upper="1.94"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="1.93"
       soft_lower_limit="-1.93"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="r_forerarm_link">
@@ -550,12 +550,12 @@
     <limit
       lower="-1.53"
       upper="2.54"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2.53"
       soft_lower_limit="-1.52"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="r_wrist0_link">
@@ -612,12 +612,12 @@
     <limit
       lower="-1.54"
       upper="1.54"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="1.53"
       soft_lower_limit="-1.53"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="r_wrist1_link">
@@ -674,12 +674,12 @@
     <limit
       lower="-1.75"
       upper="1"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="0.9"
       soft_lower_limit="-1.74"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="l_shoulder1_link">
@@ -736,12 +736,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="l_shoulder2_link">
@@ -798,12 +798,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="l_upperarm_link">
@@ -860,12 +860,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="l_forearm_link">
@@ -922,12 +922,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="l_wrist0_link">
@@ -984,12 +984,12 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
   <link
     name="l_wrist1_link">
@@ -1046,11 +1046,11 @@
     <limit
       lower="-2"
       upper="2"
-      effort="30"
-      velocity="1.0" />
+      effort="0"
+      velocity="0.1" />
     <safety_controller
       soft_upper_limit="2"
       soft_lower_limit="-2"
-      k_velocity="10" />
+      k_velocity="1" />
   </joint>
 </robot>
