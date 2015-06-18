@@ -7,7 +7,7 @@ controller_list:
       - r_elbow
       - r_wrist_0
       - r_wrist_1
-  - name: fake_base_controller
+  - name: fake_left_arm_controller
     joints:
       - l_shoulder_0
       - l_shoulder_1
@@ -15,11 +15,7 @@ controller_list:
       - l_elbow
       - l_wrist_0
       - l_wrist_1
+  - name: fake_head_controller
+    joints:
       - neck_0
       - neck_1
-      - r_shoulder_0
-      - r_shoulder_1
-      - r_shoulder_2
-      - r_elbow
-      - r_wrist_0
-      - r_wrist_1

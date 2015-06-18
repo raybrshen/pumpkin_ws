@@ -14,7 +14,7 @@ if __name__ == '__main__':
     print "--- Straight line gesture ---"
 #     roscpp_initialize(sys.argv)
     rospy.init_node('straight_line', anonymous=True)
-
+    
     right_arm = MoveGroupCommander("right_arm")
     start_pose = geometry_msgs.msg.Pose()
     start_pose.position.x = -0.0983760947206
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     rospy.sleep(5)
      
     gain = 0.1
-    points = 10
+    points = 20
     step = points/4
     waypoints = []
     waypoints.append(right_arm.get_current_pose().pose)
