@@ -65,7 +65,7 @@ if __name__ == '__main__':
      
     print "============ Waiting while RVIZ displays plan3..."
     rospy.sleep(5)    
-    #right_arm.execute(plan)
-    #print "============ Waiting while RVIZ execute?..."
-    #rospy.sleep(5)
+    right_arm.execute(plan_waypoints)
+    print "============ Waiting while RVIZ execute..."
+    rospy.sleep(5)
      
