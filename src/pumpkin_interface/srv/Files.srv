@@ -1,0 +1,4 @@
+uint8 filetype
+---
+string folder
+string[] filenames
