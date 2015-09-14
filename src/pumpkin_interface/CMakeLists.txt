@@ -55,17 +55,17 @@ find_package(Boost REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  SSCMove.msg
+)
 
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
   Files.srv
   Serials.srv
+  SSCMoveCommand.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -118,23 +118,23 @@ include_directories(
 ## Declare a cpp executable
 # add_executable(pumpkin_interface_node src/pumpkin_interface_node.cpp)
 
-add_executable(lister_server src/file_lister.cpp)
-add_executable(file_listener_sample_client src/file_listener_sample.cpp)
-add_executable(pumpkin_rosserial_launcher src/serial_launcher.cpp)
+#add_executable(lister_server src/file_lister.cpp)
+#add_executable(file_listener_sample_client src/file_listener_sample.cpp)
+add_executable(setup_arduino src/arduino.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(pumpkin_interface_node pumpkin_interface_generate_messages_cpp)
-add_dependencies(pumpkin_rosserial_launcher rosserial_msgs_gencpp)
+add_dependencies(setup_arduino rosserial_msgs_gencpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(pumpkin_interface_node
 #   ${catkin_LIBRARIES}
 # )
 
-target_link_libraries(lister_server ${catkin_LIBRARIES})
-target_link_libraries(file_listener_sample_client ${catkin_LIBRARIES})
-target_link_libraries(pumpkin_rosserial_launcher ${catkin_LIBRARIES})
+#target_link_libraries(lister_server ${catkin_LIBRARIES})
+#target_link_libraries(file_listener_sample_client ${catkin_LIBRARIES})
+target_link_libraries(setup_arduino ${catkin_LIBRARIES})
 
 # set_target_properties(pumpkin_rosserial_launcher PROPERTIES OUTPUT_NAME serial_node PREFIX "")
 

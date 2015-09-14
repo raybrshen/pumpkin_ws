@@ -26,6 +26,11 @@ public:
         boost::asio::write(serial,boost::asio::buffer(s.c_str(),s.size()));
     }
 
+	std::string readN(int n = 1)
+	{
+		using namespace boost;
+	}
+
     /**
      * Blocks until a line is received from the serial device.
      * Eventual '\n' or '\r\n' characters at the end of the string are removed.
