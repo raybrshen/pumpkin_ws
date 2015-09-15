@@ -25,7 +25,7 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 		d.sleep();
 	}
 
-	if (serial_in != ".")
+	if (serial_in != '.')
 		if (!setupSSC())
 			return false;
 

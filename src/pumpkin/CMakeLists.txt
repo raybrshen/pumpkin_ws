@@ -131,6 +131,7 @@ add_executable(calibrate src/calibrate.cpp)
 add_executable(playback_joint_states src/playback_joint_states.cpp)
 add_executable(playback_moveit src/playback_moveit.cpp)
 add_executable(pumpkin_trajectory_exec src/pumpkin_trajectory_exec.cpp)
+add_executable(load_config src/load_config.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -149,6 +150,7 @@ target_link_libraries(calibrate ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(playback_joint_states ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(playback_moveit ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(pumpkin_trajectory_exec ${catkin_LIBRARIES})
+target_link_libraries(load_config ${catkin_LIBRARIES} yaml-cpp)
 
 #############
 ## Install ##

@@ -16,9 +16,10 @@ int main(int argc, char *argv[]) {
 		exit(-1);
 	}
 
-	YAML::Node pumpkin_config = YAML::LoadFile(config file);
+	YAML::Node pumpkin_config = YAML::LoadFile(config_file);
+	ROS_INFO("Opening config file: %s", config_file.c_str());
 	//Iterates for group part
-	for (YAML::const_iterator it_cluster = pumpkin_config.begin(); it != pumpkin_config.end(); ++it)
+	for (YAML::const_iterator it_cluster = pumpkin_config.begin(); it_cluster != pumpkin_config.end(); ++it_cluster)
 	{
 		const std::string &cluster = it_cluster->first.as<std::string>();
 		//Iterate through parts
@@ -26,16 +27,17 @@ int main(int argc, char *argv[]) {
 		{
 			const std::string &part = it_part->first.as<std::string>();
 			//Iterate through devices
-			for (YAML::const_iterator it_dev = it_part->second.begin(); it-dev != it_part->second.end(); ++it_dev)
+			for (YAML::const_iterator it_dev = it_part->second.begin(); it_dev != it_part->second.end(); ++it_dev)
 			{
 				const std::string &dev = it_dev->first.as<std::string>();
 				//Iterare through properties
-				for (YAML::const_iterator it_prop = it_dev->second.begin(); it_prop != it_dev->second.end(); ++it_dev)
+				for (YAML::const_iterator it_prop = it_dev->second.begin(); it_prop != it_dev->second.end(); ++it_prop)
 				{
-					ostringstream ros_param_name;
+					std::ostringstream ros_param_name;
 					ros_param_name << "/pumpkin/config/" << dev << '/' << cluster << '/' << part
 							<< '/' << it_prop->first.as<std::string>();
-					ros::param::setParam(ros_param_name.str().c_str(),it_prop->second.as<uint16_t>());
+					ros::param::set(ros_param_name.str().c_str(),it_prop->second.as<uint16_t>());
+					ROS_INFO("Creating param [%s] with value: %d", ros_param_name.str().c_str(), it_prop->second.as<uint16_t>());
 				}
 			}
 		}
