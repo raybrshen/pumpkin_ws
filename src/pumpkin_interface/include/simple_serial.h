@@ -26,9 +26,12 @@ public:
         boost::asio::write(serial,boost::asio::buffer(s.c_str(),s.size()));
     }
 
-	std::string readN(int n = 1)
+	char readChar()
 	{
 		using namespace boost;
+		char c;
+		asio::read(serial,asio::buffer(&c,1));
+		return c;
 	}
 
     /**

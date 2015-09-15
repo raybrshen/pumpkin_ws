@@ -1,6 +1,4 @@
-arduino: {port: /dev/ttyACM0}
 left_arm:
-  arduino: {port: /dev/ttyACM0}
   elbow:
     arduino: {pin: 9}
     ssc: {pin: 9, pulse_max: 1800, pulse_min: 1050, pulse_rest: 1500}
@@ -20,7 +18,6 @@ left_arm:
     arduino: {pin: 11}
     ssc: {pin: 11, pulse_max: 0, pulse_min: 0, pulse_rest: 0}
 right_arm:
-  arduino: {port: /dev/ttyACM0}
   elbow:
     arduino: {pin: 3}
     ssc: {pin: 3, pulse_max: 1925, pulse_min: 1200, pulse_rest: 1500}

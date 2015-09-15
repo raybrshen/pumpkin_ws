@@ -10,8 +10,16 @@
 #include <urdf/model.h>
 #include "yaml-cpp/yaml.h"
 
+#include "analog_read::AnalogArray.h"
 
-double map2joint_states(YAML::Node servo,
+double map_joint_states (YAML::Node servo, 
+		boost::shared_ptr<const urdf::Joint>::element_type* joint,
+		analog_read::AnalogArray an_read) {
+
+	
+}
+
+/*double map2joint_states(YAML::Node servo,
 		boost::shared_ptr<const urdf::Joint>::element_type* joint,
 		std::vector<uint16_t> an_read) {
 
@@ -40,7 +48,7 @@ double map2joint_states(YAML::Node servo,
 		return out_min;
 	else
 		return pos;
-}
+}*/
 
 int main(int argc, char** argv) {
 
@@ -50,19 +58,19 @@ int main(int argc, char** argv) {
 	ros::Subscriber arduino_data = nh.subscribe
 	
 	// TODO Instead of input_file it must receive from an_read topic
-	std::string input_file, input_config_calib, input_urdf;
-	if (argc >= 4) {
+	std::string /*input_file,*/ input_config_calib, input_urdf;
+	if (argc >= 3) {
 		input_config_calib = argv[1];
 		input_urdf = argv[2];
-		input_file = argv[3];
+		//input_file = argv[3];
 	} else {
-	    printf("Usage: rosrun pumpkin playback_joint_states <input_config_calib> <input_urdf> <input_file>\n");
+	    printf("Usage: rosrun pumpkin playback_joint_states <input_config_calib> <input_urdf>\n");
     	ROS_ERROR("Failed to parse input files");
 		exit(-1);
 	}
 
 	YAML::Node pumpkin_config = YAML::LoadFile(input_config_calib);
-	std::vector<YAML::Node> reads = YAML::LoadAllFromFile(input_file);
+	//std::vector<YAML::Node> reads = YAML::LoadAllFromFile(input_file);
 
 	double ros_rate = pumpkin_config["ros_rate"].as<double>();
 	ros::Rate loop_rate(ros_rate);
@@ -84,7 +92,7 @@ int main(int argc, char** argv) {
 	for (; joint_it != joint_end; ++joint_it) {
 		const boost::shared_ptr<const urdf::Joint>& urdf_joint =
 				joint_it->second;
-		if (urdf_joint->type == 1) {  all servo joints are revolute
+		if (urdf_joint->type == 1) { // all servo joints are revolute
 			if (urdf_joint->name[0] == 'r') {
 				std::string joint_name = urdf_joint->name;
 				servos.push_back(

@@ -2,23 +2,36 @@
 #include "pumpkin_interface/SSCMove.h"
 #include "pumpkin_interface/SSCMoveCommand.h"
 #include <stdlib.h>
-#include <stringstream>
+#include <sstream>
 
 #include <ros/ros.h>
 
 SimpleSerial *ssc = NULL;
 std::string port;
 
-void moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
-	ssc->write(std::string("VER\r"));	
-	std::string serial_in = ssc->readLine();
+bool setupSSC();
 
-	if (ver.find("SSC") != std::string::npos)
-		setupSSC();
+/**
+ * Service function. Receive a group of arm commands and send it to SSC.
+ * /param &req request
+ * /param &res response
+ */
+bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
+	char serial_in = '+';
+	ros::Duration d(0.01);
+	while (serial_in == '+') {
+		ssc->writeString(std::string("Q\r"));
+		serial_in = ssc->readChar();
+		d.sleep();
+	}
+
+	if (serial_in != ".")
+		if (!setupSSC())
+			return false;
 
 	if (req.list.size() != 0) {
-		stringstream comm_mount;
-		int channel, pulse, time;
+		std::stringstream comm_mount;
+		int channel, pulse, speed, time;
 		for (int i = 0; i < req.list.size(); i++) {
 			channel = req.list[i].channel;
 			pulse = req.list[i].pulse;
@@ -34,10 +47,12 @@ void moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 		if (req.time > 0)
 			comm_mount << " T" << time;
 		comm_mount << '\r';
+		ssc->writeString(comm_mount.str());
 	}
+	return true;
 }
 
-void setupSSC() {
+bool setupSSC() {
 	FILE *pipe = popen(("setserial -g "+port+"*").c_str(), "r");
 	char buffer[128];
 	std::string console = "";
@@ -66,6 +81,11 @@ void setupSSC() {
 		}
 	}
 
+	if (!port_list.size()) {
+		ROS_INFO("There is not any serial device in any port of type: %s", port.c_str());
+		return false;
+	}
+
 	for (std::vector<std::string>::iterator it = port_list.begin(); it != port_list.end(); ++it)
 	{
 		std::string ver;
@@ -76,19 +96,27 @@ void setupSSC() {
 		if (ver.find("SSC") != std::string::npos) {
 			ros::param::set("/pumpkin/ssc_serial_port", (*it).c_str());
 			ROS_INFO("SSC found on port: %s", (*it).c_str());
-			break;
+			return true;
 		}
 		delete ssc;
 	}
 	
-	if (!ssc)
-		abort();
+	return false;
 }
 
 int main (int argc, char *argv[]) {
 	// Initialize ROS.
-	ros::init(argc, argv, "ssc_setup");
+	ros::init(argc, argv, "setup_ssc");
 	ros::param::param<std::string>("~port", port, "/dev/ttyUSB");
+	ROS_INFO("Looking for ssc on ports of type: %s", port.c_str());
+	if (!setupSSC()) {
+		ROS_INFO("SSC not found! Check your connections and try again.");
+		return -1;
+	}
+
+	ros::NodeHandle nh;
+
+	ros::ServiceServer srv = nh.advertiseService("move_ssc", moveSSC);
 
 	ros::spin();
 
