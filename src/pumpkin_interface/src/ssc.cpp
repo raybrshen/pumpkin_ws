@@ -3,6 +3,7 @@
 #include "pumpkin_interface/SSCMoveCommand.h"
 #include <stdlib.h>
 #include <sstream>
+#include <XmlRpcValue.h>
 
 #include <ros/ros.h>
 
@@ -16,6 +17,11 @@ bool setupSSC();
  * /param &req request
  * /param &res response
  */
+
+int min_pulse[32];
+int max_pulse[32];
+int rest_pulse[32];
+
 bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
 	char serial_in = '+';
 	ros::Duration d(0.01);
@@ -36,12 +42,13 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 			channel = req.list[i].channel;
 			pulse = req.list[i].pulse;
 			speed = req.list[i].speed;
-			//TODO Configure the limits for each channel
-			if (pulse < 500 || pulse > 2500)
+			if (pulse == -1)
+				pulse = rest_pulse[channel];
+			if (pulse < min_pulse[channel] || pulse > max_pulse[channel])
 				continue;
 			comm_mount << '#' << channel << " P" << pulse;
 			if (time > 0)
-				comm_mount << " T" << speed;
+				comm_mount << " S" << speed;
 			comm_mount << ' ';
 		}
 		if (req.time > 0)
@@ -112,6 +119,20 @@ int main (int argc, char *argv[]) {
 	if (!setupSSC()) {
 		ROS_INFO("SSC not found! Check your connections and try again.");
 		return -1;
+	}
+
+	XmlRpc::XmlRpcValue config;
+
+	ros::param::get("/pumpkin/config/ssc", config);
+
+	typedef XmlRpc::XmlRpcValue::iterator xml_iterator;
+	for (xml_iterator block_it = config.begin(); block_it != config.end(); ++block_it) {
+		for (xml_iterator part_it = block_it->second.begin(); part_it != block_it->second.end(); ++part_it) {
+			int pin = int(part_it->second["pin"]);
+			min_pulse[pin] = int(part_it->second["pulse_min"]);
+			max_pulse[pin] = int(part_it->second["pulse_max"]);
+			rest_pulse[pin] = int(part_it->second["pulse_rest"]);
+		}
 	}
 
 	ros::NodeHandle nh;

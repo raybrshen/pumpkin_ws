@@ -51,9 +51,9 @@ int main(int argc, char** argv) {
 	ros::init(argc, argv, "arduino_to_rviz");
 	ros::NodeHandle nh;
 	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("playback_joint_states", 1);
-	ROS_INFO("Publisher loaded.");
+	//ROS_INFO("Publisher loaded.");
 	ros::Subscriber arduino_data = nh.subscribe<analog_read::analog_array>("a_reads", 1, receiveData);
-	ROS_INFO("Publisher and Subscriber loaded successfully.");
+	//ROS_INFO("Publisher and Subscriber loaded successfully.");
 	XmlRpc::XmlRpcValue config;
 	urdf::Model model;
 
