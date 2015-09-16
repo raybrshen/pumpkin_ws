@@ -37,7 +37,7 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 
 	if (req.list.size() != 0) {
 		std::stringstream comm_mount;
-		int channel, pulse, speed, time;
+		int channel, pulse, speed;
 		for (int i = 0; i < req.list.size(); i++) {
 			channel = req.list[i].channel;
 			pulse = req.list[i].pulse;
@@ -46,14 +46,14 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 				pulse = rest_pulse[channel];
 			if (pulse < min_pulse[channel] || pulse > max_pulse[channel])
 				continue;
-			comm_mount << '#' << channel << " P" << pulse;
-			if (time > 0)
-				comm_mount << " S" << speed;
-			comm_mount << ' ';
+			comm_mount << '#' << channel << " P " << pulse;
+			if (speed > 0)
+				comm_mount << " S " << speed;
 		}
 		if (req.time > 0)
-			comm_mount << " T" << time;
+			comm_mount << " T " << req.time;
 		comm_mount << '\r';
+		ROS_INFO("Command: %s", comm_mount.str().c_str());
 		ssc->writeString(comm_mount.str());
 	}
 	return true;
@@ -127,11 +127,13 @@ int main (int argc, char *argv[]) {
 
 	typedef XmlRpc::XmlRpcValue::iterator xml_iterator;
 	for (xml_iterator block_it = config.begin(); block_it != config.end(); ++block_it) {
+		//ROS_INFO("%s", block_it->first.c_str());
 		for (xml_iterator part_it = block_it->second.begin(); part_it != block_it->second.end(); ++part_it) {
 			int pin = int(part_it->second["pin"]);
 			min_pulse[pin] = int(part_it->second["pulse_min"]);
 			max_pulse[pin] = int(part_it->second["pulse_max"]);
 			rest_pulse[pin] = int(part_it->second["pulse_rest"]);
+			//ROS_INFO("%d", pin);
 		}
 	}
 

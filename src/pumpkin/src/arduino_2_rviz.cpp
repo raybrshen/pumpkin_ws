@@ -2,21 +2,36 @@
  *  playback_joint_states.cpp
  *  Implements playback recorded files from real robot to joint state publisher in the model
  *  Created on: 2015-03-03
- *      Author: Vinicius (vncprado@gmail.com)
+ *      Author: Rafael de Paula Paiva (08.paiva@gmail.com)
  */
 
 #include "ros/ros.h"
 #include <sensor_msgs/JointState.h>
 #include <urdf/model.h>
 #include "yaml-cpp/yaml.h"
-#include <XmlRpcValue.h>
 
 #include <analog_read/analog_array.h>
 
+/*
+y4[pin] = 0.001*(0.0582*x4[pin] + 0.2327*x3[pin] + 0.3490*x2[pin] + 0.2327*x1[pin] + 0.0582*x0[pin]) + (3.5168*y3[pin]) - (4.6637*y2[pin]) + (2.7621*y1[pin]) - (0.6161*y0[pin]);
+x0[pin]=x1[pin];
+x1[pin]=x2[pin];
+x2[pin]=x3[pin];
+x3[pin]=x4[pin];
+
+y0[pin]=y1[pin];
+y1[pin]=y2[pin];
+y2[pin]=y3[pin];
+y3[pin]=y4[pin];
+
+y5[pin] = 0.001*(0.0909*x5[pin] + 0.4546*x4[pin] + 0.9093*x3[pin] + 0.9093*x2[pin] + 0.4546*x1[pin] + 0.0909*x0[pin]) - 100000*(-4.8983*y4[pin] + 9.5985*y3[pin] -9.4053*y2[pin] + 4.6085*y1[pin] -0.9033*y0[pin]);
+*/
+
 struct aux_struct {
 	int pin;
+    double in[6] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, filter[6] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 	double value;
-	int in_min, in_max; //min, max
+	double in_min, in_max; //min, max
 	double out_lower, out_upper; //min, max
 	std::string joint_name;
 };
@@ -31,15 +46,39 @@ void receiveData(const analog_read::analog_arrayConstPtr& reads)
 		if (it->pin > reads->an_read.size()) {
 			ROS_INFO("Pin outbound received");
 			it->value = 0.0;
-		}
+        } else {
+            it->in[5] = double(reads->an_read[it->pin]);
 
-		it->value = (double) ((reads->an_read[it->pin] - it->in_min) * (it->out_upper - it->out_lower)
-			/ (it->in_max - it->in_min) + it->out_lower);
+            /*
+             * Filter formula:
+             * y5 = (0.0005 * x5 + 0.0027 * x4 + 0.0054 * x3 + 0.0054 * x2 + 0.0027 * x1 + 0.0005 * x0)
+             *      + 3.3383 * y4 - 4.6527 * y3 + 3.3417 * y2 - 1.2293 * y1 + 0.1845 * y0
+             */
+            it->filter[5] = (0.0005 * it->in[5] + 0.0027 * it->in[4] + 0.0054 * it->in[3]
+                                + 0.0054 * it->in[2] + 0.0027 * it->in[1] + 0.0005 * it->in[0])
+                            + 3.3383 * it->filter[4] - 4.6527 * it->filter[3] + 3.3417 * it->filter[2]
+                            - 1.2293 * it->filter[1] + 0.1845 * it->filter[0];
 
-		if (it->value > it->out_upper)
-			it->value = it->out_upper;
-		else if (it->value < it-> out_lower)
-			it->value = it->out_lower;
+            it->filter[0] = it->filter[1];
+            it->filter[1] = it->filter[2];
+            it->filter[2] = it->filter[3];
+            it->filter[3] = it->filter[4];
+            it->filter[4] = it->filter[5];
+
+            it->in[0] = it->in[1];
+            it->in[1] = it->in[2];
+            it->in[2] = it->in[3];
+            it->in[3] = it->in[4];
+            it->in[4] = it->in[5];
+
+            it->value = (it->filter[5] - it->in_min) * (it->out_upper - it->out_lower)
+                                  / (it->in_max - it->in_min) + it->out_lower;
+
+            if (it->value > it->out_upper)
+                it->value = it->out_upper;
+            else if (it->value < it->out_lower)
+                it->value = it->out_lower;
+        }
 	}
 
 	//ROS_INFO("Received signal from Arduino.");
@@ -106,10 +145,10 @@ int main(int argc, char** argv) {
 		aux.joint_name = urdf_joint->name;
 		const std::string &part = urdf_joint->name.substr(2);
 		aux.pin = int((*cluster)[part]["pin"]);
-		aux.in_min = int((*cluster)[part]["analog_read_min"]);
-		aux.in_max = int((*cluster)[part]["analog_read_max"]);
-		aux.out_lower = double(urdf_joint.get()->limits->lower);
-		aux.out_upper = double(urdf_joint.get()->limits->upper);
+		aux.in_min = double(int((*cluster)[part]["analog_read_min"]));
+		aux.in_max = double(int((*cluster)[part]["analog_read_max"]));
+		aux.out_lower = urdf_joint.get()->limits->lower;
+		aux.out_upper = urdf_joint.get()->limits->upper;
 
 		if (aux.in_max == aux.in_min) {
 			ROS_INFO("ERROR, Analog pin %d has same value for minimum and maximum read.", aux.pin);
