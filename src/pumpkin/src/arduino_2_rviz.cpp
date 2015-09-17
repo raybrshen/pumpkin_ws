@@ -51,13 +51,13 @@ void receiveData(const analog_read::analog_arrayConstPtr& reads)
 
             /*
              * Filter formula:
-             * y5 = (0.0005 * x5 + 0.0027 * x4 + 0.0054 * x3 + 0.0054 * x2 + 0.0027 * x1 + 0.0005 * x0)
-             *      + 3.3383 * y4 - 4.6527 * y3 + 3.3417 * y2 - 1.2293 * y1 + 0.1845 * y0
+             * y5 = 0.000001 * (0.0277 * x5 + 0.1384 * x4 + 0.2769 * x3 + 0.2769 * x2 + 0.1384 * x1 + 0.0277 * x0)
+             *      + 4.7967 * y4 - 9.2072 * y3 + 8.8404 * y2 - 4.2458 * y1 + 0.8160 * y0
              */
-            it->filter[5] = (0.0005 * it->in[5] + 0.0027 * it->in[4] + 0.0054 * it->in[3]
-                                + 0.0054 * it->in[2] + 0.0027 * it->in[1] + 0.0005 * it->in[0])
-                            + 3.3383 * it->filter[4] - 4.6527 * it->filter[3] + 3.3417 * it->filter[2]
-                            - 1.2293 * it->filter[1] + 0.1845 * it->filter[0];
+            it->filter[5] = 0.000001 * (0.0277 * it->in[5] + 0.1384 * it->in[4] + 0.2769 * it->in[3]
+                                        + 0.2769 * it->in[2] + 0.1384 * it->in[1] + 0.0277 * it->in[0])
+                            + 4.7967 * it->filter[4] - 9.2072 * it->filter[3] + 8.8404 * it->filter[2]
+                            - 4.2458 * it->filter[1] + 0.8160 * it->filter[0];
 
             it->filter[0] = it->filter[1];
             it->filter[1] = it->filter[2];
