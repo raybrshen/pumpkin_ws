@@ -25,8 +25,12 @@ protected:
 	Gtk::Box _group_box;
 	std::vector<Gtk::ScrolledWindow> _parts_scroll;
 	std::vector<Gtk::Box> _parts_box;
-	Gtk::Notebook _parts;
+	Gtk::Notebook _parts_notebook;
 	Gtk::Frame _control_frame;
+	Gtk::Box _control_box;
+	Gtk::Button _control_send_button;
+
+	void send_command();
 
 };
 
