@@ -136,7 +136,10 @@ add_executable(arduino_to_rviz src/arduino_2_rviz.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(pumpkin_node pumpkin_generate_messages_cpp)
+add_dependencies(recorder ${catkin_EXPORTED_TARGETS})
+add_dependencies(arduino_to_rviz ${catkin_EXPORTED_TARGETS})
+add_dependencies(sensor_reads ${catkin_EXPORTED_TARGETS})
+add_dependencies(state_publisher ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(pumpkin_node
