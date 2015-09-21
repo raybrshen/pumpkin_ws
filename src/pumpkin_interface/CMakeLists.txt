@@ -5,8 +5,6 @@ project(pumpkin_interface)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  pumpkin
-  pumpkin_moveit
   roscpp
   rospy
   std_msgs
@@ -14,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rosserial_msgs
   topic_tools
+  pumpkin
+  pumpkin_moveit
 )
 
 find_package(Boost REQUIRED COMPONENTS
@@ -91,10 +91,10 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
- INCLUDE_DIRS include
- LIBRARIES pumpkin_interface
- CATKIN_DEPENDS pumpkin pumpkin_moveit roscpp rospy std_msgs
- DEPENDS system_lib
+# INCLUDE_DIRS include
+# LIBRARIES pumpkin_interface
+# CATKIN_DEPENDS pumpkin pumpkin_moveit roscpp rospy std_msgs
+# DEPENDS system_lib
 )
 
 ###########
@@ -126,8 +126,8 @@ add_executable(setup_ssc src/ssc.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(pumpkin_interface_node pumpkin_interface_generate_messages_cpp)
-add_dependencies(setup_arduino rosserial_msgs_gencpp)
-add_dependencies(setup_ssc rosserial_msgs_gencpp)
+add_dependencies(setup_arduino ${catkin_EXPORTED_TARGETS} rosserial_msgs_gencpp)
+add_dependencies(setup_ssc ${catkin_EXPORTED_TARGETS} rosserial_msgs_gencpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(pumpkin_interface_node

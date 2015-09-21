@@ -18,7 +18,7 @@ endif()
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   pumpkin
-#  pumpkin_interface
+  pumpkin_interface
   roscpp
   rospy
   std_msgs
@@ -129,6 +129,7 @@ add_executable(robot_interface src/robot_interface.cpp src/RobotGUI.cpp include/
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(pumpkin_gui_node pumpkin_gui_generate_messages_cpp)
+add_dependencies(robot_interface ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(pumpkin_gui_node

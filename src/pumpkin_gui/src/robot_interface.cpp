@@ -16,9 +16,19 @@ int main (int argc, char *argv[]) {
 		return -1;
 	}
 
+	ros::NodeHandle nh;
+	ros::ServiceClient client = nh.serviceClient<pumpkin_interface::SSCMoveCommand>("move_ssc");
+
+	if (!client.isValid()) {
+		ROS_ERROR("Service is unavailable now. Check the \"setup_ssc\" node.");
+		return -2;
+	}
+
 	auto app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
 
 	RobotGUI gui;
+
+	gui.set_service(client);
 
 	int status = app->run(gui);
 

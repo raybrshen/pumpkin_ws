@@ -5,6 +5,8 @@
 #ifndef PROJECT_ROBOTGUI_H
 #define PROJECT_ROBOTGUI_H
 
+#include <ros/ros.h>
+
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #include <gtkmm/window.h>
@@ -24,6 +26,8 @@ public:
 	RobotGUI();
 	virtual ~RobotGUI();
 
+	void set_service(ros::ServiceClient &cli) {_service = cli;}
+
 protected:
 	//Widgets
 	boost::ptr_vector<MoveBlock> _blocks;
@@ -36,6 +40,7 @@ protected:
 	Gtk::Button _control_send_button;
 
 	pumpkin_interface::SSCMoveCommand _command;
+	ros::ServiceClient _service;
 
 	void send_command();
 

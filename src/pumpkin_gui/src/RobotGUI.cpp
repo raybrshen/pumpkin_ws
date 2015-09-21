@@ -4,9 +4,6 @@
 
 #include "RobotGUI.h"
 
-#include <XmlRpcValue.h>
-#include <ros/ros.h>
-
 #include <boost/algorithm/string/replace.hpp>
 
 RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("Send Move Commands"),
@@ -28,6 +25,8 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 		Gtk::ScrolledWindow &part_scroll = _parts_scrolls.back();
 		for (auto it_pieces = it_parts->second.begin(); it_pieces != it_parts->second.end(); ++it_pieces) {
 			//Mount a Move Block
+			if (int(it_pieces->second["pulse_min"]) == int(it_pieces->second["pulse_max"]))
+				continue;
 			_blocks.push_back(new MoveBlock(it_pieces->first, int(it_pieces->second["pulse_min"]),
 			                            int(it_pieces->second["pulse_max"]), int(it_pieces->second["pulse_rest"])));
 			//Mount command
@@ -37,7 +36,7 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 			movement.speed = 0;
 			_command.request.list.push_back(movement);
 
-			part_box.pack_start(_blocks.back());
+			part_box.pack_start(_blocks.back(), Gtk::PACK_SHRINK, 5);
 		}
 		part_scroll.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
 		part_scroll.add(part_box);
@@ -45,15 +44,18 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 	}
 
 	//Put the notebook into control box
-	_control_box.pack_start(_parts_notebook);
+	_control_box.pack_start(_parts_notebook, Gtk::PACK_EXPAND_WIDGET);
+	_control_box.pack_start(_control_send_button, Gtk::PACK_SHRINK, 10);
 	//Configure the "send command" button and add it to the control box
 	_control_send_button.signal_clicked().connect(sigc::mem_fun(*this, &RobotGUI::send_command));
 	//Put the control box into frame
-	_control_frame.add(_parts_notebook);
+	_control_frame.add(_control_box);
 	//Put frame into outer box
 	_group_box.pack_start(_control_frame, Gtk::PACK_EXPAND_WIDGET, 5);
 	//and... put box into window
 	add(_group_box);
+
+	set_size_request(_control_frame.get_width()*2, _parts_boxes[0].get_height()+50);
 
 	show_all_children(true);
 }
@@ -69,6 +71,6 @@ void RobotGUI::send_command() {
 		_command.request.list[i].speed = pumpkin_interface::SSCMove::_speed_type((values >> sizeof(int)) & 0xFFFFFFFF);
 		i++;
 	}
-	ros::service::call("move_ssc", _command);
+	_service.call(_command);
 	//TODO configure reception command function
 }

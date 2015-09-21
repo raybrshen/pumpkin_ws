@@ -12,7 +12,8 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	_pulse_scale.set_digits(0);
 	_speed_scale.set_range(MoveBlock::_min_speed, MoveBlock::_max_speed);
 	_speed_scale.set_digits(0);
-
+	_pulse_scale.set_value_pos(Gtk::POS_RIGHT);
+	_speed_scale.set_value_pos(Gtk::POS_RIGHT);
 	this->set_values(default_pos);
 
 	//Set labels
@@ -30,6 +31,14 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	this->attach(_pulse_scale, 1, 1, 1, 1);
 	this->attach(_speed_label, 0, 2, 1, 1);
 	this->attach(_speed_scale, 1, 2, 1, 1);
+
+	_pulse_label.set_halign(Gtk::ALIGN_END);
+	_speed_label.set_halign(Gtk::ALIGN_END);
+
+	this->set_column_spacing(5);
+	this->set_row_spacing(5);
+
+	this->set_size_request(_pulse_label.get_allocated_width()*5,_pulse_label.get_allocated_height()*4);
 
 	//Show children
 	show_all_children(true);
