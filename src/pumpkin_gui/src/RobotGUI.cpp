@@ -22,10 +22,13 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 
 	//Create objects of the window, based on the configuration
 	for (auto it_parts = config.begin(); it_parts != config.end(); ++it_parts) {
-		Gtk::Box && part_box = Gtk::Box(Gtk::ORIENTATION_VERTICAL, 5);
+		_parts_boxes.push_back(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 5));
+		_parts_scrolls.push_back(new Gtk::ScrolledWindow);
+		Gtk::Box &part_box = _parts_boxes.back();
+		Gtk::ScrolledWindow &part_scroll = _parts_scrolls.back();
 		for (auto it_pieces = it_parts->second.begin(); it_pieces != it_parts->second.end(); ++it_pieces) {
 			//Mount a Move Block
-			_blocks.push_back(MoveBlock(it_pieces->first, int(it_pieces->second["pulse_min"]),
+			_blocks.push_back(new MoveBlock(it_pieces->first, int(it_pieces->second["pulse_min"]),
 			                            int(it_pieces->second["pulse_max"]), int(it_pieces->second["pulse_rest"])));
 			//Mount command
 			pumpkin_interface::SSCMove &&movement = pumpkin_interface::SSCMove();
@@ -36,12 +39,9 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 
 			part_box.pack_start(_blocks.back());
 		}
-		Gtk::ScrolledWindow && part_scroll = Gtk::ScrolledWindow();
 		part_scroll.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
 		part_scroll.add(part_box);
 		_parts_notebook.append_page(part_scroll, "_"+boost::replace_all_copy(it_parts->first, "_", " "), true);
-		_parts_scrolls.push_back(part_scroll);
-		_parts_boxes.push_back(part_box);
 	}
 
 	//Put the notebook into control box
@@ -62,10 +62,12 @@ RobotGUI::~RobotGUI() { }
 
 void RobotGUI::send_command() {
 	//TODO send command to the SSC node
-	for (int i = 0; i < _blocks.size(); i++) {
-		unsigned long values = _blocks[i].get_values();
+	int i = 0;
+	for (auto it = _blocks.begin(); it != _blocks.end(); ++it) {
+		unsigned long values = it->get_values();
 		_command.request.list[i].pulse = pumpkin_interface::SSCMove::_pulse_type(values & 0xFFFFFFFF);
 		_command.request.list[i].speed = pumpkin_interface::SSCMove::_speed_type((values >> sizeof(int)) & 0xFFFFFFFF);
+		i++;
 	}
 	ros::service::call("move_ssc", _command);
 	//TODO configure reception command function

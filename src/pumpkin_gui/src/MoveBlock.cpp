@@ -10,7 +10,7 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	//First, set the scales of the move block
 	_pulse_scale.set_range(double(min_pos), double(max_pos));
 	_pulse_scale.set_digits(0);
-	_speed_scale.set_range(_min_speed, _max_speed);
+	_speed_scale.set_range(MoveBlock::_min_speed, MoveBlock::_max_speed);
 	_speed_scale.set_digits(0);
 
 	this->set_values(default_pos);
@@ -35,7 +35,7 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	show_all_children(true);
 }
 
-void MoveBlock::set_values(int pulse_pos, int speed_pos = 0) {
+void MoveBlock::set_values(int pulse_pos, int speed_pos) {
 	_pulse_scale.set_value(double(pulse_pos));
 	_speed_scale.set_value(double(speed_pos));
 }

@@ -9,9 +9,11 @@
 #include <gtkmm/label.h>
 #include <gtkmm/scale.h>
 
-class MoveBlock : public Gtk::Grid {
+#include <boost/utility.hpp>
+
+class MoveBlock : public Gtk::Grid, public boost::noncopyable {
 public:
-	MoveBlock(Glib::ustring name, int min_pos, int max_pos, int default_pos);
+	explicit MoveBlock(Glib::ustring name, int min_pos, int max_pos, int default_pos);
 	virtual ~MoveBlock() {};
 
 	unsigned long get_values() { return (unsigned long) (
@@ -27,8 +29,9 @@ protected:
 	Gtk::Scale _speed_scale;
 
 	//int _pin;
-	static const double _min_speed = 0;
-	static const double _max_speed = 65535.0;
+	static constexpr double _min_speed = 0.0;
+	static constexpr double _max_speed = 65535.0;
+
 };
 
 
