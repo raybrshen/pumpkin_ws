@@ -11,10 +11,12 @@
 
 class MoveBlock : public Gtk::Grid {
 public:
-	MoveBlock(int pin, int default_pos, int min_pos, int max_pos, Glib::ustring name);
-	virtual ~MoveBlock();
+	MoveBlock(Glib::ustring name, int min_pos, int max_pos, int default_pos);
+	virtual ~MoveBlock() {};
 
-	long get_values() { return (int(_speed_scale.get_value()) << sizeof(int)) + int(_pulse_scale.get_value());}
+	unsigned long get_values() { return (unsigned long) (
+				(long(int(_speed_scale.get_value())) << sizeof(int)) + int(_pulse_scale.get_value()));}
+	void set_values (int pulse_pos, int speed_pos = 0);
 
 protected:
 	//Widgets
@@ -24,7 +26,7 @@ protected:
 	Gtk::Scale _pulse_scale;
 	Gtk::Scale _speed_scale;
 
-	int _pin;
+	//int _pin;
 	static const double _min_speed = 0;
 	static const double _max_speed = 65535.0;
 };
