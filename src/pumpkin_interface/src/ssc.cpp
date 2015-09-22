@@ -7,7 +7,7 @@
 #include "serial/serial.h"
 
 //SimpleSerial *ssc = NULL;
-serial::Serial *ssc = nullptr;
+serial::Serial *ssc = NULL;
 std::string port;
 bool debug_comm = false;
 
@@ -24,7 +24,7 @@ int max_pulse[32];
 int rest_pulse[32];
 
 bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
-	char serial_in = '+';
+	unsigned char serial_in = '+';
 	ros::Duration d(0.01);
 	try {
 		while (serial_in == '+') {
