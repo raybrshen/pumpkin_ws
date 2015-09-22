@@ -89,6 +89,12 @@ int main(int argc, char** argv) {
 
 	ros::init(argc, argv, "arduino_to_rviz");
 	ros::NodeHandle nh;
+
+	if (!ros::param::has("/pumpkin/config")) {
+		ROS_ERROR("Robot configuration not set! Try to run node \"load_config\" in \"pumpkin package\".");
+		return -1;
+	}
+
 	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("playback_joint_states", 1);
 	//ROS_INFO("Publisher loaded.");
 	ros::Subscriber arduino_data = nh.subscribe<analog_read::analog_array>("a_reads", 1, receiveData);

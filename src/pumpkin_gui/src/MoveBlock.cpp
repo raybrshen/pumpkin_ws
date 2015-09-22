@@ -4,8 +4,9 @@
 
 #include "MoveBlock.h"
 
-MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
-                     int max_pos, int default_pos) : _part_name(name), _pulse_label("Pulse: "), _speed_label("Speed: "),
+MoveBlock::MoveBlock(Glib::ustring name, int pin, int min_pos,
+                     int max_pos, int default_pos, bool activate) : _pin(pin), _part_name(name), _pulse_label("Pulse: "),
+                                                     _speed_label("Speed: "), _active_button("Send this command"),
                                                      _pulse_spin(Gtk::Adjustment::create(double(default_pos),double(min_pos),
                                                                                          double(max_pos), 1.0, MoveBlock::_page_size)),
                                                      _speed_spin(Gtk::Adjustment::create(0.0, _min_speed, _max_speed, 1.0, _page_size))
@@ -16,10 +17,18 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	_pulse_spin.set_numeric(true);
 	_speed_spin.set_numeric(true);
 
+	//Set button
+	_active_button.set_active(activate);
+
 	//Set grid parameters
 	this->set_column_homogeneous(false);
 	this->set_row_homogeneous(false);
 	this->set_border_width(2);
+
+	//Set tooltip
+	_pulse_spin.set_tooltip_text("Set the pulse, wich changes the joint position.");
+	_speed_spin.set_tooltip_text("Set the speed that the joint should get to the final position.");
+	_active_button.set_tooltip_text("Set this button pressed if you want to send command to this joint.");
 
 	//Insert children
 	this->attach(_part_name, 0, 0, 2, 1);
@@ -27,6 +36,7 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	this->attach(_pulse_spin, 1, 1, 1, 1);
 	this->attach(_speed_label, 0, 2, 1, 1);
 	this->attach(_speed_spin, 1, 2, 1, 1);
+	this->attach(_active_button, 0, 3, 2, 1);
 
 	_pulse_label.set_halign(Gtk::ALIGN_END);
 	_speed_label.set_halign(Gtk::ALIGN_END);

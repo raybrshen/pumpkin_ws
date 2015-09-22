@@ -1,14 +1,13 @@
 #include "simple_serial.h"
 #include "pumpkin_interface/SSCMove.h"
 #include "pumpkin_interface/SSCMoveCommand.h"
-#include <stdlib.h>
-#include <sstream>
 #include <XmlRpcValue.h>
 
 #include <ros/ros.h>
 
 SimpleSerial *ssc = NULL;
 std::string port;
+bool debug_comm = false;
 
 bool setupSSC();
 
@@ -49,12 +48,16 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 			comm_mount << '#' << channel << " P " << pulse;
 			if (speed > 0)
 				comm_mount << " S " << speed;
+			comm_mount << ' ';
 		}
 		if (req.time > 0)
-			comm_mount << " T " << req.time;
+			comm_mount << "T " << req.time;
 		comm_mount << '\r';
-		ROS_INFO("Command: %s", comm_mount.str().c_str());
-		ssc->writeString(comm_mount.str());
+		//Set where to send command (if test string to a terminal or to send to pumpkin)
+		if (debug_comm)
+			ROS_INFO("Command: %s", comm_mount.str().c_str());
+		else
+			ssc->writeString(comm_mount.str());
 	}
 	return true;
 }
@@ -115,6 +118,18 @@ int main (int argc, char *argv[]) {
 	// Initialize ROS.
 	ros::init(argc, argv, "setup_ssc");
 	ros::param::param<std::string>("~port", port, "/dev/ttyUSB");
+
+	if (argc > 1) {
+		if (!std::string(argv[1]).compare("debug")) {
+			debug_comm = true;
+			ROS_WARN("You are running \"setup_ssc\" in debug mode. All commands will be shown here.");
+			ROS_WARN("To send commands to pumpkin, please, run without debug argumment.");
+		} else {
+			ROS_INFO("You can run this node in debug mode to show commands here instead of sending them to pumpkin.");
+			ROS_INFO("To do so, just run this node with debug argumment, like: \"rosrun pumpkin_interface setup_ssc debug\".");
+		}
+	}
+
 	ROS_INFO("Looking for ssc on ports of type: %s", port.c_str());
 	if (!setupSSC()) {
 		ROS_INFO("SSC not found! Check your connections and try again.");

@@ -7,7 +7,9 @@
 #include <boost/algorithm/string/replace.hpp>
 
 RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("Send Move Commands"),
-                       _control_box(Gtk::ORIENTATION_VERTICAL), _control_send_button("Send Command")
+                       _control_box(Gtk::ORIENTATION_VERTICAL), _control_send_button("Send Command"),
+                       _time_box(Gtk::ORIENTATION_HORIZONTAL), _time_label("Time: "),
+                       _time_spin(Gtk::Adjustment::create(0.0, 0.0, 65536.0, 1.0, 100.0))
 {
 	//First, lets mount the window
 	set_title("Pumpkin User Interface");
@@ -27,14 +29,9 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 			//Mount a Move Block
 			if (int(it_pieces->second["pulse_min"]) == int(it_pieces->second["pulse_max"]))
 				continue;
-			_blocks.push_back(new MoveBlock(it_pieces->first, int(it_pieces->second["pulse_min"]),
-			                            int(it_pieces->second["pulse_max"]), int(it_pieces->second["pulse_rest"])));
-			//Mount command
-			pumpkin_interface::SSCMove &&movement = pumpkin_interface::SSCMove();
-			movement.channel = int(it_pieces->second["pin"]);
-			movement.pulse = int(it_pieces->second["pulse_rest"]);
-			movement.speed = 0;
-			_command.request.list.push_back(movement);
+			//TODO change last parameter later (it's set to only activate, by default, the right hand commands
+			_blocks.push_back(new MoveBlock(it_pieces->first, int(it_pieces->second["pin"]), int(it_pieces->second["pulse_min"]),
+			                            int(it_pieces->second["pulse_max"]), int(it_pieces->second["pulse_rest"]), it_parts->first[0] == 'r'));
 
 			part_box.pack_start(_blocks.back(), Gtk::PACK_SHRINK, 5);
 		}
@@ -43,9 +40,18 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 		_parts_notebook.append_page(part_scroll, "_"+boost::replace_all_copy(it_parts->first, "_", " "), true);
 	}
 
+	//Set the time box
+	_time_spin.set_tooltip_text("Sets the total time to execute the movement. Sets time to 0 to not send time parameter.");
+	_time_spin.set_digits(0);
+	_time_box.set_homogeneous(false);
+	_time_box.pack_start(_time_label, Gtk::PACK_SHRINK, 5);
+	_time_box.pack_start(_time_spin, Gtk::PACK_EXPAND_WIDGET, 5);
+
 	//Put the notebook into control box
 	_control_box.pack_start(_parts_notebook, Gtk::PACK_EXPAND_WIDGET);
+	_control_box.pack_start(_time_box, Gtk::PACK_SHRINK, 5);
 	_control_box.pack_start(_control_send_button, Gtk::PACK_SHRINK, 10);
+
 	//Configure the "send command" button and add it to the control box
 	_control_send_button.signal_clicked().connect(sigc::mem_fun(*this, &RobotGUI::send_command));
 	//Put the control box into frame
@@ -63,14 +69,19 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 RobotGUI::~RobotGUI() { }
 
 void RobotGUI::send_command() {
+	pumpkin_interface::SSCMoveCommand command;
 	//TODO send command to the SSC node
-	int i = 0;
 	for (auto it = _blocks.begin(); it != _blocks.end(); ++it) {
-		unsigned long values = it->get_values();
-		_command.request.list[i].pulse = pumpkin_interface::SSCMove::_pulse_type(values & 0xFFFFFFFF);
-		_command.request.list[i].speed = pumpkin_interface::SSCMove::_speed_type((values >> sizeof(int)) & 0xFFFFFFFF);
-		i++;
+		if (!it->is_active())
+			continue;
+		pumpkin_interface::SSCMove &&movement = pumpkin_interface::SSCMove();
+		movement.channel = pumpkin_interface::SSCMove::_channel_type(it->get_pin());
+		movement.pulse = pumpkin_interface::SSCMove::_pulse_type(it->get_pulse_value());
+		movement.speed = pumpkin_interface::SSCMove::_speed_type(it->get_speed_value());
+		ROS_INFO("Pulse: %d, Speed: %d", movement.pulse, movement.speed);
+		command.request.list.push_back(movement);
 	}
-	_service.call(_command);
+	command.request.time = pumpkin_interface::SSCMoveCommand::Request::_time_type(_time_spin.get_value());
+	_service.call(command);
 	//TODO configure reception command function
 }

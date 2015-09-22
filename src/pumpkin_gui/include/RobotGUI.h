@@ -15,6 +15,8 @@
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/notebook.h>
 #include <gtkmm/frame.h>
+#include <gtkmm/label.h>
+#include <gtkmm/spinbutton.h>
 
 #include "pumpkin_interface/SSCMoveCommand.h"
 #include "pumpkin_interface/SSCMove.h"
@@ -37,9 +39,13 @@ protected:
 	Gtk::Notebook _parts_notebook;
 	Gtk::Frame _control_frame;
 	Gtk::Box _control_box;
+	Gtk::Box _time_box;
+	Gtk::SpinButton _time_spin;
+	Gtk::Label _time_label;
+
 	Gtk::Button _control_send_button;
 
-	pumpkin_interface::SSCMoveCommand _command;
+	//pumpkin_interface::SSCMoveCommand _command;
 	ros::ServiceClient _service;
 
 	void send_command();
