@@ -37,6 +37,11 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 		delete ssc;
 		if (!setupSSC())
 			return false;
+	} catch (serial::SerialException) {
+		ROS_ERROR("Error trying to read SSC status. Trying to connect again.");
+		delete ssc;
+		if (!setupSSC())
+			return false;
 	}
 
 	if (serial_in != '.')
