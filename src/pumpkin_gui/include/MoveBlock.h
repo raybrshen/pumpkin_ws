@@ -7,7 +7,7 @@
 
 #include <gtkmm/grid.h>
 #include <gtkmm/label.h>
-#include <gtkmm/scale.h>
+#include <gtkmm/spinbutton.h>
 
 #include <boost/utility.hpp>
 
@@ -16,8 +16,8 @@ public:
 	explicit MoveBlock(Glib::ustring name, int min_pos, int max_pos, int default_pos);
 	virtual ~MoveBlock() {};
 
-	unsigned long get_values() { return (unsigned long) (
-				(long(int(_speed_scale.get_value())) << sizeof(int)) + int(_pulse_scale.get_value()));}
+	inline unsigned long get_values() { return (unsigned long) (
+				(long(int(_speed_spin.get_value())) << sizeof(int)) + int(_pulse_spin.get_value()));}
 	void set_values (int pulse_pos, int speed_pos = 0);
 
 protected:
@@ -25,13 +25,13 @@ protected:
 	Gtk::Label _part_name;
 	Gtk::Label _pulse_label;
 	Gtk::Label _speed_label;
-	Gtk::Scale _pulse_scale;
-	Gtk::Scale _speed_scale;
+	Gtk::SpinButton _pulse_spin;
+	Gtk::SpinButton _speed_spin;
 
 	//int _pin;
 	static constexpr double _min_speed = 0.0;
 	static constexpr double _max_speed = 65535.0;
-
+	static constexpr double _page_size= 100.0;
 };
 
 

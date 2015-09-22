@@ -5,20 +5,16 @@
 #include "MoveBlock.h"
 
 MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
-                     int max_pos, int default_pos) : _part_name(name)
+                     int max_pos, int default_pos) : _part_name(name), _pulse_label("Pulse: "), _speed_label("Speed: "),
+                                                     _pulse_spin(Gtk::Adjustment::create(double(default_pos),double(min_pos),
+                                                                                         double(max_pos), 1.0, MoveBlock::_page_size)),
+                                                     _speed_spin(Gtk::Adjustment::create(0.0, _min_speed, _max_speed, 1.0, _page_size))
 {
-	//First, set the scales of the move block
-	_pulse_scale.set_range(double(min_pos), double(max_pos));
-	_pulse_scale.set_digits(0);
-	_speed_scale.set_range(MoveBlock::_min_speed, MoveBlock::_max_speed);
-	_speed_scale.set_digits(0);
-	_pulse_scale.set_value_pos(Gtk::POS_RIGHT);
-	_speed_scale.set_value_pos(Gtk::POS_RIGHT);
-	this->set_values(default_pos);
-
-	//Set labels
-	_pulse_label.set_label("Pulse");
-	_speed_label.set_label("Speed");
+	//First, set the spin buttons
+	_pulse_spin.set_digits(0);
+	_speed_spin.set_digits(0);
+	_pulse_spin.set_numeric(true);
+	_speed_spin.set_numeric(true);
 
 	//Set grid parameters
 	this->set_column_homogeneous(false);
@@ -28,9 +24,9 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	//Insert children
 	this->attach(_part_name, 0, 0, 2, 1);
 	this->attach(_pulse_label, 0, 1, 1, 1);
-	this->attach(_pulse_scale, 1, 1, 1, 1);
+	this->attach(_pulse_spin, 1, 1, 1, 1);
 	this->attach(_speed_label, 0, 2, 1, 1);
-	this->attach(_speed_scale, 1, 2, 1, 1);
+	this->attach(_speed_spin, 1, 2, 1, 1);
 
 	_pulse_label.set_halign(Gtk::ALIGN_END);
 	_speed_label.set_halign(Gtk::ALIGN_END);
@@ -38,13 +34,13 @@ MoveBlock::MoveBlock(Glib::ustring name, int min_pos,
 	this->set_column_spacing(5);
 	this->set_row_spacing(5);
 
-	this->set_size_request(_pulse_label.get_allocated_width()*5,_pulse_label.get_allocated_height()*4);
+	//this->set_size_request(_pulse_label.get_allocated_width()*5,_pulse_label.get_allocated_height()*4);
 
 	//Show children
 	show_all_children(true);
 }
 
 void MoveBlock::set_values(int pulse_pos, int speed_pos) {
-	_pulse_scale.set_value(double(pulse_pos));
-	_speed_scale.set_value(double(speed_pos));
+	_pulse_spin.set_value(double(pulse_pos));
+	_speed_spin.set_value(double(speed_pos));
 }
