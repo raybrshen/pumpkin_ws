@@ -4,8 +4,10 @@
 #include <XmlRpcValue.h>
 
 #include <ros/ros.h>
+#include "serial/serial.h"
 
-SimpleSerial *ssc = NULL;
+//SimpleSerial *ssc = NULL;
+serial::Serial *ssc = nullptr;
 std::string port;
 bool debug_comm = false;
 
@@ -24,40 +26,58 @@ int rest_pulse[32];
 bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
 	char serial_in = '+';
 	ros::Duration d(0.01);
-	while (serial_in == '+') {
-		ssc->writeString(std::string("Q\r"));
-		serial_in = ssc->readChar();
-		d.sleep();
+	try {
+		while (serial_in == '+') {
+			ssc->write("Q\r");
+			ssc->read(&serial_in, 1);
+			ssc->flushInput();
+			d.sleep();
+		}
+	} catch (serial::PortNotOpenedException) {
+		delete ssc;
+		if (!setupSSC())
+			return false;
 	}
 
 	if (serial_in != '.')
 		if (!setupSSC())
 			return false;
 
-	if (req.list.size() != 0) {
-		std::stringstream comm_mount;
-		int channel, pulse, speed;
-		for (int i = 0; i < req.list.size(); i++) {
-			channel = req.list[i].channel;
-			pulse = req.list[i].pulse;
-			speed = req.list[i].speed;
-			if (pulse == -1)
-				pulse = rest_pulse[channel];
-			if (pulse < min_pulse[channel] || pulse > max_pulse[channel])
-				continue;
-			comm_mount << '#' << channel << " P " << pulse;
-			if (speed > 0)
-				comm_mount << " S " << speed;
-			comm_mount << ' ';
+	try {
+		if (req.list.size() != 0) {
+			std::stringstream comm_mount;
+			int channel, pulse, speed;
+			for (int i = 0; i < req.list.size(); i++) {
+				channel = req.list[i].channel;
+				pulse = req.list[i].pulse;
+				speed = req.list[i].speed;
+				if (pulse == -1)
+					pulse = rest_pulse[channel];
+				if (pulse < min_pulse[channel] || pulse > max_pulse[channel])
+					continue;
+				comm_mount << '#' << channel << " P " << pulse;
+				if (speed > 0)
+					comm_mount << " S " << speed;
+				comm_mount << ' ';
+			}
+			if (req.time > 0)
+				comm_mount << "T " << req.time;
+			comm_mount << '\r';
+			//Set where to send command (if test string to a terminal or to send to pumpkin)
+			if (debug_comm)
+				ROS_INFO("Command: %s", comm_mount.str().c_str());
+			else
+				ssc->write(comm_mount.str());
 		}
-		if (req.time > 0)
-			comm_mount << "T " << req.time;
-		comm_mount << '\r';
-		//Set where to send command (if test string to a terminal or to send to pumpkin)
-		if (debug_comm)
-			ROS_INFO("Command: %s", comm_mount.str().c_str());
-		else
-			ssc->writeString(comm_mount.str());
+	} catch (serial::IOException e) {
+		ROS_ERROR("IOException ocurred. Error: %s.", e.what());
+		return false;
+	} catch (serial::PortNotOpenedException) {
+		ROS_ERROR("The serial connection was closed during the transmission. Check connection status.");
+		return false;
+	} catch (serial::SerialException e) {
+		ROS_ERROR("Error in serial connection. Error message: %s.", e.what());
+		return false;
 	}
 	return true;
 }
@@ -96,17 +116,33 @@ bool setupSSC() {
 		return false;
 	}
 
+	std::string ver;
 	for (std::vector<std::string>::iterator it = port_list.begin(); it != port_list.end(); ++it)
 	{
-		std::string ver;
-		ssc = new SimpleSerial(*it, 115200);
-		//ROS_INFO("Start serial on port: %s", (*it).c_str());
-		ssc->writeString(std::string("VER\r"));
-		ver = ssc->readLine();
-		if (ver.find("SSC") != std::string::npos) {
-			ros::param::set("/pumpkin/ssc_serial_port", (*it).c_str());
-			ROS_INFO("SSC found on port: %s", (*it).c_str());
-			return true;
+		try {
+			ssc = new serial::Serial(*it, 115200, serial::Timeout::simpleTimeout(1000));
+			//ssc = new SimpleSerial(*it, 115200);
+			//ROS_INFO("Start serial on port: %s", (*it).c_str());
+			ssc->write("VER\r");
+			ssc->readline(ver, 65536, "\r");
+			if (ver.find("SSC") != std::string::npos) {
+				ros::param::set("/pumpkin/ssc_serial_port", (*it).c_str());
+				ROS_INFO("SSC found on port: %s", (*it).c_str());
+				return true;
+			}
+		} catch (serial::PortNotOpenedException) {
+			if (ssc)
+				delete ssc;
+			continue;
+		} catch (serial::IOException) {
+			ROS_WARN("Error trying to communicate with the port %s.", (*it).c_str());
+				if (ssc)
+			delete ssc;
+			continue;
+		} catch (serial::SerialException e) {
+			ROS_WARN("Error trying to read or write on serial. Error message: %s.", e.what());
+			delete ssc;
+			continue;
 		}
 		delete ssc;
 	}
