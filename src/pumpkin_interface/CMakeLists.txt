@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  serial
   message_generation
   roscpp
   rosserial_msgs
