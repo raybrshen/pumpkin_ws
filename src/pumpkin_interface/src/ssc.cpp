@@ -1,6 +1,7 @@
 #include "simple_serial.h"
 #include "pumpkin_interface/SSCMove.h"
 #include "pumpkin_interface/SSCMoveCommand.h"
+#include "pumpkin_interface/SSCMoveList.h"
 #include <XmlRpcValue.h>
 
 #include <ros/ros.h>
@@ -21,7 +22,25 @@ bool setupSSC();
 
 int min_pulse[32];
 int max_pulse[32];
-int rest_pulse[32];
+//int rest_pulse[32];
+
+std::string && generate_move(const pumpkin_interface::SSCMoveList & move) {
+	std::stringstream comm_mount;
+	for(auto it : move.list) {
+		if (it.pulse < min_pulse[it.channel] || it.pulse > max_pulse[it.channel]) {
+			ROS_WARN("Received a move command to move the channel %d outbound. Review command or robot calibration.", it.channel);
+			continue;
+		}
+		comm_mount << "# " << it.channel << " P " << it.pulse;
+		if (it.speed > 0)
+			comm_mount << " S " << it.speed;
+		comm_mount << ' ';
+	}
+	if (move.time > 0)
+		comm_mount << "T " << move.time;
+
+	return std::move(comm_mount.str());
+}
 
 bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
 	unsigned char serial_in = '+';
@@ -34,12 +53,10 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 			d.sleep();
 		}
 	} catch (serial::PortNotOpenedException) {
-		delete ssc;
 		if (!setupSSC())
 			return false;
 	} catch (serial::SerialException) {
 		ROS_ERROR("Error trying to read SSC status. Trying to connect again.");
-		delete ssc;
 		if (!setupSSC())
 			return false;
 	}
@@ -49,30 +66,12 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 			return false;
 
 	try {
-		if (req.list.size() != 0) {
-			std::stringstream comm_mount;
-			int channel, pulse, speed;
-			for (int i = 0; i < req.list.size(); i++) {
-				channel = req.list[i].channel;
-				pulse = req.list[i].pulse;
-				speed = req.list[i].speed;
-				if (pulse == -1)
-					pulse = rest_pulse[channel];
-				if (pulse < min_pulse[channel] || pulse > max_pulse[channel])
-					continue;
-				comm_mount << '#' << channel << " P " << pulse;
-				if (speed > 0)
-					comm_mount << " S " << speed;
-				comm_mount << ' ';
-			}
-			if (req.time > 0)
-				comm_mount << "T " << req.time;
-			comm_mount << '\r';
+		if (req.move.list.size() != 0) {
 			//Set where to send command (if test string to a terminal or to send to pumpkin)
 			if (debug_comm)
-				ROS_INFO("Command: %s", comm_mount.str().c_str());
+				ROS_INFO("Command: %s", generate_move(req.move).c_str());
 			else
-				ssc->write(comm_mount.str());
+				ssc->write(generate_move(req.move));
 		}
 	} catch (serial::IOException e) {
 		ROS_ERROR("IOException ocurred. Error: %s.", e.what());
@@ -88,6 +87,8 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 }
 
 bool setupSSC() {
+	if (ssc)
+		delete ssc;
 	FILE *pipe = popen(("setserial -g "+port+"*").c_str(), "r");
 	char buffer[128];
 	std::string console = "";
@@ -117,7 +118,7 @@ bool setupSSC() {
 	}
 
 	if (!port_list.size()) {
-		ROS_INFO("There is not any serial device in any port of type: %s", port.c_str());
+		ROS_INFO("There is no any serial device in any port of type: %s", port.c_str());
 		return false;
 	}
 
@@ -188,7 +189,7 @@ int main (int argc, char *argv[]) {
 			int pin = int(part_it->second["pin"]);
 			min_pulse[pin] = int(part_it->second["pulse_min"]);
 			max_pulse[pin] = int(part_it->second["pulse_max"]);
-			rest_pulse[pin] = int(part_it->second["pulse_rest"]);
+			//rest_pulse[pin] = int(part_it->second["pulse_rest"]);
 			//ROS_INFO("%d", pin);
 		}
 	}

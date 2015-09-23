@@ -1,4 +1,3 @@
-SSCMove[] list
-uint16 time
+SSCMoveList move
 ---
 uint16[] positions
