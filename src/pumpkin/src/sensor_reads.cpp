@@ -1,12 +1,9 @@
 #include <iostream>
-#include <string>
-#include <cstring>
-#include <cmath>
 //#include <cstdint>
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
 #include <tf/transform_broadcaster.h>
-#include "analog_read/analog_array.h"
+#include "pumpkin_messages/analog_array.h"
 
 //TODO: add the analog_read dependence to the package.xml
 
@@ -21,7 +18,7 @@ float map(uint16_t x, uint16_t in_min, uint16_t in_max, float out_min, float out
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-void analogReadCallback(const analog_read::analog_arrayConstPtr& msg) {
+void analogReadCallback(const pumpkin_messages::analog_arrayConstPtr& msg) {
 	for (int i = 0; i < MAX_N_A_READS; i++) {
 		if (msg->an_read[i] > max_a_reads[i])
 			max_a_reads[i] = msg->an_read[i];

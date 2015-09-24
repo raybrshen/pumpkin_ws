@@ -2,9 +2,13 @@
 // Created by rafaelpaiva on 18/09/15.
 //
 
+//ROS inlcudes
 #include <ros/ros.h>
 
+//GTKmm includes
 #include <gtkmm/application.h>
+
+//Class instatiation
 #include "RobotGUI.h"
 
 int main (int argc, char *argv[]) {
@@ -17,7 +21,7 @@ int main (int argc, char *argv[]) {
 	}
 
 	ros::NodeHandle nh;
-	ros::ServiceClient client = nh.serviceClient<pumpkin_interface::SSCMoveCommand>("move_ssc");
+	ros::ServiceClient client = nh.serviceClient<pumpkin_messages::SSCMoveCommand>("move_ssc");
 
 	if (!client.isValid()) {
 		ROS_ERROR("Service is unavailable now. Check the \"setup_ssc\" node.");

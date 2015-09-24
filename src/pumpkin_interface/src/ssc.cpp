@@ -1,14 +1,15 @@
-#include "simple_serial.h"
-#include "pumpkin_interface/SSCMove.h"
-#include "pumpkin_interface/SSCMoveCommand.h"
-#include "pumpkin_interface/SSCMoveList.h"
+//#include "simple_serial.h"
+#include "pumpkin_messages/SSCMove.h"
+#include "pumpkin_messages/SSCMoveList.h"
+#include "pumpkin_messages/SSCMoveCommand.h"
 #include <XmlRpcValue.h>
 
 #include <ros/ros.h>
+#include <ros/callback_queue.h>
 #include "serial/serial.h"
 
 //SimpleSerial *ssc = NULL;
-serial::Serial *ssc = NULL;
+serial::Serial *ssc = nullptr;
 std::string port;
 bool debug_comm = false;
 
@@ -24,25 +25,32 @@ int min_pulse[32];
 int max_pulse[32];
 //int rest_pulse[32];
 
-std::string && generate_move(const pumpkin_interface::SSCMoveList & move) {
-	std::stringstream comm_mount;
-	for(auto it : move.list) {
-		if (it.pulse < min_pulse[it.channel] || it.pulse > max_pulse[it.channel]) {
-			ROS_WARN("Received a move command to move the channel %d outbound. Review command or robot calibration.", it.channel);
-			continue;
+void generate_move(const pumpkin_messages::SSCMoveList & move) {
+	if (move.list.size() > 0) {
+		std::stringstream comm_mount;
+		for (auto it : move.list) {
+			if (it.pulse != 0 && (it.pulse < min_pulse[it.channel] || it.pulse > max_pulse[it.channel])) {
+				ROS_WARN(
+						"Received a move command to move the channel %d outbound. Review command or robot calibration.",
+						it.channel);
+				continue;
+			}
+			comm_mount << "# " << it.channel << " P " << it.pulse;
+			if (it.speed > 0)
+				comm_mount << " S " << it.speed;
+			comm_mount << ' ';
 		}
-		comm_mount << "# " << it.channel << " P " << it.pulse;
-		if (it.speed > 0)
-			comm_mount << " S " << it.speed;
-		comm_mount << ' ';
-	}
-	if (move.time > 0)
-		comm_mount << "T " << move.time;
+		if (move.time > 0)
+			comm_mount << "T " << move.time;
 
-	return std::move(comm_mount.str());
+		if (debug_comm)
+			ROS_INFO("Command: %s", comm_mount.str().c_str());
+		else
+			ssc->write(comm_mount.str());
+	}
 }
 
-bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface::SSCMoveCommand::Response &res) {
+bool moveSSC(pumpkin_messages::SSCMoveCommand::Request &req, pumpkin_messages::SSCMoveCommand::Response &res) {
 	unsigned char serial_in = '+';
 	ros::Duration d(0.01);
 	try {
@@ -66,13 +74,7 @@ bool moveSSC(pumpkin_interface::SSCMoveCommand::Request &req, pumpkin_interface:
 			return false;
 
 	try {
-		if (req.move.list.size() != 0) {
-			//Set where to send command (if test string to a terminal or to send to pumpkin)
-			if (debug_comm)
-				ROS_INFO("Command: %s", generate_move(req.move).c_str());
-			else
-				ssc->write(generate_move(req.move));
-		}
+		generate_move(req.move);
 	} catch (serial::IOException e) {
 		ROS_ERROR("IOException ocurred. Error: %s.", e.what());
 		return false;
@@ -194,11 +196,26 @@ int main (int argc, char *argv[]) {
 		}
 	}
 
-	ros::NodeHandle nh;
+	ros::NodeHandle service_handle, topic_handle;
 
-	ros::ServiceServer srv = nh.advertiseService("move_ssc", moveSSC);
+	ros::CallbackQueue service_queue, topic_queue;
 
-	ros::spin();
+	service_handle.setCallbackQueue(&service_queue);
+	topic_handle.setCallbackQueue(&topic_queue);
+
+	ros::ServiceServer srv = service_handle.advertiseService("move_ssc", moveSSC);
+	ros::Subscriber subs = topic_handle.subscribe("move_ssc", 1024, generate_move);
+
+	double rate;
+	ros::param::get("/pumpkin/config/ros_rate", rate);
+	ros::Rate loop(rate);
+
+	while (ros::ok()) {
+		service_queue.callAvailable();
+		topic_queue.callAvailable();
+
+		loop.sleep();
+	}
 
 	return 0;
 }

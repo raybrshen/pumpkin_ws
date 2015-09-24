@@ -21,7 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   pumpkin
-#  pumpkin_interface
+  pumpkin_messages
   pumpkin_moveit
 )
 
@@ -132,7 +132,13 @@ include_directories(
 
 ## Declare a cpp executable
 # add_executable(pumpkin_gui_node src/pumpkin_gui_node.cpp)
-add_executable(robot_interface src/robot_interface.cpp src/RobotGUI.cpp include/RobotGUI.h src/MoveBlock.cpp include/MoveBlock.h)
+add_executable(robot_interface
+  src/robot_interface.cpp
+  src/RobotGUI.cpp
+# include/RobotGUI.h
+  src/MoveBlock.cpp
+# include/MoveBlock.h
+)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes

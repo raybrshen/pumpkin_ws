@@ -5,11 +5,13 @@
 #ifndef PROJECT_MOVEBLOCK_H
 #define PROJECT_MOVEBLOCK_H
 
+//GTKmm includes
 #include <gtkmm/grid.h>
 #include <gtkmm/label.h>
 #include <gtkmm/spinbutton.h>
 #include <gtkmm/togglebutton.h>
 
+//Boost includes
 #include <boost/utility.hpp>
 
 class MoveBlock : public Gtk::Grid, public boost::noncopyable {

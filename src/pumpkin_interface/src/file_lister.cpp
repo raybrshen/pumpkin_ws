@@ -1,6 +1,6 @@
 #include "ros/ros.h"
-#include "pumpkin_interface/Files.h"
-#include "pumpkin_interface/Serials.h"
+#include "pumpkin_messages/Files.h"
+#include "pumpkin_messages/Serials.h"
 #include "file_type_codes.h"
 #include "std_msgs/String.h"
 #include <string>

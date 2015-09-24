@@ -10,7 +10,7 @@
 #include <urdf/model.h>
 #include "yaml-cpp/yaml.h"
 
-#include <analog_read/analog_array.h>
+#include "pumpkin_messages/analog_array.h"
 
 /*
 y4[pin] = 0.001*(0.0582*x4[pin] + 0.2327*x3[pin] + 0.3490*x2[pin] + 0.2327*x1[pin] + 0.0582*x0[pin]) + (3.5168*y3[pin]) - (4.6637*y2[pin]) + (2.7621*y1[pin]) - (0.6161*y0[pin]);
@@ -40,7 +40,7 @@ std::vector<aux_struct> aux_vec;
 
 bool received = false;
 
-void receiveData(const analog_read::analog_arrayConstPtr& reads)
+void receiveData(const pumpkin_messages::analog_arrayConstPtr& reads)
 {
 	for (std::vector<aux_struct>::iterator it = aux_vec.begin(); it != aux_vec.end(); ++it) {
 		if (it->pin > reads->an_read.size()) {
@@ -95,9 +95,9 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("playback_joint_states", 1);
+	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("playback_joint_states", 1024);
 	//ROS_INFO("Publisher loaded.");
-	ros::Subscriber arduino_data = nh.subscribe<analog_read::analog_array>("a_reads", 1, receiveData);
+	ros::Subscriber arduino_data = nh.subscribe<pumpkin_messages::analog_array>("a_reads", 1024, receiveData);
 	//ROS_INFO("Publisher and Subscriber loaded successfully.");
 	XmlRpc::XmlRpcValue config;
 	urdf::Model model;

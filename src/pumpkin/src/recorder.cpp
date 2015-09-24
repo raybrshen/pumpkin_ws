@@ -6,20 +6,18 @@
  */
 
 #include <iostream>
-#include <string>
 #include <fstream>
-#include <cstdlib>
 #include <ctime>
 #include <yaml-cpp/yaml.h>
 #include <ros/ros.h>
-#include <analog_read/analog_array.h>
+#include <pumpkin_messages/analog_array.h>
 
 //TODO: create a class to handle the file and YAML node, bind callback to class method
 
 YAML::Node node;
 std::fstream fs;
 
-void analogReadCallback(const analog_read::analog_arrayConstPtr& msg) {
+void analogReadCallback(const pumpkin_messages::analog_arrayConstPtr& msg) {
 	fs << "---";
 	fs << std::endl;
 

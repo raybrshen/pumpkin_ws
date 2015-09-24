@@ -2,8 +2,10 @@
 // Created by rafaelpaiva on 18/09/15.
 //
 
+//Class instantiation
 #include "RobotGUI.h"
 
+//Boost includes
 #include <boost/algorithm/string/replace.hpp>
 
 RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("Send Move Commands"),
@@ -69,19 +71,21 @@ RobotGUI::RobotGUI() : _group_box(Gtk::ORIENTATION_HORIZONTAL), _control_frame("
 RobotGUI::~RobotGUI() { }
 
 void RobotGUI::send_command() {
-	pumpkin_interface::SSCMoveCommand command;
+	pumpkin_messages::SSCMoveCommand command;
+	pumpkin_messages::SSCMoveList move;
 	//TODO send command to the SSC node
 	for (auto it = _blocks.begin(); it != _blocks.end(); ++it) {
 		if (!it->is_active())
 			continue;
-		pumpkin_interface::SSCMove &&movement = pumpkin_interface::SSCMove();
-		movement.channel = pumpkin_interface::SSCMove::_channel_type(it->get_pin());
-		movement.pulse = pumpkin_interface::SSCMove::_pulse_type(it->get_pulse_value());
-		movement.speed = pumpkin_interface::SSCMove::_speed_type(it->get_speed_value());
+		pumpkin_messages::SSCMove &&movement = pumpkin_messages::SSCMove();
+		movement.channel = pumpkin_messages::SSCMove::_channel_type(it->get_pin());
+		movement.pulse = pumpkin_messages::SSCMove::_pulse_type(it->get_pulse_value());
+		movement.speed = pumpkin_messages::SSCMove::_speed_type(it->get_speed_value());
 		ROS_INFO("Pulse: %d, Speed: %d", movement.pulse, movement.speed);
-		command.request.list.push_back(movement);
+		move.list.emplace_back(movement);
 	}
-	command.request.time = pumpkin_interface::SSCMoveCommand::Request::_time_type(_time_spin.get_value());
+	move.time = pumpkin_messages::SSCMoveList::_time_type(_time_spin.get_value());
+	command.request.move = move;
 	_service.call(command);
 	//TODO configure reception command function
 }

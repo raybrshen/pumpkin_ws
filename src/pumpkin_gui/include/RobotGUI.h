@@ -5,10 +5,11 @@
 #ifndef PROJECT_ROBOTGUI_H
 #define PROJECT_ROBOTGUI_H
 
+//Ros and Boost includes
 #include <ros/ros.h>
-
 #include <boost/ptr_container/ptr_vector.hpp>
 
+//GTKmm includes
 #include <gtkmm/window.h>
 #include <gtkmm/button.h>
 #include <gtkmm/box.h>
@@ -18,9 +19,12 @@
 #include <gtkmm/label.h>
 #include <gtkmm/spinbutton.h>
 
-#include "pumpkin_interface/SSCMoveCommand.h"
-#include "pumpkin_interface/SSCMove.h"
+//Messages definitions includes
+#include "pumpkin_messages/SSCMoveCommand.h"
+#include "pumpkin_messages/SSCMoveList.h"
+#include "pumpkin_messages/SSCMove.h"
 
+//Class instantiation
 #include "MoveBlock.h"
 
 class RobotGUI : public Gtk::Window {

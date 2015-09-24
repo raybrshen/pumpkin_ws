@@ -2,6 +2,7 @@
 // Created by rafaelpaiva on 18/09/15.
 //
 
+//Class instatiation
 #include "MoveBlock.h"
 
 MoveBlock::MoveBlock(Glib::ustring name, int pin, int min_pos,
