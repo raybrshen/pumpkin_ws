@@ -58,38 +58,47 @@ int main (int argc, char *argv[]) {
 		}
 	}
 
+	ROS_INFO("Adjustments calculated.");
+
 	double ros_rate = double(config["ros_rate"]);
 	ros::Rate loop(ros_rate);
-	ros::Publisher ssc_pub = nh.advertise<pumpkin_messages::SSCMoveList>("ssc_move", 32);
+	ros::Publisher ssc_pub = nh.advertise<pumpkin_messages::SSCMoveList>("move_ssc_topic", 32);
 
-	for (auto &move : movements) {
+	for (auto step = std::begin(movements); step != std::end(movements) && ros::ok(); ++step) {
 		if (!ros::ok()) {
 			ROS_FATAL("Ros node was terminated before completition of playback.");
-		} else if (move.IsNull()) {
+		} else if (step->IsNull()) {
 			ROS_FATAL("Playback movement is null.");
 		}
 
-		if (move["an_read"].IsNull()) {
+		if ((*step)["an_read"].IsNull()) {
 			ROS_FATAL("NULL");
 		}
 
-		std::vector<uint16_t> reads = std::move(move["an_read"].as<std::vector<uint16_t> >());
+		std::vector<uint16_t> reads = std::move((*step)["an_read"].as<std::vector<uint16_t> >());
 		pumpkin_messages::SSCMoveList command;
 		command.time = 0;
 
 		for (int i = 0; i < reads.size(); i++) {
 			pumpkin_messages::SSCMove comm_move;
 			const auxiliar_calibration & aux = calib_vector[i];
-			uint16_t pulse;
-			if (aux.arduino_max - aux.arduino_min == 0)
-				pulse = 0;
-			pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
-			                    /(aux.arduino_max - aux.arduino_min) + aux.ssc_max);
-			if (pulse > aux.ssc_max)
-				pulse = aux.ssc_max;
-			else if (pulse < aux.ssc_min)
-				pulse = aux.ssc_min;
+			comm_move.channel = aux.ssc_pin;
+			if (aux.arduino_max - aux.arduino_min <= 0)
+				continue;
+			else {
+				comm_move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
+				                    / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
+				if (comm_move.pulse > aux.ssc_max) {
+					ROS_WARN("Pulse overflow: %d", int(comm_move.pulse));
+					comm_move.pulse = aux.ssc_max;
+				} else if (comm_move.pulse < aux.ssc_min) {
+					ROS_WARN("Pulse underflow: %d", int(comm_move.pulse));
+					comm_move.pulse = aux.ssc_min;
+				}
+			}
+			comm_move.speed = 0;
 			command.list.emplace_back(comm_move);
+			//ROS_INFO("#%d -> %d", comm_move.channel, comm_move.pulse);
 		}
 
 		ssc_pub.publish(command);

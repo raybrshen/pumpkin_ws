@@ -8,9 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <string>
 #include "yaml-cpp/yaml.h"
-#include <cstdlib>
 #include <ros/ros.h>
 #include "serial/serial.h"
 
@@ -42,7 +40,7 @@ uint16_t map(YAML::Node servo, std::vector<uint16_t> an_read) {
 
 int main(int argc, char *argv[]) {
 	std::string ssc_port, input_file, input_config_calib;
-
+	ROS_FATAL("1");
 	if (argc >= 2) {
 		ssc_port = argv[1];
 		input_config_calib = argv[2];
@@ -50,7 +48,6 @@ int main(int argc, char *argv[]) {
 	} else {
 	    printf("Usage: rosrun pumpkin playback <ssc_port> <input_config_calib> <input_file>\n");
     	ROS_ERROR("Failed to parse input files");
-		exit(-1);
 		exit(-1);
 	}
 
@@ -61,7 +58,7 @@ int main(int argc, char *argv[]) {
 
 	std::vector<YAML::Node> reads = YAML::LoadAllFromFile(input_file);
 	std::vector<YAML::Node> servos;
-
+	ROS_FATAL("2");
 	servos.push_back(pumpkin_config["right_arm"]["shoulder_0"]);
 	servos.push_back(pumpkin_config["right_arm"]["shoulder_1"]);
 	servos.push_back(pumpkin_config["right_arm"]["shoulder_2"]);
@@ -75,10 +72,10 @@ int main(int argc, char *argv[]) {
 	servos.push_back(pumpkin_config["left_arm"]["elbow"]);
 	servos.push_back(pumpkin_config["left_arm"]["wrist_0"]);
 	servos.push_back(pumpkin_config["left_arm"]["wrist_1"]);
-
+	ROS_FATAL("3");
 	double ros_rate = pumpkin_config["ros_rate"].as<double>();
 	ros::Rate loop_rate(ros_rate);
-
+	ROS_FATAL("4");
 	serial::Serial ssc(ssc_port, SSC_BAUDRATE, serial::Timeout::simpleTimeout(1000));
 	for (int r = 0; r < reads.size(); r++) {
 		if (!reads[r].IsNull() && ros::ok()){

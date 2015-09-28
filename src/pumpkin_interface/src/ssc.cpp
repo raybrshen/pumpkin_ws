@@ -11,7 +11,7 @@
 //SimpleSerial *ssc = NULL;
 serial::Serial *ssc = nullptr;
 std::string port;
-bool debug_comm = false;
+bool debug_flag = false;
 
 bool setupSSC();
 
@@ -30,12 +30,11 @@ void generate_move(const pumpkin_messages::SSCMoveList & move) {
 		std::stringstream comm_mount;
 		for (auto it : move.list) {
 			if (it.pulse != 0 && (it.pulse < min_pulse[it.channel] || it.pulse > max_pulse[it.channel])) {
-				ROS_WARN(
-						"Received a move command to move the channel %d outbound. Review command or robot calibration.",
+				ROS_WARN("Received a move command to move the channel %d outbound. Review command or robot calibration.",
 						it.channel);
 				continue;
 			}
-			comm_mount << "# " << it.channel << " P " << it.pulse;
+			comm_mount << "# " << int(it.channel) << " P " << it.pulse;
 			if (it.speed > 0)
 				comm_mount << " S " << it.speed;
 			comm_mount << ' ';
@@ -43,7 +42,9 @@ void generate_move(const pumpkin_messages::SSCMoveList & move) {
 		if (move.time > 0)
 			comm_mount << "T " << move.time;
 
-		if (debug_comm)
+		comm_mount << '\r';
+
+		if (debug_flag)
 			ROS_INFO("Command: %s", comm_mount.str().c_str());
 		else
 			ssc->write(comm_mount.str());
@@ -165,7 +166,7 @@ int main (int argc, char *argv[]) {
 
 	if (argc > 1) {
 		if (!std::string(argv[1]).compare("debug")) {
-			debug_comm = true;
+			debug_flag = true;
 			ROS_WARN("You are running \"setup_ssc\" in debug mode. All commands will be shown here.");
 			ROS_WARN("To send commands to pumpkin, please, run without debug argumment.");
 		} else {
@@ -204,16 +205,21 @@ int main (int argc, char *argv[]) {
 	topic_handle.setCallbackQueue(&topic_queue);
 
 	ros::ServiceServer srv = service_handle.advertiseService("move_ssc", moveSSC);
-	ros::Subscriber subs = topic_handle.subscribe("move_ssc", 1024, generate_move);
+	ros::Subscriber subs = topic_handle.subscribe("move_ssc_topic", 1024, generate_move);
 
 	double rate;
 	ros::param::get("/pumpkin/config/ros_rate", rate);
 	ros::Rate loop(rate);
 
 	while (ros::ok()) {
-		service_queue.callAvailable();
-		topic_queue.callAvailable();
 
+		if (service_queue.callOne(ros::WallDuration(0)) == ros::CallbackQueue::Called) {
+			service_queue.callAvailable(ros::WallDuration(0));
+			ROS_INFO("Service called.");
+		} else {
+			topic_queue.callAvailable(ros::WallDuration(0));
+			//ROS_INFO("Topic called.");
+		}
 		loop.sleep();
 	}
 
