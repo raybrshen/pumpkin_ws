@@ -10,8 +10,23 @@ namespace bfs = boost::filesystem;
 
 std::string pumpkin_path;
 
-void get_files_recursively(const bfs::path &dir, const std::string &extension, const FileList &found) {
-
+void get_files_recursively(const bfs::path &dir, const std::string &ext, std::vector<FileList> &found) {
+	FileList files;
+	if (!bfs::exists(dir))
+		return;
+	for (bfs::directory_iterator it(dir), end_it; it != end_it; ++it) {
+		if (bfs::is_directory(it->path())) {
+			get_files_recursively(it->path(), ext, found);
+		} else {
+			const std::string &filename = it->path().leaf().string();
+			if (filename.compare(filename.size() - ext.size(), ext.size(), ext) == 0)
+				files.filenames.push_back(filename);
+		}
+	}
+	if (files.filenames.size() > 0) {
+		files.folder = dir.string();
+		found.emplace_back(std::move(files));
+	}
 }
 
 bool getdir (std::string &dir, std::string &ftype, std::vector<std::string> &files)
@@ -102,6 +117,7 @@ bool ListFiles (Files::Request &req, Files::Response &res)
 	*/
 
 	std::string folder = pumpkin_path;
+	std::string extension;
     
     //It doesn't look like so Object Oriented, but...
     switch(FileType(req.filetype)) {
@@ -110,7 +126,7 @@ bool ListFiles (Files::Request &req, Files::Response &res)
             extension = ".yaml";
         break;
         case FileType::RobotDescription:
-            folder += "/description/robots";
+            folder += "_description/robots";
             extension = ".URDF";
         break;
         case FileType::PlaybackFile:
@@ -123,9 +139,11 @@ bool ListFiles (Files::Request &req, Files::Response &res)
             return false;
     }
 
+	/*
     //Here, we can, hereafter, make a rosout showing an error code
     if (getdir(folder, extension, res.filenames) != 0)
         return false;
+        */
 
     res.folder = folder;
 
