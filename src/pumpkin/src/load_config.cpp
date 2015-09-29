@@ -1,6 +1,5 @@
 #include "ros/ros.h"
 #include "yaml-cpp/yaml.h"
-#include <sstream>
 
 int main(int argc, char *argv[]) {
 	//Init ROS Node
@@ -8,13 +7,12 @@ int main(int argc, char *argv[]) {
 
 	//Seek file and load it
 	std::string config_file;
-	if (argc >= 2)
-		config_file = argv[1];
-	else {
-	    printf("Usage: rosrun pumpkin load_config <config_file>\n");
-    	ROS_ERROR("Failed to parse input files");
-		exit(-1);
-	}
+	ros::Rate loop(1000);
+
+	while (!ros::param::has("~config_file"))
+		loop.sleep();
+
+	ros::param::get("~config_file", config_file);
 
 	YAML::Node pumpkin_config = YAML::LoadFile(config_file);
 	ROS_INFO("Opening config file: %s", config_file.c_str());
