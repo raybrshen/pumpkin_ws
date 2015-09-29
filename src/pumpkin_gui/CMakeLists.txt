@@ -137,6 +137,7 @@ add_executable(robot_interface
   src/RobotGUI.cpp
 # include/RobotGUI.h
   src/MoveBlock.cpp
+  src/LoadConfig.cpp
 # include/MoveBlock.h
 )
 
