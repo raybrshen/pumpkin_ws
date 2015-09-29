@@ -1,7 +1,6 @@
 #include "ros/ros.h"
 #include "file_type.h"
 #include "pumpkin_messages/Files.h"
-#include "std_msgs/String.h"
 #include <boost/filesystem.hpp>
 
 using namespace pumpkin_messages;
@@ -48,7 +47,6 @@ bool ListFiles (Files::Request &req, Files::Response &res)
             extension = ".yaml";
         break;
 	    case FileType::Error:
-        default:
             ROS_ERROR("ERROR! Type code not identified!");
             return false;
     }
