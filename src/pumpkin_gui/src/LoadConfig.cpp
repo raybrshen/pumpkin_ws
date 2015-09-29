@@ -12,32 +12,36 @@ LoadConfig::LoadConfig() : _window_box(Gtk::ORIENTATION_VERTICAL, 10), _label("S
 	set_border_width(20);
 	set_resizable(false);
 
-	_load_button.signal_clicked().connect(sigc::mem_fun(*this, &LoadConfig::on_button_pressed));
+	_load_button.signal_clicked().connect(sigc::mem_fun(*this, &LoadConfig::select_file));
+
+	_window_box.pack_start(_label, Gtk::PACK_SHRINK);
+	_window_box.pack_start(_combo, Gtk::PACK_SHRINK);
+	_window_box.pack_start(_load_button, Gtk::PACK_SHRINK);
+
+	add(_window_box);
+
+	show_all_children();
 }
 
 LoadConfig::~LoadConfig() {}
 
-void LoadConfig::on_button_pressed() {
+void LoadConfig::select_file() {
 	const Glib::ustring &value = _combo.get_active_text();
 
 	if (!value.empty()) {
 		*_file = value;
 	}
 
-	this->close();
+	hide();
 }
 
 void LoadConfig::fill_combobox(const std::vector<std::string> &filelist) {
 
-	for (std::vector<std::string>::iterator it = std::begin(filelist); it != std::end(filelist); ++it) {
+	for (std::vector<std::string>::const_iterator it = filelist.begin(); it != filelist.end(); ++it) {
 		_combo.append(*it);
 	}
 
 	_combo.set_active(1);
-
-	_window_box.pack_start(_label, Gtk::PACK_SHRINK);
-	_window_box.pack_start(_combo, Gtk::PACK_SHRINK);
-	_window_box.pack_start(_load_button, Gtk::PACK_SHRINK);
 
 	show_all_children();
 }

@@ -26,26 +26,33 @@ int main (int argc, char *argv[]) {
 		ros::ServiceClient config_client = nh.serviceClient<pumpkin_messages::Files>("file_lister");
 		pumpkin_messages::Files msg;
 		msg.request.type = (uint8_t)1;
-		if (!config_client.call(msg))
-			return -1;\
+		if (!config_client.call(msg)) {
+			ROS_ERROR("Cannot get configuration files list");
+			return -1;
+		}
 
 		std::string path(msg.response.files[0].folder), filename;
 
 		LoadConfig load;
 		load.link_file_string(&filename);
 		load.fill_combobox(msg.response.files[0].filenames);
-		status = app->run();
+		ROS_INFO("Select a load configuration file on the dialog.");
+		status = app->run(load);
 
 		if (status != 0)
 			return status;
 
-		if (!filename.empty())
-			ros::param::set("~config_file", path+filename);
+		//ROS_INFO("Select configuration %s", filename.c_str());
 
-		ros::Rate r(1000);
+		if (!filename.empty()) {
+			ros::param::set("/pumpkin/_config_file", path + "/" + filename);
 
-		while (!ros::param::has("/pumpkin/config"))
-			r.sleep();
+			ros::Rate r(1000);
+			while (!ros::param::has("/pumpkin/config"))
+				r.sleep();
+		} else {
+			ROS_FATAL("Error on opening configuration file.");
+		}
 	}
 
 	ros::ServiceClient client = nh.serviceClient<pumpkin_messages::SSCMoveCommand>("move_ssc");

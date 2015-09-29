@@ -31,7 +31,7 @@ protected:
 	Gtk::Button _load_button;
 
 	//signals
-	void on_button_pressed();
+	void select_file();
 };
 
 

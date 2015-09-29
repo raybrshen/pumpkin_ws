@@ -4,15 +4,16 @@
 int main(int argc, char *argv[]) {
 	//Init ROS Node
 	ros::init(argc, argv, "load_config");
+	ros::Time::init();
 
 	//Seek file and load it
 	std::string config_file;
 	ros::Rate loop(1000);
 
-	while (!ros::param::has("~config_file"))
+	while (!ros::param::has("/pumpkin/_config_file"))
 		loop.sleep();
 
-	ros::param::get("~config_file", config_file);
+	ros::param::get("/pumpkin/_config_file", config_file);
 
 	YAML::Node pumpkin_config = YAML::LoadFile(config_file);
 	ROS_INFO("Opening config file: %s", config_file.c_str());
