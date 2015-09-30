@@ -27,6 +27,9 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
   urdf
   pumpkin_messages
+  genmsg
+  actionlib_msgs
+  actionlib
 )
 
 ## System dependencies are found with CMake's conventions

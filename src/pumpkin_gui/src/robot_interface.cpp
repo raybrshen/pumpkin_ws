@@ -18,11 +18,16 @@ int main (int argc, char *argv[]) {
 	ros::init(argc, argv, "robot_interface");
 	ros::NodeHandle nh;
 
-	auto app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
+	auto main_app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
+	LoadConfig load;
+	RobotGUI gui;
 
 	int status;
 
 	if (!ros::param::has("/pumpkin/config/ssc")){
+
+		auto load_app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
+
 		ros::ServiceClient config_client = nh.serviceClient<pumpkin_messages::Files>("file_lister");
 		pumpkin_messages::Files msg;
 		msg.request.type = (uint8_t)1;
@@ -33,16 +38,16 @@ int main (int argc, char *argv[]) {
 
 		std::string path(msg.response.files[0].folder), filename;
 
-		LoadConfig load;
 		load.link_file_string(&filename);
 		load.fill_combobox(msg.response.files[0].filenames);
 		ROS_INFO("Select a load configuration file on the dialog.");
-		status = app->run(load);
+		status = load_app->run(load);
 
 		if (status != 0)
 			return status;
 
-		//ROS_INFO("Select configuration %s", filename.c_str());
+
+		ROS_INFO("Select configuration %s", filename.c_str());
 
 		if (!filename.empty()) {
 			ros::param::set("/pumpkin/_config_file", path + "/" + filename);
@@ -62,11 +67,9 @@ int main (int argc, char *argv[]) {
 		return -2;
 	}
 
-	RobotGUI gui;
-
 	gui.set_service(client);
 
-	status = app->run(gui);
+	status = main_app->run(gui);
 
 	return status;
 }

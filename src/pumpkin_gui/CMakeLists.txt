@@ -23,6 +23,9 @@ find_package(catkin REQUIRED COMPONENTS
   pumpkin
   pumpkin_messages
   pumpkin_moveit
+  genmsg
+  actionlib_msgs
+  actionlib
 )
 
 ## System dependencies are found with CMake's conventions

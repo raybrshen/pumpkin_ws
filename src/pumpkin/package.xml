@@ -40,6 +40,7 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
+  <!-- Build Dependencies below -->
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>sensor_msgs</build_depend>
@@ -47,6 +48,9 @@
   <build_depend>tf</build_depend>
   <build_depend>roslib</build_depend>
   <build_depend>analog_read</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <!-- Runtime Dependencies below -->
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>sensor_msgs</run_depend>
@@ -54,6 +58,8 @@
   <run_depend>tf</run_depend>
   <run_depend>analog_read</run_depend>
   <run_depend>roslib</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
