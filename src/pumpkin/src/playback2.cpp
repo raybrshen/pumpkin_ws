@@ -8,6 +8,10 @@
 
 #include "pumpkin_messages/SSCMoveList.h"
 
+class PlaybackActionServer {
+
+};
+
 struct auxiliar_calibration {
 	int arduino_min;
 	int arduino_max;
@@ -17,6 +21,8 @@ struct auxiliar_calibration {
 };
 
 std::vector<auxiliar_calibration> calib_vector(32);
+
+
 
 int main (int argc, char *argv[]) {
 
