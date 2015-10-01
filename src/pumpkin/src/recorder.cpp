@@ -18,13 +18,13 @@
 using namespace pumpkin_messages;
 
 class RecordActionServer {
-	//private attributes
+	//private members
 	ros::NodeHandle _nh;
 	ros::Subscriber _sub;
 	actionlib::SimpleActionServer<pumpkin_messages::RecordAction> _server;
 	YAML::Node _node;
 	std::ofstream _file;
-	unsigned long _count;
+	unsigned int _count;
 	ros::Time _start;
 	double _max_time;
 	pumpkin_messages::RecordFeedback _feedback;
@@ -65,6 +65,7 @@ public:
 	}
 
 	void onPreempt() {
+		_file << "---\n";
 		_file.close();
 		_server.setPreempted();
 	}
@@ -72,8 +73,6 @@ public:
 	void onRead(const pumpkin_messages::analog_arrayConstPtr& msg) {
 		if (!_server.isActive())
 			return;
-
-		_file << "---\n";
 
 		_node["header"]["seq"] = msg->header.seq;
 		_node["header"]["stamp"]["secs"] = msg->header.stamp.sec;
@@ -94,6 +93,7 @@ public:
 			_result.time_elapsed = _feedback.time_elapsed;
 			_result.state = static_cast<uint8_t>(_file.eof() ? IOState::EndOfFile : IOState::BadFile);
 			_server.setAborted(_result);
+			_file.close();
 			return;
 		}
 
@@ -103,8 +103,11 @@ public:
 			_result.num_steps = _feedback.num_steps;
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
+			_file.close();
 			return;
 		}
+
+		_file << "---\n";
 	}
 };
 

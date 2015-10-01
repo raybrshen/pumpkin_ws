@@ -48,6 +48,16 @@ void generate_move(const pumpkin_messages::SSCMoveList & move) {
 			ROS_INFO("Command: %s", comm_mount.str().c_str());
 		else
 			ssc->write(comm_mount.str());
+	} else {
+		std::stringstream off_comm;
+		for (int i = 0; i < 32; ++i)
+			off_comm << '#' << i << " P 0 ";
+		off_comm << '\r';
+
+		if (debug_flag)
+			ROS_INFO("Command: %s", off_comm.str().c_str());
+		else
+			ssc->write(off_comm.str());
 	}
 }
 
