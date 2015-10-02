@@ -20,7 +20,6 @@ int main (int argc, char *argv[]) {
 
 	auto main_app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
 	LoadConfig load;
-	RobotGUI gui;
 
 	int status;
 
@@ -66,6 +65,8 @@ int main (int argc, char *argv[]) {
 		ROS_ERROR("Service is unavailable now. Check the \"setup_ssc\" node.");
 		return -2;
 	}
+
+	RobotGUI gui;
 
 	gui.set_service(client);
 
