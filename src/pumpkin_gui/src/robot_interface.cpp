@@ -45,6 +45,7 @@ int main (int argc, char *argv[]) {
 		if (status != 0)
 			return status;
 
+		load_app.reset();
 
 		ROS_INFO("Select configuration %s", filename.c_str());
 

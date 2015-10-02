@@ -15,14 +15,15 @@ int main(int argc, char *argv[]) {
 
 	ros::param::get("/pumpkin/_config_file", config_file);
 
-	YAML::Node pumpkin_config = YAML::LoadFile(config_file);
+	YAML::Node config_load = YAML::LoadFile(config_file);
 	ROS_INFO("Opening config file: %s", config_file.c_str());
+	XmlRpc::XmlRpcValue config_save;
 	//Iterates for group part
-	for (YAML::const_iterator it_cluster = pumpkin_config.begin(); it_cluster != pumpkin_config.end(); ++it_cluster)
+	for (YAML::const_iterator it_cluster = config_load.begin(); it_cluster != config_load.end(); ++it_cluster)
 	{
 		const std::string &cluster = it_cluster->first.as<std::string>();
 		if (cluster == "ros_rate") {
-			ros::param::set("/pumpkin/config/ros_rate", it_cluster->second.as<double>());
+			config_save["ros_rate"] = it_cluster->second.as<double>();
 			continue;
 		}
 		//Iterate through parts
@@ -36,15 +37,14 @@ int main(int argc, char *argv[]) {
 				//Iterare through properties
 				for (YAML::const_iterator it_prop = it_dev->second.begin(); it_prop != it_dev->second.end(); ++it_prop)
 				{
-					std::ostringstream ros_param_name;
-					ros_param_name << "/pumpkin/config/" << dev << '/' << cluster << '/' << part
-							<< '/' << it_prop->first.as<std::string>();
-					ros::param::set(ros_param_name.str().c_str(),it_prop->second.as<uint16_t>());
+					config_save[dev][cluster][part][it_prop->first.as<std::string>()] = it_prop->second.as<uint16_t>();
 					//ROS_INFO("Creating param [%s] with value: %d", ros_param_name.str().c_str(), it_prop->second.as<uint16_t>());
 				}
 			}
 		}
 	}
+
+	ros::param::set("/pumpkin/config", config_save);
 
 	return 0;
 }
