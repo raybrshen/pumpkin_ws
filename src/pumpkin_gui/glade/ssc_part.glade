@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <object class="GtkAdjustment" id="part_adjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkGrid" id="move_part">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">2</property>
+    <property name="margin_right">3</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">False</property>
+    <property name="border_width">5</property>
+    <property name="row_spacing">5</property>
+    <property name="column_spacing">5</property>
+    <child>
+      <object class="GtkLabel" id="part_name_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">False</property>
+        <property name="label" translatable="yes">Part Name</property>
+        <property name="justify">center</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">2</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScale" id="part_scale">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">False</property>
+        <property name="round_digits">0</property>
+        <property name="draw_value">False</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+        <property name="width">2</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSpinButton" id="part_spin">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">False</property>
+        <property name="max_length">4</property>
+        <property name="width_chars">4</property>
+        <property name="xalign">0.5</property>
+        <property name="progress_pulse_step">1</property>
+        <property name="input_purpose">digits</property>
+        <property name="adjustment">part_adjustment</property>
+        <property name="numeric">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+        <property name="width">2</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="part_active">
+        <property name="label" translatable="yes">Send command</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Activate this button to send command to this part, or deactivate to leave it alone</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="hexpand">False</property>
+        <property name="vexpand">False</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSwitch" id="part_switch">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text" translatable="yes">If this switch is off, and the send command is on, it will send a signal do turn of the respective servo.</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="hexpand">False</property>
+        <property name="vexpand">False</property>
+        <property name="active">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

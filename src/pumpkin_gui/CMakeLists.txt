@@ -143,6 +143,10 @@ add_executable(robot_interface
   src/LoadConfig.cpp
 # include/MoveBlock.h
 )
+add_executable(playback_and_record
+  src/playback_and_record.cpp
+  src/PlaybackRecordWindow.cpp
+)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
