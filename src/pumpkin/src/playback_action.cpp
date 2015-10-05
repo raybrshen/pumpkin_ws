@@ -28,7 +28,7 @@ class PlaybackActionServer {
 	std::vector<auxiliar_calibration> _aux_vec;
 	std::vector<YAML::Node> _movement;
 	std::vector<YAML::Node>::iterator _step_it, _end_it;
-	unsigned int _num_steps;
+	double _percentage_step;
 	PlaybackFeedback _feedback;
 	PlaybackResult _result;
 
@@ -50,16 +50,16 @@ public:
 		}
 		auto goal = _server.acceptNewGoal();
 		std::string filename = goal->filename;
-		_num_steps = 0;
+		_feedback.percentage = 0.0;
 
 		try {
 			_movement = std::move(YAML::LoadAllFromFile(filename));
 		} catch (YAML::BadFile) {
 			_result.state = static_cast<uint8_t>(IOState::ErrorOpening);
-			_result.num_steps = 0;
 			_server.setAborted(_result);
 		}
 
+		_percentage_step = (double)100/_movement.size();
 		_step_it = std::begin(_movement);
 		_end_it = std::end(_movement);
 	}
@@ -67,7 +67,6 @@ public:
 	void onPreempt() {
 		_pub.publish(SSCMoveList());
 		_result.state = static_cast<uint8_t>(IOState::OK);
-		_result.num_steps = _num_steps;
 		_server.setAborted(_result);
 	}
 
@@ -77,13 +76,11 @@ public:
 
 		if (_step_it->IsNull()) {
 			_result.state = static_cast<uint8_t>(IOState::BadFile);
-			_result.num_steps = _num_steps;
 			_server.setAborted(_result);
 			_step_it = _end_it;
 			return;
 		} else if ((*_step_it)["an_read"].IsNull()) {
 			_result.state = static_cast<uint8_t>(IOState::BadFile);
-			_result.num_steps = _num_steps;
 			_server.setAborted(_result);
 			_step_it = _end_it;
 			return;
@@ -118,12 +115,10 @@ public:
 		if (command.list.size())
 			_pub.publish(command);
 
-		++_num_steps;
-		_feedback.num_steps = _num_steps;
+		_feedback.percentage += _percentage_step;
 		_server.publishFeedback(_feedback);
 
 		if (_step_it == _end_it) {
-			_result.num_steps = _num_steps;
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
 		}
