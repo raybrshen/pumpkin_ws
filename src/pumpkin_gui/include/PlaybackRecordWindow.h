@@ -29,17 +29,27 @@
 
 namespace pumpkin_gui {
 
-	class FileModel;
-	class FolderModel;
+	class FolderModel : public Gtk::TreeModelColumnRecord {
+	public:
+		FolderModel() {add(id), add(name); }
+		Gtk::TreeModelColumn<int> id;
+		Gtk::TreeModelColumn<Glib::ustring> name;
+	};
+
+	class FileModel : public Gtk::TreeModelColumnRecord {
+	public:
+		FileModel() {add(name);}
+		Gtk::TreeModelColumn<Glib::ustring> name;
+	};
 
 	typedef Gtk::TreeModel::Children    ChildrenType;
 	typedef Gtk::TreeModel::Row         RowType;
 
 	class PlaybackRecordWindow : public Gtk::Window {
 	public:
-		PlaybackRecordWindow(BaseObjectType *c_wrap, const Glib::RefPtr<Gtk::Builder> glade);
+		PlaybackRecordWindow(BaseObjectType *c_wrap, const Glib::RefPtr<Gtk::Builder> &glade);
 
-		virtual PlaybackRecordWindow();
+		virtual ~PlaybackRecordWindow();
 
 	protected:
 		//Signals
@@ -50,6 +60,8 @@ namespace pumpkin_gui {
 		void onStartRecord();
 
 		void onStopRecord();
+
+		void onSelectFolder(const Gtk::TreeModel::Path &path, Gtk::TreeViewColumn* column);
 
 		//Action server callbacks
 		void playbackDoneCallback(const actionlib::SimpleClientGoalState &state,
@@ -86,22 +98,10 @@ namespace pumpkin_gui {
 		ros::ServiceClient _file_client;
 		ros::NodeHandle _nh;
 		Glib::ustring _base_folder;
+		Glib::RefPtr<Gtk::Builder> _builder;
 
 		//Other methods
 		void fillFolder();
-	};
-
-	class FolderModel : public Gtk::TreeModelColumnRecord {
-	public:
-		FolderModel() {add(id), add(name); }
-		Gtk::TreeModelColumn<Glib::ustring> id;
-		Gtk::TreeModelColumn<Glib::ustring> name;
-	};
-
-	class FileModel : public Gtk::TreeModelColumnRecord {
-	public:
-		FileModel() {add(name);}
-		Gtk::TreeModelColumn<Glib::ustring> name;
 	};
 
 }

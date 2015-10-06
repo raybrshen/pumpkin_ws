@@ -158,6 +158,7 @@ add_executable(playback_and_record
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(robot_interface ${catkin_LIBRARIES} ${GTKMM_LIBRARIES})
+target_link_libraries(playback_and_record ${catkin_LIBRARIES} ${GTKMM_LIBRARIES})
 
 #############
 ## Install ##

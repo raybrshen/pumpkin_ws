@@ -35,7 +35,7 @@ void get_files_recursively(const bfs::path &dir, const std::string &ext, std::ve
 		found.emplace_back(std::move(files));
 		if (children.size()) {
 			int pos = found.size();
-			std::for_each(children.begin(), children.end(), [](FileList &x) {
+			std::for_each(children.begin(), children.end(), [&pos](FileList &x) {
 				if (x.parent_folder == 0) x.parent_folder = pos;
 			});
 			found.insert(found.end(), children.begin(), children.end());
@@ -68,6 +68,7 @@ bool ListFiles (Files::Request &req, Files::Response &res)
     }
 
 	ROS_INFO("Folder: %s", folder.c_str());
+	res.base_path = folder.substr(0, folder.rfind('/'));
 	get_files_recursively(bfs::path(folder), extension, res.files);
 
     return res.files.size() > 0;

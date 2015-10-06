@@ -1,3 +1,3 @@
 string[] filenames
 string folder
-uint8 children
+uint8 parent_folder
