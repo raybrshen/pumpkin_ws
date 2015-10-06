@@ -31,7 +31,7 @@ namespace pumpkin_gui {
 
 	class FolderModel : public Gtk::TreeModelColumnRecord {
 	public:
-		FolderModel() {add(id), add(name); }
+		FolderModel() {add(id); add(name); }
 		Gtk::TreeModelColumn<int> id;
 		Gtk::TreeModelColumn<Glib::ustring> name;
 	};
@@ -51,6 +51,7 @@ namespace pumpkin_gui {
 
 		virtual ~PlaybackRecordWindow();
 
+		void setFileService(ros::NodeHandle &nh);
 	protected:
 		//Signals
 		void onStartPlayback();

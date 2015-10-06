@@ -139,10 +139,11 @@ public:
 
 int main (int argc, char *argv[]) {
 
-	ros::init(argc, argv, "playback_server");
+	ros::init(argc, argv, "playback_action");
+	ros::start();
 
 	ros::Rate loop(1000);
-	while (!ros::param::has("/pumpkin/config")) {
+	while (!ros::param::has("/pumpkin/config") && ros::ok()) {
 		loop.sleep();
 	}
 
@@ -178,5 +179,6 @@ int main (int argc, char *argv[]) {
 		loop.sleep();
 	}
 
+	ros::shutdown();
 	return 0;
 }

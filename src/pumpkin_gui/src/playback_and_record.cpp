@@ -12,6 +12,7 @@ using namespace pumpkin_gui;
 
 int main(int argc, char *argv[]) {
 	ros::init(argc, argv, "playback_and_record");
+	ros::NodeHandle nh;
 	std::string pumpkin_folder;
 	char * env = getenv("PUMPKIN_PATH");
 
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
 	pumpkin_folder += "_gui/glade/main.glade";
 
 	auto app = Gtk::Application::create(argc, argv, "playback_record.pumpkin.ros");
-	PlaybackRecordWindow *window;
+	PlaybackRecordWindow *window = 0;
 
 	auto builder = Gtk::Builder::create();
 	try {
@@ -39,6 +40,8 @@ int main(int argc, char *argv[]) {
 	builder->get_widget_derived("playback_record_window", window);
 
 	ROS_INFO("Window builded");
+
+	window->setFileService(nh);
 
 	if (window)
 		int status = app->run(*window);
