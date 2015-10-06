@@ -1,0 +1,4 @@
+uint8 none
+---
+string[] terminals
+string[] descriptions

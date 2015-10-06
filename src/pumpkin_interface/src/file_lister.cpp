@@ -11,6 +11,7 @@ std::string pumpkin_path;
 
 void get_files_recursively(const bfs::path &dir, const std::string &ext, std::vector<FileList> &found) {
 	FileList files;
+	std::vector<FileList> children;
 	if (!bfs::exists(dir))
 		return;
 	if (!bfs::is_directory(dir))
@@ -18,19 +19,27 @@ void get_files_recursively(const bfs::path &dir, const std::string &ext, std::ve
 	bfs::directory_iterator end_it;
 	for (bfs::directory_iterator it(dir); it != end_it; ++it) {
 		if (bfs::is_directory(it->path())) {
-			get_files_recursively(it->path(), ext, found);
+			get_files_recursively(it->path(), ext, children);
 		} else {
 			const std::string filename = it->path().leaf().string();
 			//ROS_INFO("Filename: %s", filename.c_str());
 			if (filename.size() > ext.size())
-				if (filename.compare(filename.size() - ext.size(), ext.size(), ext) == 0)
+				if (filename.compare(filename.size() - ext.size(), ext.size(), ext) == 0) {
 					files.filenames.push_back(filename);
-
+				}
 		}
 	}
 	if (files.filenames.size() > 0) {
-		files.folder = dir.string();
+		files.folder = dir.leaf().string();
+		files.parent_folder = 0;
 		found.emplace_back(std::move(files));
+		if (children.size()) {
+			int pos = found.size();
+			std::for_each(children.begin(), children.end(), [](FileList &x) {
+				if (x.parent_folder == 0) x.parent_folder = pos;
+			});
+			found.insert(found.end(), children.begin(), children.end());
+		}
 	}
 }
 
