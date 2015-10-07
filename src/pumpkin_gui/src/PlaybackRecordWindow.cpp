@@ -44,7 +44,7 @@ PlaybackRecordWindow::PlaybackRecordWindow(BaseObjectType *c_wrap,
 
 	//Link signals
 	_folder_tree->signal_row_activated().connect(sigc::mem_fun(*this, &PlaybackRecordWindow::onSelectFolder));
-	_file_tree->signal_row_activated().connect(sigc::mem_fun(*this, &PlaybackRecordWindow::onSelectFolder));
+	_file_tree->signal_row_activated().connect(sigc::mem_fun(*this, &PlaybackRecordWindow::onSelectFile));
 	_play_button->signal_clicked().connect(sigc::mem_fun(*this, &PlaybackRecordWindow::onStartPlayback));
 	_stop_play_button->signal_clicked().connect(sigc::mem_fun(*this, &PlaybackRecordWindow::onStopPlayback));
 }
@@ -76,7 +76,9 @@ void PlaybackRecordWindow::onSelectFile(const Gtk::TreeModel::Path &path, Gtk::T
 	_filename = _base_folder + "/";
 	std::vector<Glib::ustring> path_tree;
 	path_tree.push_back(it->get_value(_folder_model.name));
-	while (auto parent_it = it->parent()) {
+	Gtk::TreeIter parent_it;
+	while (it) {
+		parent_it = it->parent();
 		path_tree.push_back(parent_it->get_value(_folder_model.name));
 		it = parent_it;
 	}
@@ -92,9 +94,9 @@ void PlaybackRecordWindow::onStartPlayback() {
 		return;
 	pumpkin_messages::PlaybackGoal goal;
 	goal.filename = _filename;
-	_playback_client.sendGoal(goal, boost::bind(&PlaybackRecordWindow::playbackDoneCallback, _1, _2),
-	                          boost::bind(&PlaybackRecordWindow::playbackActiveCallback),
-	                          boost::bind(&PlaybackRecordWindow::playbackFeedbackCallback, _1));
+	_playback_client.sendGoal(goal, boost::bind(&PlaybackRecordWindow::playbackDoneCallback, this, _1, _2),
+	                          boost::bind(&PlaybackRecordWindow::playbackActiveCallback, this),
+	                          boost::bind(&PlaybackRecordWindow::playbackFeedbackCallback, this, _1));
 }
 
 void PlaybackRecordWindow::onStopPlayback() {
