@@ -15,7 +15,12 @@ int main(int argc, char *argv[]) {
 
 	ros::param::get("/pumpkin/_config_file", config_file);
 
-	YAML::Node config_load = YAML::LoadFile(config_file);
+	YAML::Node config_load;
+	try {
+		config_load = YAML::LoadFile(config_file);
+	} catch (YAML::BadFile &ex) {
+		ROS_FATAL("Error loading file: %s", ex.what());
+	}
 	ROS_INFO("Opening config file: %s", config_file.c_str());
 	XmlRpc::XmlRpcValue config_save;
 	//Iterates for group part

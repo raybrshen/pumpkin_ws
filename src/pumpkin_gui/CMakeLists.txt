@@ -135,11 +135,11 @@ include_directories(
 
 ## Declare a cpp executable
 # add_executable(pumpkin_gui_node src/pumpkin_gui_node.cpp)
-add_executable(robot_interface
-  src/robot_interface.cpp
-  src/RobotGUI.cpp
+add_executable(gui_load_config
+  src/gui_load_config.cpp
+#  src/RobotGUI.cpp
 # include/RobotGUI.h
-  src/MoveBlock.cpp
+#  src/MoveBlock.cpp
   src/LoadConfig.cpp
 # include/MoveBlock.h
 )
@@ -157,7 +157,7 @@ add_executable(playback_and_record
 # target_link_libraries(pumpkin_gui_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(robot_interface ${catkin_LIBRARIES} ${GTKMM_LIBRARIES})
+target_link_libraries(gui_load_config ${catkin_LIBRARIES} ${GTKMM_LIBRARIES})
 target_link_libraries(playback_and_record ${catkin_LIBRARIES} ${GTKMM_LIBRARIES})
 
 #############

@@ -173,6 +173,7 @@ int main (int argc, char *argv[]) {
 	// Initialize ROS.
 	ros::init(argc, argv, "setup_ssc");
 	ros::param::param<std::string>("~port", port, "/dev/ttyUSB");
+	ros::NodeHandle service_handle, topic_handle;
 
 	if (argc > 1) {
 		if (!std::string(argv[1]).compare("debug")) {
@@ -187,8 +188,14 @@ int main (int argc, char *argv[]) {
 
 	ROS_INFO("Looking for ssc on ports of type: %s", port.c_str());
 	if (!setupSSC()) {
-		ROS_INFO("SSC not found! Check your connections and try again.");
+		ROS_FATAL("SSC not found! Check your connections and try again.");
 		return -1;
+	}
+
+	ros::Rate loop(1000);
+	while(!ros::param::has("/pumpkin/config")) {
+		loop.sleep();
+		ROS_WARN("Cannot find robot configuration. Please run \"load_config\".");
 	}
 
 	XmlRpc::XmlRpcValue config;
@@ -207,8 +214,6 @@ int main (int argc, char *argv[]) {
 		}
 	}
 
-	ros::NodeHandle service_handle, topic_handle;
-
 	ros::CallbackQueue service_queue, topic_queue;
 
 	service_handle.setCallbackQueue(&service_queue);
@@ -219,7 +224,7 @@ int main (int argc, char *argv[]) {
 
 	double rate;
 	ros::param::get("/pumpkin/config/ros_rate", rate);
-	ros::Rate loop(rate);
+	loop = ros::Rate(rate);
 
 	while (ros::ok()) {
 

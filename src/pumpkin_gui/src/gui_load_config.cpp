@@ -15,27 +15,30 @@
 
 int main (int argc, char *argv[]) {
 
-	ros::init(argc, argv, "robot_interface");
+	ros::init(argc, argv, "gui_load_config");
 	ros::NodeHandle nh;
 
 	auto main_app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
 	LoadConfig load;
 
-	int status;
+	int status = 0;
 
-	if (!ros::param::has("/pumpkin/config/ssc")){
+	if (!ros::param::has("/pumpkin/config/ssc")) {
 
 		auto load_app = Gtk::Application::create(argc, argv, "robot_interface.pumpkin.ros");
 
 		ros::ServiceClient config_client = nh.serviceClient<pumpkin_messages::Files>("file_lister");
 		pumpkin_messages::Files msg;
+		config_client.waitForExistence();
 		msg.request.type = (uint8_t)1;
 		if (!config_client.call(msg)) {
 			ROS_ERROR("Cannot get configuration files list");
 			return -1;
 		}
 
-		std::string path(msg.response.files[0].folder), filename;
+		std::string path(msg.response.base_path), filename;
+		path += "/";
+		path += msg.response.files[0].folder;
 
 		load.link_file_string(&filename);
 		load.fill_combobox(msg.response.files[0].filenames);
@@ -52,14 +55,17 @@ int main (int argc, char *argv[]) {
 		if (!filename.empty()) {
 			ros::param::set("/pumpkin/_config_file", path + "/" + filename);
 
-			ros::Rate r(1000);
+			/*ros::Rate r(1000);
 			while (!ros::param::has("/pumpkin/config"))
-				r.sleep();
+				r.sleep();*/
 		} else {
 			ROS_FATAL("Error on opening configuration file.");
 		}
 	}
 
+	return status;
+
+	/*
 	ros::ServiceClient client = nh.serviceClient<pumpkin_messages::SSCMoveCommand>("move_ssc");
 
 	if (!client.isValid()) {
@@ -73,5 +79,5 @@ int main (int argc, char *argv[]) {
 
 	status = main_app->run(gui);
 
-	return status;
+	return status;*/
 }

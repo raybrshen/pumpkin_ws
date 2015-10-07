@@ -56,6 +56,7 @@ void PlaybackRecordWindow::onSelectFolder(const Gtk::TreeModel::Path &path, Gtk:
 	ROS_INFO("%s", path.to_string().c_str());
 	Gtk::TreeModel::iterator it = _folder_store->get_iter(path);
 	if (it) {
+		_file_tree->unset_model();
 		_file_tree->set_model(_file_store_vector[(*it)[_folder_model.id]]);
 		auto it_c = it->children();
 		ROS_INFO("%s", it_c.begin()->get_value(_folder_model.name).c_str());
@@ -68,7 +69,7 @@ void PlaybackRecordWindow::onSelectFile(const Gtk::TreeModel::Path &path, Gtk::T
 		_filename = "";
 		return;
 	}
-	auto it = _file_store_vector[folder_it->get_value(_folder_model.id)]->get_iter(path);
+	auto it = column->get_tree_view()->get_model()->get_iter(path);
 	if (!it) {
 		_filename = "";
 		return;

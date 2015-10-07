@@ -80,13 +80,14 @@ int main (int argc, char** argv)
     ros::init(argc, argv, "file_lister");
     ros::NodeHandle n;
 
-	char * env;
+	char * env = getenv("PUMPKIN_PATH");
 
-	if ((env = getenv("PUMPKIN_PATH")) == nullptr) {
-		ROS_FATAL("Cannot find pumpkin path inside environment variables.");
+	if (env != nullptr) {
+		pumpkin_path = env;
+	} else if (!ros::param::get("~pumpkin_path", pumpkin_path)) {
+		ROS_FATAL("Could not get PUMPKIN_PATH.");
+		return -1;
 	}
-
-	pumpkin_path = env;
 
     ros::ServiceServer files = n.advertiseService("file_lister", ListFiles);
     ROS_INFO("Ready.");
