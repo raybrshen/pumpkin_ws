@@ -64,6 +64,8 @@ namespace pumpkin_gui {
 
 		void onSelectFolder(const Gtk::TreeModel::Path &path, Gtk::TreeViewColumn* column);
 
+		void onSelectFile(const Gtk::TreeModel::Path &path, Gtk::TreeViewColumn* column);
+
 		//Action server callbacks
 		void playbackDoneCallback(const actionlib::SimpleClientGoalState &state,
 		                          const pumpkin_messages::PlaybackResultConstPtr &result);
@@ -99,6 +101,7 @@ namespace pumpkin_gui {
 		ros::ServiceClient _file_client;
 		ros::NodeHandle _nh;
 		Glib::ustring _base_folder;
+		Glib::ustring _filename;
 		Glib::RefPtr<Gtk::Builder> _builder;
 
 		//Other methods
