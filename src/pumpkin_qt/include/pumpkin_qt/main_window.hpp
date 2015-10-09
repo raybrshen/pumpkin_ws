@@ -57,6 +57,7 @@ public Q_SLOTS:
 private:
 	Ui::MainWindowDesign ui;
 	QNode qnode;
+    QString file;
 };
 
 }  // namespace pumpkin_qt

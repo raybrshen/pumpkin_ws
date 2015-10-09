@@ -33,15 +33,18 @@ class PlaybackActionServer {
 	PlaybackResult _result;
 
 public:
-	PlaybackActionServer() : _server(_nh, "publisher_action", false), _aux_vec(32) {
+    PlaybackActionServer() : _server(_nh, "playback_action", false), _aux_vec(32) {
 		_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
 
 		_pub = _nh.advertise<SSCMoveList>("move_ssc_topic", 32);
+
+        _server.start();
 	}
 
 	~PlaybackActionServer() {
 		_pub.publish(SSCMoveList());
+        _server.shutdown();
 	}
 
 	void onGoal() {
@@ -55,19 +58,24 @@ public:
 		try {
 			_movement = std::move(YAML::LoadAllFromFile(filename));
 		} catch (YAML::BadFile) {
-			_result.state = static_cast<uint8_t>(IOState::ErrorOpening);
+            _result.state = static_cast<uint8_t>(IOState::BadFile);
 			_server.setAborted(_result);
+            ROS_FATAL("ERROR OPENING FILE");
 		}
 
 		_percentage_step = (double)100/_movement.size();
 		_step_it = std::begin(_movement);
 		_end_it = std::end(_movement);
+
+        ROS_INFO("New Goal!");
 	}
 
 	void onPreempt() {
 		_pub.publish(SSCMoveList());
 		_result.state = static_cast<uint8_t>(IOState::OK);
 		_server.setAborted(_result);
+        //TODO reconfigure robot shutdown after end of scene
+        _pub.publish(SSCMoveList());
 	}
 
 	void step() {
@@ -78,13 +86,19 @@ public:
 			_result.state = static_cast<uint8_t>(IOState::BadFile);
 			_server.setAborted(_result);
 			_step_it = _end_it;
+            //TODO reconfigure robot shutdown after end of scene
+            _pub.publish(SSCMoveList());
 			return;
 		} else if ((*_step_it)["an_read"].IsNull()) {
 			_result.state = static_cast<uint8_t>(IOState::BadFile);
 			_server.setAborted(_result);
 			_step_it = _end_it;
+            //TODO reconfigure robot shutdown after end of scene
+            _pub.publish(SSCMoveList());
 			return;
 		}
+
+        ROS_INFO("New step.");
 
 		std::vector<uint16_t> reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
 
@@ -93,9 +107,10 @@ public:
 			SSCMove move;
 			const auxiliar_calibration &aux = _aux_vec[i];
 			move.channel = aux.ssc_pin;
-			if (aux.arduino_max - aux.arduino_min <= 0)
+            if (aux.arduino_max - aux.arduino_min <= 0) {
+                ROS_WARN("Arduino calibration error");
 				continue;
-			else {
+            } else {
 				move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
 				                              / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
 				if (move.pulse > aux.ssc_max) {
@@ -114,6 +129,8 @@ public:
 
 		if (command.list.size())
 			_pub.publish(command);
+        else
+            ROS_WARN("Outbound error!");
 
 		_feedback.percentage += _percentage_step;
 		_server.publishFeedback(_feedback);
@@ -121,11 +138,13 @@ public:
 		if (_step_it == _end_it) {
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
+            //TODO reconfigure robot shutdown after end of scene
+            _pub.publish(SSCMoveList());
 		}
 
 	}
 
-	void calibrate (int arduino_pin, int arduino_max, int arduino_min, int ssc_min, int ssc_max, int ssc_pin) {
+    void calibrate (int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin) {
 		_aux_vec[arduino_pin] = std::move(auxiliar_calibration {
 				arduino_min,
 		        arduino_max,
@@ -175,6 +194,7 @@ int main (int argc, char *argv[]) {
 	loop = ros::Rate(ros_rate);
 
 	while (ros::ok()) {
+        ros::spinOnce();
 		server.step();
 		loop.sleep();
 	}

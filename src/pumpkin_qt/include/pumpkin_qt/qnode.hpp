@@ -40,7 +40,7 @@ namespace pumpkin_qt {
 class QNode : public QThread {
     Q_OBJECT
 public:
-	QNode(int argc, char** argv );
+    QNode(int argc, char** argv, QString *filename);
 	virtual ~QNode();
 	bool init();
 
@@ -48,26 +48,32 @@ public:
 
 Q_SIGNALS:
     void filesReady(QString base_path, std::vector<pumpkin_messages::FileList> file_list);
-    void playbackFeedback(double percentage);
+    void playbackPercentage(int percentage);
     void playbackFinished(int state);
     void recordMinuteFeedback(int minutes);
     void recordSecondFeedback(int seconds);
     void recordFinished(int state);
+    void lockTab(bool lock);
     void rosShutdown();
 
 public Q_SLOTS:
     void callFiles();
-    void playbackFile(QString file_name);
-    void recordFile(QString file_name);
+    void playbackFile();
+    void playbackStop();
+    void recordFile();
+    void recordStop();
 
 private:
 	int init_argc;
 	char** init_argv;
     ros::ServiceClient _file_client;
-    actionlib::SimpleActionClient<pumpkin_messages::PlaybackAction> _playback_client;
-    actionlib::SimpleActionClient<pumpkin_messages::RecordAction> _record_client;
+    QString *_filename_ref;
+    actionlib::SimpleActionClient<pumpkin_messages::PlaybackAction> *_playback_client;
+    actionlib::SimpleActionClient<pumpkin_messages::RecordAction> *_record_client;
 
-    void playbackGoalCallback();
+    void playbackDoneCallback(const actionlib::SimpleClientGoalState &goal, const pumpkin_messages::PlaybackResultConstPtr &result);
+    void playbackActiveCallback();
+    void playbackFeedbackCallback(const pumpkin_messages::PlaybackFeedbackConstPtr &feedback);
 };
 
 }  // namespace pumpkin_qt

@@ -22,8 +22,18 @@ endif()
 ##############################################################################
 
 # qt_build provides the qt cmake glue, roscpp the comms for a default talker
-find_package(catkin REQUIRED COMPONENTS qt_build roscpp)
-include_directories(${catkin_INCLUDE_DIRS})
+find_package(catkin REQUIRED COMPONENTS
+ qt_build
+ roscpp
+ pumpkin_messages
+ pumpkin
+ pumpkin_interface
+ actionlib_msgs
+ actionlib
+ std_msgs
+)
+find_package(Boost REQUIRED COMPONENTS system thread)
+include_directories(${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 # Use this to define what the package will export (e.g. libs, headers).
 # Since the default here is to produce only a binary, we don't worry about
 # exporting anything. 
@@ -62,6 +72,7 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 ##############################################################################
 
 add_executable(pumpkin_qt ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
+add_dependencies(pumpkin_qt ${catkin_EXPORTED_TARGETS})
 target_link_libraries(pumpkin_qt ${QT_LIBRARIES} ${catkin_LIBRARIES})
 install(TARGETS pumpkin_qt RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 

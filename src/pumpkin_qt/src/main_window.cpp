@@ -26,7 +26,7 @@ using namespace Qt;
 
 MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 	: QMainWindow(parent)
-	, qnode(argc,argv)
+    , qnode(argc,argv, &file)
 {
 	ui.setupUi(this); // Calling this incidentally connects all ui's triggers to on_...() callbacks in this class.
     QObject::connect(ui.actionAbout_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt())); // qApp is a global variable for the application
@@ -46,7 +46,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     ** Auto Start
     **********************/
     if ( ui.checkbox_remember_settings->isChecked() ) {
-        on_button_connect_clicked(true);
+        //on_button_connect_clicked(true);
     }
 }
 
