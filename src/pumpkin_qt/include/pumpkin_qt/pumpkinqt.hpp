@@ -3,6 +3,8 @@
 
 #include "ui_pumpkinqt.h"
 #include "qnode.hpp"
+#include "playbackactionclient.hpp"
+#include "recordactionclient.hpp"
 
 #include <QMainWindow>
 #include <QStringListModel>
@@ -42,7 +44,7 @@ class FolderModel : public QAbstractItemModel {
 private:
     FolderItem *_root;
 public:
-    FolderModel(const FolderListType & folders, QObject *parent = nullptr);
+	explicit FolderModel(const FolderListType & folders, QObject *parent = nullptr);
     ~FolderModel();
     QVariant data(const QModelIndex &index, int role) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -63,20 +65,26 @@ public:
     void resizeEvent(QResizeEvent *event);
 
 Q_SIGNALS:
-    void changePlaybackFileName(const QString & str);
-    void changeRecordFileName(const QString & str);
+	void changePlaybackFilename(const QString & str);
+	void changeRecordFilename(const QString & str);
 
 public Q_SLOTS:
     void fillTable(const QString& base_path, const std::vector<pumpkin_messages::FileList>& file_list);
     void folderSelected(const QModelIndex &index);
     void fileSelected(const QModelIndex &index);
+	void runPlayback();
+	void runRecord();
+	void changeFilename(const QString& filename);
+	void actionFinished(int state);
 
 private:
-    Ui::PumpkinQTDesign ui;
-    QNode node;
-    QString _base_path, _relative_path, _filename;
+	Ui::PumpkinQTDesign _ui;
+	QNode _node;
+	QString _base_path, _relative_path, _filename;
     QList<QStringListModel *> _model_list;
     FolderModel *_folder_model;
+	PlaybackActionClient _playback;
+	RecordActionClient _record;
 };
 
 }

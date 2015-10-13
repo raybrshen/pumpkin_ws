@@ -27,6 +27,7 @@ class RecordActionServer {
 	unsigned int _count;
 	ros::Time _start;
 	double _max_time;
+	bool _first_move;
 	pumpkin_messages::RecordFeedback _feedback;
 	pumpkin_messages::RecordResult _result;
 
@@ -62,17 +63,26 @@ public:
 			_result.state = static_cast<uint8_t>(IOState::ErrorOpening);
 			_server.setAborted(_result);
 		}
+		_first_move = true;
+		ROS_INFO("Starting recording...");
 	}
 
 	void onPreempt() {
-		_file << "---\n";
+		//_file << "---" << std::endl;
 		_file.close();
 		_server.setPreempted();
+		ROS_WARN("Preempted file.");
 	}
 
 	void onRead(const pumpkin_messages::analog_arrayConstPtr& msg) {
 		if (!_server.isActive())
 			return;
+
+		if (!_first_move) {
+			_file << "---" << std::endl;
+		} else {
+			_first_move = false;
+		}
 
 		_node["header"]["seq"] = msg->header.seq;
 		_node["header"]["stamp"]["secs"] = msg->header.stamp.sec;
@@ -94,6 +104,7 @@ public:
 			_result.state = static_cast<uint8_t>(_file.eof() ? IOState::EndOfFile : IOState::BadFile);
 			_server.setAborted(_result);
 			_file.close();
+			ROS_ERROR("File error");
 			return;
 		}
 
@@ -104,10 +115,9 @@ public:
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
 			_file.close();
+			ROS_INFO("Record successfull.");
 			return;
 		}
-
-		_file << "---\n";
 	}
 };
 
@@ -133,11 +143,13 @@ void analogReadCallback(const pumpkin_messages::analog_arrayConstPtr& msg) {
 int main(int argc, char** argv) {
 
 	ros::init(argc, argv, "recorder");
-	ros::Time::init();
+	ros::start();
 
-	RecordActionServer server();
+	RecordActionServer server;
 
 	ros::spin();
+
+	ros::shutdown();
 
 	return 0;
 }
