@@ -1,0 +1,3 @@
+<launch>
+	<node name="load_config" pkg="pumpkin" type="load_config" args="$(find pumpkin)/config/pumpkin_config_calib-WORKING.yaml" />
+</launch>

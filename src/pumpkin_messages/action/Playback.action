@@ -1,0 +1,9 @@
+#Goal
+string filename
+---
+#Result
+uint8 state
+---
+#Feedback
+float64 percentage
+

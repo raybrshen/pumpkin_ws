@@ -1,0 +1,1811 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="Project" targetName="std_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="rosserial_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="_pumpkin_interface_generate_messages_check_deps_SSCMove" />
+      <config projectName="Project" targetName="pumpkin_messages_genlisp" />
+      <config projectName="Project" targetName="rosserial_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="pumpkin_interface_generate_messages_py" />
+      <config projectName="Project" targetName="std_msgs_generate_messages_cpp" />
+      <config projectName="Project" targetName="tf_generate_messages_cpp" />
+      <config projectName="Project" targetName="std_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_analog_array" />
+      <config projectName="Project" targetName="tf_generate_messages_lisp" />
+      <config projectName="Project" targetName="playback_moveit" />
+      <config projectName="Project" targetName="tf2_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="tf2_msgs_generate_messages_cpp" />
+      <config projectName="Project" targetName="run_tests" />
+      <config projectName="Project" targetName="download_extra_data" />
+      <config projectName="Project" targetName="_pumpkin_interface_generate_messages_check_deps_Serials" />
+      <config projectName="Project" targetName="setup_arduino" />
+      <config projectName="Project" targetName="pumpkin_messages_gencpp" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_Files" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackGoal" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackAction" />
+      <config projectName="Project" targetName="setup_ssc" />
+      <config projectName="Project" targetName="playback_action" />
+      <config projectName="Project" targetName="tests" />
+      <config projectName="Project" targetName="rosgraph_msgs_generate_messages_cpp" />
+      <config projectName="Project" targetName="pumpkin_interface_generate_messages_cpp" />
+      <config projectName="Project" targetName="roscpp_generate_messages_lisp" />
+      <config projectName="Project" targetName="gtest_main" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackResult" />
+      <config projectName="Project" targetName="load_config" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordGoal" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_SSCMove" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordFeedback" />
+      <config projectName="Project" targetName="tf2_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="roscpp_generate_messages_py" />
+      <config projectName="Project" targetName="recorder" />
+      <config projectName="Project" targetName="rosserial_msgs_generate_messages_cpp" />
+      <config projectName="Project" targetName="analog_read_gencpp" />
+      <config projectName="Project" targetName="topic_tools_generate_messages_lisp" />
+      <config projectName="Project" targetName="tf_generate_messages_py" />
+      <config projectName="Project" targetName="pumpkin_messages_generate_messages_cpp" />
+      <config projectName="Project" targetName="pumpkin_trajectory_exec" />
+      <config projectName="Project" targetName="analog_read_genlisp" />
+      <config projectName="Project" targetName="clean_test_results" />
+      <config projectName="Project" targetName="pumpkin_interface_genlisp" />
+      <config projectName="Project" targetName="gtest" />
+      <config projectName="Project" targetName="actionlib_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackActionGoal" />
+      <config projectName="Project" targetName="roscpp_generate_messages_cpp" />
+      <config projectName="Project" targetName="pumpkin_messages_generate_messages_lisp" />
+      <config projectName="Project" targetName="rosgraph_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="playback2" />
+      <config projectName="Project" targetName="analog_read_generate_messages_cpp" />
+      <config projectName="Project" targetName="_pumpkin_interface_generate_messages_check_deps_SSCMoveCommand" />
+      <config projectName="Project" targetName="mosfet_status_publisher" />
+      <config projectName="Project" targetName="pumpkin_messages_generate_messages" />
+      <config projectName="Project" targetName="actionlib_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="_pumpkin_interface_generate_messages_check_deps_SSCMoveList" />
+      <config projectName="Project" targetName="playback_joint_states" />
+      <config projectName="Project" targetName="pumpkin_interface_generate_messages" />
+      <config projectName="Project" targetName="analog_read_generate_messages_py" />
+      <config projectName="Project" targetName="actionlib_generate_messages_py" />
+      <config projectName="Project" targetName="playback_and_record" />
+      <config projectName="Project" targetName="actionlib_generate_messages_cpp" />
+      <config projectName="Project" targetName="_analog_read_generate_messages_check_deps_analog_array" />
+      <config projectName="Project" targetName="rosgraph_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="sensor_reads" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_SSCMoveCommand" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordResult" />
+      <config projectName="Project" targetName="file_lister" />
+      <config projectName="Project" targetName="pumpkin_interface_genpy" />
+      <config projectName="Project" targetName="sensor_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="doxygen" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordActionFeedback" />
+      <config projectName="Project" targetName="analog_read_genpy" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordActionResult" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackActionFeedback" />
+      <config projectName="Project" targetName="sensor_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="robot_interface" />
+      <config projectName="Project" targetName="calibrate" />
+      <config projectName="Project" targetName="pumpkin_messages_generate_messages_py" />
+      <config projectName="Project" targetName="analog_read_generate_messages_lisp" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackFeedback" />
+      <config projectName="Project" targetName="sensor_msgs_generate_messages_cpp" />
+      <config projectName="Project" targetName="_analog_read_generate_messages_check_deps_analog_fields" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_PlaybackActionResult" />
+      <config projectName="Project" targetName="_catkin_empty_exported_target" />
+      <config projectName="Project" targetName="pumpkin_qt" />
+      <config projectName="Project" targetName="state_publisher" />
+      <config projectName="Project" targetName="arduino_to_rviz" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_Serials" />
+      <config projectName="Project" targetName="gui_load_config" />
+      <config projectName="Project" targetName="pumpkin_messages_genpy" />
+      <config projectName="Project" targetName="geometry_msgs_generate_messages_lisp" />
+      <config projectName="Project" targetName="topic_tools_generate_messages_cpp" />
+      <config projectName="Project" targetName="pumpkin_interface_generate_messages_lisp" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_SSCMoveList" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_FileList" />
+      <config projectName="Project" targetName="actionlib_generate_messages_lisp" />
+      <config projectName="Project" targetName="topic_tools_generate_messages_py" />
+      <config projectName="Project" targetName="_pumpkin_interface_generate_messages_check_deps_Files" />
+      <config projectName="Project" targetName="pumpkin_messages" />
+      <config projectName="Project" targetName="actionlib_msgs_generate_messages_cpp" />
+      <config projectName="Project" targetName="playback" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordAction" />
+      <config projectName="Project" targetName="analog_read_generate_messages" />
+      <config projectName="Project" targetName="geometry_msgs_generate_messages_py" />
+      <config projectName="Project" targetName="pumpkin_interface_gencpp" />
+      <config projectName="Project" targetName="_pumpkin_messages_generate_messages_check_deps_RecordActionGoal" />
+      <config projectName="Project" targetName="geometry_msgs_generate_messages_cpp" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
+    <ADDITIONAL_GENERATION_ENVIRONMENT>
+      <envs />
+    </ADDITIONAL_GENERATION_ENVIRONMENT>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="11fe2ebc-224d-42c3-89b0-5fa97936eb05" name="Default" comment="Starting QT">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin_qt/src/playbackactionclient.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/playbackactionclient.hpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin_qt/src/recordactionclient.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/recordactionclient.hpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin_qt/ui/src/sscmodewindow.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin_qt/ui/include/pumpkin_qt/sscmodewindow.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/main_window.hpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pumpkin_qt/src/main_window.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pumpkin_qt/ui/main_window.ui" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/src/pumpkinqt.cpp" afterPath="$PROJECT_DIR$/pumpkin_qt/src/pumpkinqt.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/pumpkinqt.hpp" afterPath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/pumpkinqt.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/ui/pumpkinqt.ui" afterPath="$PROJECT_DIR$/pumpkin_qt/ui/pumpkinqt.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/src/qnode.cpp" afterPath="$PROJECT_DIR$/pumpkin_qt/src/qnode.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/qnode.hpp" afterPath="$PROJECT_DIR$/pumpkin_qt/include/pumpkin_qt/qnode.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin/src/recorder.cpp" afterPath="$PROJECT_DIR$/pumpkin/src/recorder.cpp" />
+    </list>
+    <ignored path="src.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="src" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="PlaybackRecordWindow.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/PlaybackRecordWindow.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+              <folding>
+                <element signature="e#46#79#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin_gui/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pumpkin_qt/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.46313363">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin_qt/package.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="112" column="11" selection-start-line="112" selection-start-column="11" selection-end-line="112" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gui_load_config.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/gui_load_config.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="38" column="59" selection-start-line="38" selection-start-column="59" selection-end-line="38" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlaybackRecordWindow.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin_gui/include/PlaybackRecordWindow.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+              <folding>
+                <element signature="e#125#150#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="liststore.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/include/gtkmm-3.0/gtkmm/liststore.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="load_config.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pumpkin/src/load_config.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Rafael Paiva &lt;08.paiva@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="list_files" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/pumpkin_gui/include/robot_interface.h" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/simple_arm_move.cpp" />
+        <option value="$PROJECT_DIR$/analog_read/package.xml" />
+        <option value="$PROJECT_DIR$/analog_read/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/pumpkin_interface/manifest.xml" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/package.xml" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/include/MoveBlock.h" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/MoveBlock.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_interface/src/file_listener_sample.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/sensor_reads.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/state_publisher.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/arduino_2_rviz.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/playback.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_messages/src/pumpkin_messages.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_messages/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/pumpkin_interface/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/include/LoadConfig.h" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/LoadConfig.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/pumpkin_messages/include/file_type.h" />
+        <option value="$PROJECT_DIR$/pumpkin/src/playback2.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/include/RobotGUI.h" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/RobotGUI.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/robot_interface.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/recorder.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/playback_action.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/pumpkin_interface/src/file_lister.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/playback_and_record.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_interface/src/ssc.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin/src/load_config.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/gui_load_config.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/include/PlaybackRecordWindow.h" />
+        <option value="$PROJECT_DIR$/pumpkin_gui/src/PlaybackRecordWindow.cpp" />
+        <option value="$PROJECT_DIR$/pumpkin_qt/package.xml" />
+        <option value="$PROJECT_DIR$/pumpkin_qt/CMakeLists.txt" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1215" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pumpkin_qt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pumpkin_qt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pumpkin_qt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pumpkin_qt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pumpkin_qt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pumpkin_qt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="71" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="89" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="95" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="930" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="71" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="89" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="95" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="930" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pumpkin_gui/include" />
+      <recent name="$PROJECT_DIR$/pumpkin_gui/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Build All">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="clean_test_results" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="clean_test_results" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="clean_test_results" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="download_extra_data" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="download_extra_data" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="doxygen" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="doxygen" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="run_tests" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="run_tests" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tests" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tests" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_analog_read_generate_messages_check_deps_analog_array" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_analog_read_generate_messages_check_deps_analog_array" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_analog_read_generate_messages_check_deps_analog_fields" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_analog_read_generate_messages_check_deps_analog_fields" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_gencpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_gencpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_generate_messages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_generate_messages" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_genlisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_genlisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="analog_read_genpy" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="analog_read_genpy" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="std_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="std_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="std_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="std_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="std_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="std_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="actionlib_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="actionlib_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="actionlib_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="actionlib_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="actionlib_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="actionlib_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="actionlib_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="actionlib_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="actionlib_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="actionlib_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="actionlib_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="actionlib_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="arduino_to_rviz" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="arduino_to_rviz" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="arduino_to_rviz">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="calibrate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="calibrate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="calibrate">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="geometry_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="geometry_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="geometry_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="geometry_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="geometry_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="geometry_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="load_config" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="load_config" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="load_config">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="mosfet_status_publisher" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="mosfet_status_publisher" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="mosfet_status_publisher">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="playback" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="playback" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="playback">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="playback_joint_states" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="playback_joint_states" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="playback_joint_states">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="playback_moveit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="playback_moveit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="playback_moveit">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_trajectory_exec" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_trajectory_exec" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="pumpkin_trajectory_exec">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="recorder" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="recorder" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="recorder">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="roscpp_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="roscpp_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="roscpp_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="roscpp_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="roscpp_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="roscpp_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="rosgraph_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="rosgraph_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="rosgraph_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="rosgraph_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="rosgraph_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="rosgraph_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="sensor_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="sensor_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="sensor_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="sensor_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="sensor_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="sensor_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="sensor_reads" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="sensor_reads" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="sensor_reads">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="state_publisher" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="state_publisher" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="state_publisher">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tf2_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tf2_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tf2_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tf2_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tf2_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tf2_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tf_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tf_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tf_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tf_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="tf_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="tf_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_catkin_empty_exported_target" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_catkin_empty_exported_target" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_interface_generate_messages_check_deps_Files" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_interface_generate_messages_check_deps_Files" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_interface_generate_messages_check_deps_Serials" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_interface_generate_messages_check_deps_Serials" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_interface_generate_messages_check_deps_SSCMove" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_interface_generate_messages_check_deps_SSCMove" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_interface_generate_messages_check_deps_SSCMoveCommand" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_interface_generate_messages_check_deps_SSCMoveCommand" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_gencpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_gencpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_generate_messages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_generate_messages" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_genlisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_genlisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_interface_genpy" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_interface_genpy" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="rosserial_msgs_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="rosserial_msgs_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="rosserial_msgs_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="rosserial_msgs_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="rosserial_msgs_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="rosserial_msgs_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="setup_arduino" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="setup_arduino" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="setup_arduino">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="setup_ssc" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="setup_ssc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="setup_ssc">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="topic_tools_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="topic_tools_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="topic_tools_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="topic_tools_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="topic_tools_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="topic_tools_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="gtest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="gtest" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="gtest_main" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="robot_interface" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="robot_interface" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="robot_interface">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_interface_generate_messages_check_deps_SSCMoveList" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_interface_generate_messages_check_deps_SSCMoveList" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="playback2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="playback2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="playback2">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_analog_array" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_analog_array" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_Files" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_Files" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_Serials" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_Serials" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_SSCMove" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_SSCMove" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_SSCMoveCommand" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_SSCMoveCommand" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_SSCMoveList" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_SSCMoveList" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_gencpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_gencpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_generate_messages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_generate_messages" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_generate_messages_cpp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_generate_messages_lisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_generate_messages_lisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_generate_messages_py" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_generate_messages_py" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_genlisp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_genlisp" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages_genpy" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages_genpy" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_FileList" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_FileList" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_messages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_messages" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="file_lister" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="file_lister" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="file_lister">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordAction" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordAction" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordActionFeedback" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordActionFeedback" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordActionGoal" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordActionGoal" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordActionResult" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordActionResult" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordFeedback" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordFeedback" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordGoal" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordGoal" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_RecordResult" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_RecordResult" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackAction" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackAction" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackActionFeedback" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackActionFeedback" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackActionGoal" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackActionGoal" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackActionResult" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackActionResult" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackFeedback" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackFeedback" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackGoal" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackGoal" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="_pumpkin_messages_generate_messages_check_deps_PlaybackResult" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="_pumpkin_messages_generate_messages_check_deps_PlaybackResult" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="playback_action" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="playback_action" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="playback_action">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="playback_and_record" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="playback_and_record" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="playback_and_record">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="gui_load_config" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="gui_load_config" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="gui_load_config">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="pumpkin_qt" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project" TARGET_NAME="pumpkin_qt" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="pumpkin_qt">
+      <envs />
+      <method />
+    </configuration>
+    <list size="112">
+      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="1" class="java.lang.String" itemvalue="Application.clean_test_results" />
+      <item index="2" class="java.lang.String" itemvalue="Application.download_extra_data" />
+      <item index="3" class="java.lang.String" itemvalue="Application.doxygen" />
+      <item index="4" class="java.lang.String" itemvalue="Application.run_tests" />
+      <item index="5" class="java.lang.String" itemvalue="Application.tests" />
+      <item index="6" class="java.lang.String" itemvalue="Application._analog_read_generate_messages_check_deps_analog_array" />
+      <item index="7" class="java.lang.String" itemvalue="Application._analog_read_generate_messages_check_deps_analog_fields" />
+      <item index="8" class="java.lang.String" itemvalue="Application.analog_read_gencpp" />
+      <item index="9" class="java.lang.String" itemvalue="Application.analog_read_generate_messages" />
+      <item index="10" class="java.lang.String" itemvalue="Application.analog_read_generate_messages_cpp" />
+      <item index="11" class="java.lang.String" itemvalue="Application.analog_read_generate_messages_lisp" />
+      <item index="12" class="java.lang.String" itemvalue="Application.analog_read_generate_messages_py" />
+      <item index="13" class="java.lang.String" itemvalue="Application.analog_read_genlisp" />
+      <item index="14" class="java.lang.String" itemvalue="Application.analog_read_genpy" />
+      <item index="15" class="java.lang.String" itemvalue="Application.std_msgs_generate_messages_cpp" />
+      <item index="16" class="java.lang.String" itemvalue="Application.std_msgs_generate_messages_lisp" />
+      <item index="17" class="java.lang.String" itemvalue="Application.std_msgs_generate_messages_py" />
+      <item index="18" class="java.lang.String" itemvalue="Application.actionlib_generate_messages_cpp" />
+      <item index="19" class="java.lang.String" itemvalue="Application.actionlib_generate_messages_lisp" />
+      <item index="20" class="java.lang.String" itemvalue="Application.actionlib_generate_messages_py" />
+      <item index="21" class="java.lang.String" itemvalue="Application.actionlib_msgs_generate_messages_cpp" />
+      <item index="22" class="java.lang.String" itemvalue="Application.actionlib_msgs_generate_messages_lisp" />
+      <item index="23" class="java.lang.String" itemvalue="Application.actionlib_msgs_generate_messages_py" />
+      <item index="24" class="java.lang.String" itemvalue="Application.arduino_to_rviz" />
+      <item index="25" class="java.lang.String" itemvalue="Application.calibrate" />
+      <item index="26" class="java.lang.String" itemvalue="Application.geometry_msgs_generate_messages_cpp" />
+      <item index="27" class="java.lang.String" itemvalue="Application.geometry_msgs_generate_messages_lisp" />
+      <item index="28" class="java.lang.String" itemvalue="Application.geometry_msgs_generate_messages_py" />
+      <item index="29" class="java.lang.String" itemvalue="Application.load_config" />
+      <item index="30" class="java.lang.String" itemvalue="Application.mosfet_status_publisher" />
+      <item index="31" class="java.lang.String" itemvalue="Application.playback" />
+      <item index="32" class="java.lang.String" itemvalue="Application.playback_joint_states" />
+      <item index="33" class="java.lang.String" itemvalue="Application.playback_moveit" />
+      <item index="34" class="java.lang.String" itemvalue="Application.pumpkin_trajectory_exec" />
+      <item index="35" class="java.lang.String" itemvalue="Application.recorder" />
+      <item index="36" class="java.lang.String" itemvalue="Application.roscpp_generate_messages_cpp" />
+      <item index="37" class="java.lang.String" itemvalue="Application.roscpp_generate_messages_lisp" />
+      <item index="38" class="java.lang.String" itemvalue="Application.roscpp_generate_messages_py" />
+      <item index="39" class="java.lang.String" itemvalue="Application.rosgraph_msgs_generate_messages_cpp" />
+      <item index="40" class="java.lang.String" itemvalue="Application.rosgraph_msgs_generate_messages_lisp" />
+      <item index="41" class="java.lang.String" itemvalue="Application.rosgraph_msgs_generate_messages_py" />
+      <item index="42" class="java.lang.String" itemvalue="Application.sensor_msgs_generate_messages_cpp" />
+      <item index="43" class="java.lang.String" itemvalue="Application.sensor_msgs_generate_messages_lisp" />
+      <item index="44" class="java.lang.String" itemvalue="Application.sensor_msgs_generate_messages_py" />
+      <item index="45" class="java.lang.String" itemvalue="Application.sensor_reads" />
+      <item index="46" class="java.lang.String" itemvalue="Application.state_publisher" />
+      <item index="47" class="java.lang.String" itemvalue="Application.tf2_msgs_generate_messages_cpp" />
+      <item index="48" class="java.lang.String" itemvalue="Application.tf2_msgs_generate_messages_lisp" />
+      <item index="49" class="java.lang.String" itemvalue="Application.tf2_msgs_generate_messages_py" />
+      <item index="50" class="java.lang.String" itemvalue="Application.tf_generate_messages_cpp" />
+      <item index="51" class="java.lang.String" itemvalue="Application.tf_generate_messages_lisp" />
+      <item index="52" class="java.lang.String" itemvalue="Application.tf_generate_messages_py" />
+      <item index="53" class="java.lang.String" itemvalue="Application._catkin_empty_exported_target" />
+      <item index="54" class="java.lang.String" itemvalue="Application._pumpkin_interface_generate_messages_check_deps_Files" />
+      <item index="55" class="java.lang.String" itemvalue="Application._pumpkin_interface_generate_messages_check_deps_Serials" />
+      <item index="56" class="java.lang.String" itemvalue="Application._pumpkin_interface_generate_messages_check_deps_SSCMove" />
+      <item index="57" class="java.lang.String" itemvalue="Application._pumpkin_interface_generate_messages_check_deps_SSCMoveCommand" />
+      <item index="58" class="java.lang.String" itemvalue="Application.pumpkin_interface_gencpp" />
+      <item index="59" class="java.lang.String" itemvalue="Application.pumpkin_interface_generate_messages" />
+      <item index="60" class="java.lang.String" itemvalue="Application.pumpkin_interface_generate_messages_cpp" />
+      <item index="61" class="java.lang.String" itemvalue="Application.pumpkin_interface_generate_messages_lisp" />
+      <item index="62" class="java.lang.String" itemvalue="Application.pumpkin_interface_generate_messages_py" />
+      <item index="63" class="java.lang.String" itemvalue="Application.pumpkin_interface_genlisp" />
+      <item index="64" class="java.lang.String" itemvalue="Application.pumpkin_interface_genpy" />
+      <item index="65" class="java.lang.String" itemvalue="Application.rosserial_msgs_generate_messages_cpp" />
+      <item index="66" class="java.lang.String" itemvalue="Application.rosserial_msgs_generate_messages_lisp" />
+      <item index="67" class="java.lang.String" itemvalue="Application.rosserial_msgs_generate_messages_py" />
+      <item index="68" class="java.lang.String" itemvalue="Application.setup_arduino" />
+      <item index="69" class="java.lang.String" itemvalue="Application.setup_ssc" />
+      <item index="70" class="java.lang.String" itemvalue="Application.topic_tools_generate_messages_cpp" />
+      <item index="71" class="java.lang.String" itemvalue="Application.topic_tools_generate_messages_lisp" />
+      <item index="72" class="java.lang.String" itemvalue="Application.topic_tools_generate_messages_py" />
+      <item index="73" class="java.lang.String" itemvalue="Application.gtest" />
+      <item index="74" class="java.lang.String" itemvalue="Application.gtest_main" />
+      <item index="75" class="java.lang.String" itemvalue="Application.robot_interface" />
+      <item index="76" class="java.lang.String" itemvalue="Application._pumpkin_interface_generate_messages_check_deps_SSCMoveList" />
+      <item index="77" class="java.lang.String" itemvalue="Application.playback2" />
+      <item index="78" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_analog_array" />
+      <item index="79" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_Files" />
+      <item index="80" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_Serials" />
+      <item index="81" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_SSCMove" />
+      <item index="82" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_SSCMoveCommand" />
+      <item index="83" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_SSCMoveList" />
+      <item index="84" class="java.lang.String" itemvalue="Application.pumpkin_messages_gencpp" />
+      <item index="85" class="java.lang.String" itemvalue="Application.pumpkin_messages_generate_messages" />
+      <item index="86" class="java.lang.String" itemvalue="Application.pumpkin_messages_generate_messages_cpp" />
+      <item index="87" class="java.lang.String" itemvalue="Application.pumpkin_messages_generate_messages_lisp" />
+      <item index="88" class="java.lang.String" itemvalue="Application.pumpkin_messages_generate_messages_py" />
+      <item index="89" class="java.lang.String" itemvalue="Application.pumpkin_messages_genlisp" />
+      <item index="90" class="java.lang.String" itemvalue="Application.pumpkin_messages_genpy" />
+      <item index="91" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_FileList" />
+      <item index="92" class="java.lang.String" itemvalue="Application.pumpkin_messages" />
+      <item index="93" class="java.lang.String" itemvalue="Application.file_lister" />
+      <item index="94" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordAction" />
+      <item index="95" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordActionFeedback" />
+      <item index="96" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordActionGoal" />
+      <item index="97" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordActionResult" />
+      <item index="98" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordFeedback" />
+      <item index="99" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordGoal" />
+      <item index="100" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_RecordResult" />
+      <item index="101" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackAction" />
+      <item index="102" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackActionFeedback" />
+      <item index="103" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackActionGoal" />
+      <item index="104" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackActionResult" />
+      <item index="105" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackFeedback" />
+      <item index="106" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackGoal" />
+      <item index="107" class="java.lang.String" itemvalue="Application._pumpkin_messages_generate_messages_check_deps_PlaybackResult" />
+      <item index="108" class="java.lang.String" itemvalue="Application.playback_action" />
+      <item index="109" class="java.lang.String" itemvalue="Application.playback_and_record" />
+      <item index="110" class="java.lang.String" itemvalue="Application.gui_load_config" />
+      <item index="111" class="java.lang.String" itemvalue="Application.pumpkin_qt" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="11fe2ebc-224d-42c3-89b0-5fa97936eb05" name="Default" comment="" />
+      <created>1442505667421</created>
+      <option name="number" value="Default" />
+      <updated>1442505667421</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Modified filter.">
+      <created>1442525362135</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1442525362135</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Modified filter. Again.">
+      <created>1442526012149</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1442526012149</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Started to make robot gui.">
+      <created>1442599535285</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1442599535285</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Building the GUI (incomplete yet).">
+      <created>1442609827284</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1442609827284</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Building the GUI (incomplete yet).">
+      <created>1442612521568</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1442612521568</updated>
+    </task>
+    <task id="LOCAL-00006" summary="GUI almost build. Only lasts fixing up the bugs.">
+      <created>1442857970871</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1442857970871</updated>
+    </task>
+    <task id="LOCAL-00007" summary="GUI almost build. Only lasts fixing up the bugs.">
+      <created>1442861236085</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1442861236085</updated>
+    </task>
+    <task id="LOCAL-00008" summary="GUI almost build.&#10;">
+      <created>1442869309699</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1442869309699</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Just rearrange interface.&#10;">
+      <created>1442871817369</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1442871817369</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Changed the range widget to an spin widget.&#10;Can get a better precision setting the values.">
+      <created>1442938848680</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1442938848680</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Tecnically, finished this part.&#10;Made some adjustments in &quot;ssc&quot; and &quot;arduito_2_rviz&quot; files/">
+      <created>1442944581966</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1442944581966</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Changed serial class for the ros.">
+      <created>1442958618876</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1442958618876</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Changed serial class for the ros.">
+      <created>1442958685441</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1442958685441</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Changed serial class for the ros.&#10;Fixed CMakeLists">
+      <created>1442958793940</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1442958793940</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Changed serial class for the ros serial version.&#10;Fixed a bit.">
+      <created>1442959131213</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1442959131213</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Changed setup_ssc module.&#10;Still a bit of fix to do.">
+      <created>1443044614294</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1443044614294</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Terminated SSC node to receive services and topics.&#10;Sorry for the big changes, but I have to move the messages to a diferent package (due to a possible ciclic package dependencies), so... now, all the messages and services definitions are on the package &quot;pumpkin_messages&quot;.">
+      <created>1443125813353</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1443125813353</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Finished playback2 node. This node publish to &quot;ssc_move&quot; topic, to the node setup_ssc send them to ssc. It lasts some testing ;P">
+      <created>1443131614998</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1443131614998</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed a bug on setup_ssc and playback2.">
+      <created>1443467200075</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1443467200075</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Start modifing &quot;file_lister&quot; node to make it more powerful.">
+      <created>1443477254697</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1443477254697</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Start modifing &quot;file_lister&quot; node to make it more powerful.">
+      <created>1443541102301</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1443541102301</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Start modifing &quot;file_lister&quot; node to make it more powerful.">
+      <created>1443541355451</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1443541355451</updated>
+    </task>
+    <task id="LOCAL-00023" summary="It seems that file_type node is complete.">
+      <created>1443541436129</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1443541436129</updated>
+    </task>
+    <task id="LOCAL-00024" summary="file_type is working.">
+      <created>1443544242550</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1443544242550</updated>
+    </task>
+    <task id="LOCAL-00025" summary="file_type is working.">
+      <created>1443552526490</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1443552526490</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Great commit.&#10;Changed load_config to wait for a param saying the config_file (that parameter should be anonymous).&#10;After that, changed the gui to show a previous window to load the config, in case the config is not already loaded.">
+      <created>1443559020835</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1443559020835</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Just a bit of bugs on the robot_intergafe gui.">
+      <created>1443562341826</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1443562341826</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Gui node still with probems. (maybe i separate into two nodes).&#10;Started working in recorder node. Using a new feature: action server (that feature will be incorporated into playback2).">
+      <created>1443647209185</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1443647209185</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Modifing playback node to use Action Server.&#10;Still not modified GUI part.">
+      <created>1443720401134</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1443720401134</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Changed a bit in the GUI.">
+      <created>1443817435307</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1443817435307</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Changed a bit in the GUI.">
+      <created>1443822995501</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1443822995501</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Modifing the GUI. And adding some files that weren't tracked.">
+      <created>1444074465289</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1444074465289</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Creating the Playback and Record GUI.">
+      <created>1444079534910</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1444079534910</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Trying to get a tree from a list">
+      <created>1444158981054</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1444158981054</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Got some bugs here.">
+      <created>1444165837223</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1444165837223</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Files show up, but hierarchy isnot achieved">
+      <created>1444173632882</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1444173632882</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Action server not accepting boost bind.">
+      <created>1444176607845</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1444176607845</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Action server not accepting boost bind.">
+      <created>1444177187085</created>
+      <option name="number" value="00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1444177187085</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Problem in getting file list.">
+      <created>1444254789771</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1444254789771</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Starting QT">
+      <created>1444341976705</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1444341976705</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="24" width="1215" height="1000" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2452675" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30528587" sideWeight="0.49382716" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18554477" sideWeight="0.5325103" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2394822" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19093852" sideWeight="0.46748972" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Tecnically, finished this part.&#10;Made some adjustments in &quot;ssc&quot; and &quot;arduito_2_rviz&quot; files/" />
+    <MESSAGE value="Changed serial class for the ros." />
+    <MESSAGE value="Changed serial class for the ros.&#10;Fixed CMakeLists" />
+    <MESSAGE value="Changed serial class for the ros serial version.&#10;Fixed a bit." />
+    <MESSAGE value="Changed setup_ssc module.&#10;Still a bit of fix to do." />
+    <MESSAGE value="Terminated SSC node to receive services and topics.&#10;Sorry for the big changes, but I have to move the messages to a diferent package (due to a possible ciclic package dependencies), so... now, all the messages and services definitions are on the package &quot;pumpkin_messages&quot;." />
+    <MESSAGE value="Finished playback2 node. This node publish to &quot;ssc_move&quot; topic, to the node setup_ssc send them to ssc. It lasts some testing ;P" />
+    <MESSAGE value="Fixed a bug on setup_ssc and playback2." />
+    <MESSAGE value="Start modifing &quot;file_lister&quot; node to make it more powerful." />
+    <MESSAGE value="It seems that file_type node is complete." />
+    <MESSAGE value="file_type is working." />
+    <MESSAGE value="Great commit.&#10;Changed load_config to wait for a param saying the config_file (that parameter should be anonymous).&#10;After that, changed the gui to show a previous window to load the config, in case the config is not already loaded." />
+    <MESSAGE value="Just a bit of bugs on the robot_intergafe gui." />
+    <MESSAGE value="Gui node still with probems. (maybe i separate into two nodes).&#10;Started working in recorder node. Using a new feature: action server (that feature will be incorporated into playback2)." />
+    <MESSAGE value="Modifing playback node to use Action Server.&#10;Still not modified GUI part." />
+    <MESSAGE value="Finished action server version of recorder and playback." />
+    <MESSAGE value="Changed a bit in the GUI." />
+    <MESSAGE value="Modifing the GUI. And adding some files that weren't tracked." />
+    <MESSAGE value="Creating the Playback and Record GUI." />
+    <MESSAGE value="Trying to get a tree from a list" />
+    <MESSAGE value="Got some bugs here." />
+    <MESSAGE value="Files show up, but hierarchy isnot achieved" />
+    <MESSAGE value="Action server not accepting boost bind." />
+    <MESSAGE value="Problem in getting file list." />
+    <MESSAGE value="Starting QT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting QT" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="9" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/include/RobotGUI.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/glibmm-2.4/glibmm/refptr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6827586">
+          <caret line="124" column="5" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/include/PlaybackRecordWindow.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#125#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/applicationwindow.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48494983">
+          <caret line="89" column="23" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.8/bits/ios_base.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.98550725">
+          <caret line="371" column="39" selection-start-line="371" selection-start-column="39" selection-end-line="371" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/yaml-cpp/node/parse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33444816">
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/application.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.13377926">
+          <caret line="339" column="19" selection-start-line="339" selection-start-column="19" selection-end-line="339" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/window.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53400224">
+          <caret line="227" column="31" selection-start-line="227" selection-start-column="31" selection-end-line="227" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/glibmm-2.4/glibmm/object.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.483835">
+          <caret line="95" column="12" selection-start-line="95" selection-start-column="12" selection-end-line="95" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/devel/include/pumpkin_messages/FilesResponse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.8/type_traits">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35310346">
+          <caret line="1780" column="30" selection-start-line="1780" selection-start-column="30" selection-end-line="1780" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/devel/include/pumpkin_messages/Files.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/devel/include/pumpkin_messages/FileList.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3324138">
+          <caret line="38" column="298" selection-start-line="38" selection-start-column="298" selection-end-line="38" selection-end-column="298" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/LoadConfig.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28965518">
+          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5075862">
+          <caret line="86" column="19" selection-start-line="86" selection-start-column="19" selection-end-line="86" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/glibmm-2.4/glibmm/exception.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/glibmm-2.4/glibmm.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4606897">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/ros/param.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.7255173">
+          <caret line="171" column="17" selection-start-line="171" selection-start-column="17" selection-end-line="171" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin/src/calibrate.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/builder.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="344" column="7" selection-start-line="344" selection-start-column="7" selection-end-line="344" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin/src/recorder.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="58" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/ros/init.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="82" column="17" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/ros/node_handle.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43706778">
+          <caret line="1231" column="30" selection-start-line="1231" selection-start-column="30" selection-end-line="1231" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin/src/playback_action.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_messages/include/file_type.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1875">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.8/bits/stl_stack.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5208333">
+          <caret line="80" column="53" selection-start-line="80" selection-start-column="53" selection-end-line="80" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.8/bits/stl_pair.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6458333">
+          <caret line="95" column="11" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.8/tuple">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="522" column="10" selection-start-line="522" selection-start-column="10" selection-end-line="522" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/treeiter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.041666668">
+          <caret line="129" column="6" selection-start-line="129" selection-start-column="6" selection-end-line="129" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/actionlib/client/simple_client_goal_state.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.75">
+          <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/actionlib/client/simple_action_client.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.8/bits/basic_string.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6008919">
+          <caret line="455" column="9" selection-start-line="455" selection-start-column="9" selection-end-line="455" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_interface/src/arduino.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/XmlRpcValue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41694537">
+          <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/RobotGUI.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/MoveBlock.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_interface/src/file_lister.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="18" selection-start-line="88" selection-start-column="18" selection-end-line="88" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/include/ros/service_client.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="149" column="7" selection-start-line="149" selection-start-column="7" selection-end-line="149" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/playback_and_record.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="53" selection-start-line="41" selection-start-column="53" selection-end-line="41" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_interface/src/ssc.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="187" column="0" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin/src/load_config.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/treemodel.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="271" column="58" selection-start-line="271" selection-start-column="58" selection-end-line="271" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/gtkmm-3.0/gtkmm/liststore.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/include/PlaybackRecordWindow.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding>
+            <element signature="e#125#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/gui_load_config.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="59" selection-start-line="38" selection-start-column="59" selection-end-line="38" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/src/PlaybackRecordWindow.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+          <folding>
+            <element signature="e#46#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="11" selection-start-line="112" selection-start-column="11" selection-end-line="112" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_gui/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_qt/package.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pumpkin_qt/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46313363">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

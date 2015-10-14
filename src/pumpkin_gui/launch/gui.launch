@@ -1,0 +1,5 @@
+<launch>
+	<param name="~pumpkin_path" value="$(find pumpkin)"/>
+	<node name="playback_and_record" pkg="pumpkin_gui" type="playback_and_record"/>
+	<node name="gui_load_config" pkg="pumpkin_gui" type="gui_load_config"/>
+</launch>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/analog_read/catkin_generated/analog_read-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/analog_read/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/analog_read/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/arduino_2_rviz.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/calibrate.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/load_config.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/mosfet_status_publisher.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback_action.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback_joint_states.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback_moveit.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/pumpkin_trajectory_exec.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/recorder.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/sensor_reads.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/state_publisher.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_gui/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_gui/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_gui/src/LoadConfig.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_gui/src/PlaybackRecordWindow.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_gui/src/gui_load_config.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_gui/src/playback_and_record.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_interface/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_interface/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_interface/src/arduino.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_interface/src/file_lister.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_interface/src/ssc.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/action/Playback.action" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/action/Record.action" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_moveit/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_moveit/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/resources/images.qrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/playbackactionclient.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/pumpkinqt.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/qnode.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/recordactionclient.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/ui/pumpkinqt.ui" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/em/order_packages.cmake.em">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/em/order_packages.cmake.em" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/em/pkg.pc.em">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/em/pkg.pc.em" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/interrogate_setup_dot_py.py">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/interrogate_setup_dot_py.py" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/_setup_util.py.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/_setup_util.py.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/env.sh.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/env.sh.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/generate_cached_setup.py.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/generate_cached_setup.py.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/order_packages.context.py.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/order_packages.context.py.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/pkg.context.pc.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/pkg.context.pc.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/pkgConfig-version.cmake.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/pkgConfig-version.cmake.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/pkgConfig.cmake.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/pkgConfig.cmake.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/rosinstall.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/rosinstall.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/setup.bash.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/setup.bash.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/setup.sh.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/setup.sh.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/cmake/templates/setup.zsh.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/templates/setup.zsh.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/catkin/package.xml">
+      <sourceFolder url="file:///opt/ros/indigo/share/catkin/package.xml" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-genmsg.cmake.em">
+      <sourceFolder url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-genmsg.cmake.em" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-genmsg.context.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-genmsg.context.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-msg-extras.cmake.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-msg-extras.cmake.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-msg-paths.cmake.develspace.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-msg-paths.cmake.develspace.in" isTestSource="false" />
+    </content>
+    <content url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-msg-paths.cmake.installspace.in">
+      <sourceFolder url="file:///opt/ros/indigo/share/genmsg/cmake/pkg-msg-paths.cmake.installspace.in" isTestSource="false" />
+    </content>
+    <content url="file:///usr/src/gtest">
+      <sourceFolder url="file:///usr/src/gtest/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file:///usr/src/gtest/cmake/internal_utils.cmake" isTestSource="false" />
+      <sourceFolder url="file:///usr/src/gtest/src/gtest-all.cc" isTestSource="false" />
+      <sourceFolder url="file:///usr/src/gtest/src/gtest_main.cc" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/pumpkin_qt" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/pumpkin_qt" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/pumpkin_qt" />
+          <root url="file://$MODULE_DIR$/../devel/include" />
+          <root url="file://$MODULE_DIR$/pumpkin_gui/include" />
+          <root url="file://$MODULE_DIR$/pumpkin_interface/include" />
+          <root url="file://$MODULE_DIR$/pumpkin_messages/include" />
+          <root url="file:///opt/ros/indigo/include" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/cairomm-1.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/gdkmm-3.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/giomm-2.4/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/glib-2.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/glibmm-2.4/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/gtkmm-3.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/pangomm-1.4/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/sigc++-2.0/include" />
+          <root url="file:///usr/local/include" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/pumpkin_qt" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/RelWithDebInfo/pumpkin_qt" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/devel/include" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Release/pumpkin_qt" />
+          <root url="file://$MODULE_DIR$/../devel/include" />
+          <root url="file://$MODULE_DIR$/pumpkin_gui/include" />
+          <root url="file://$MODULE_DIR$/pumpkin_interface/include" />
+          <root url="file://$MODULE_DIR$/pumpkin_messages/include" />
+          <root url="file:///opt/ros/indigo/include" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/cairomm-1.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/gdkmm-3.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/giomm-2.4/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/glib-2.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/glibmm-2.4/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/gtkmm-3.0/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/pangomm-1.4/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/sigc++-2.0/include" />
+          <root url="file:///usr/local/include" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

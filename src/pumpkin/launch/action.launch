@@ -1,0 +1,4 @@
+<launch>
+	<node name="playback_action" pkg="pumpkin" type="playback_action" />
+	<node name="recorder" pkg="pumpkin" type="recorder" />
+</launch>
