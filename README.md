@@ -13,6 +13,8 @@ To build run:
 
     catkin_make
     
-You need to run `catkin_make` twice because analog\_array package has self references.
+You need to run `catkin_make` twice because analog\_array and pumpking_messages packages have self references.
 
 To configure your IDE there are some instruction (here)[http://wiki.ros.org/IDEs].
+
+We are working in a full Wiki for our modified version of this robot (here)[wiki/Home]
