@@ -1,0 +1,2 @@
+set(pumpkin_messages_MESSAGE_FILES "msg/analog_array.msg;msg/SSCMove.msg;msg/SSCMoveList.msg;msg/FileList.msg;msg/RecordAction.msg;msg/RecordActionGoal.msg;msg/RecordActionResult.msg;msg/RecordActionFeedback.msg;msg/RecordGoal.msg;msg/RecordResult.msg;msg/RecordFeedback.msg;msg/PlaybackAction.msg;msg/PlaybackActionGoal.msg;msg/PlaybackActionResult.msg;msg/PlaybackActionFeedback.msg;msg/PlaybackGoal.msg;msg/PlaybackResult.msg;msg/PlaybackFeedback.msg")
+set(pumpkin_messages_SERVICE_FILES "srv/Files.srv;srv/Serials.srv;srv/SSCMoveCommand.srv")

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "pumpkin_gui")
+set(pumpkin_gui_MAINTAINER "rafaelpaiva <rafaelpaiva@todo.todo>")
+set(pumpkin_gui_DEPRECATED "")
+set(pumpkin_gui_VERSION "0.0.0")
+set(pumpkin_gui_BUILD_DEPENDS "pumpkin" "roscpp" "rospy" "std_msgs" "actionlib" "actionlib_msgs")
+set(pumpkin_gui_RUN_DEPENDS "pumpkin" "roscpp" "rospy" "std_msgs" "actionlib" "actionlib_msgs")
+set(pumpkin_gui_BUILDTOOL_DEPENDS "catkin")

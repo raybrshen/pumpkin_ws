@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Pumpkin Playback And Record</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/images.qrc">
+    <normaloff>:/images/task-8x.png</normaloff>:/images/task-8x.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -30,6 +34,9 @@
     </item>
     <item row="0" column="1">
      <widget class="QListView" name="fileView">
+      <property name="statusTip">
+       <string>Select a files</string>
+      </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
@@ -221,7 +228,7 @@
     <property name="title">
      <string>Command</string>
     </property>
-    <addaction name="actionSend_commands_to_SSC"/>
+    <addaction name="actionSSC"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -237,7 +244,7 @@
     <bool>false</bool>
    </property>
   </widget>
-  <action name="actionSend_commands_to_SSC">
+  <action name="actionSSC">
    <property name="text">
     <string>Send commands to SSC</string>
    </property>

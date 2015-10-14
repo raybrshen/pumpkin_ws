@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: pumpkin_qt
+Description: Description of pumpkin_qt
+Version: 0.1.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: 

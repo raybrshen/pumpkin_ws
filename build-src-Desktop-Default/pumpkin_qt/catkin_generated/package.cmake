@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "pumpkin_qt")
+set(pumpkin_qt_MAINTAINER "Rafael Paiva <08.paiva@gmail.com>")
+set(pumpkin_qt_DEPRECATED "")
+set(pumpkin_qt_VERSION "0.1.0")
+set(pumpkin_qt_BUILD_DEPENDS "qt_build" "roscpp" "libqt4-dev" "pumpkin_messages" "pumpkin" "pumpkin_interface" "actionlib_msgs" "actionlib" "std_msgs")
+set(pumpkin_qt_RUN_DEPENDS "qt_build" "roscpp" "libqt4-dev" "pumpkin_messages" "pumpkin" "pumpkin_interface" "actionlib_msgs" "actionlib" "std_msgs")
+set(pumpkin_qt_BUILDTOOL_DEPENDS "catkin")

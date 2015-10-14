@@ -6,7 +6,7 @@ namespace pumpkin_qt {
 using namespace Qt;
 
 PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
-	QMainWindow(parent), _node(argc, argv, this), _playback(this), _record(this)
+	QMainWindow(parent), _node(argc, argv, this), _playback(this), _record(this), _config_dialog(new LoadConfig(this))
 {
 	_ui.setupUi(this);
     _folder_model = nullptr;
@@ -57,6 +57,7 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 
 	_node.init();
 
+	_node.callConfigFiles();
 	_node.callFiles();
 }
 
@@ -64,6 +65,7 @@ PumpkinQT::~PumpkinQT()
 {
     qDeleteAll(_model_list);
 	delete _folder_model;
+	delete _config_dialog;
 }
 
 void PumpkinQT::resizeEvent(QResizeEvent *event)

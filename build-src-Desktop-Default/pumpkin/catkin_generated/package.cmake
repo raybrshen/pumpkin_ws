@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "pumpkin")
+set(pumpkin_MAINTAINER "Thiago Eustakio <thiagoeustakio@gmail.com>")
+set(pumpkin_DEPRECATED "")
+set(pumpkin_VERSION "0.0.0")
+set(pumpkin_BUILD_DEPENDS "roscpp" "rospy" "sensor_msgs" "std_msgs" "tf" "roslib" "analog_read" "actionlib" "actionlib_msgs")
+set(pumpkin_RUN_DEPENDS "roscpp" "rospy" "sensor_msgs" "std_msgs" "tf" "analog_read" "roslib" "actionlib" "actionlib_msgs")
+set(pumpkin_BUILDTOOL_DEPENDS "catkin")

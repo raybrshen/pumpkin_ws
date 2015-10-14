@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: pumpkin_interface
+Description: Description of pumpkin_interface
+Version: 0.0.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: 
