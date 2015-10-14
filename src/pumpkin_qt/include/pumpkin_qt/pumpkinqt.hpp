@@ -5,6 +5,7 @@
 #include "qnode.hpp"
 #include "playbackactionclient.hpp"
 #include "recordactionclient.hpp"
+#include "loadconfig.hpp"
 
 #include <QMainWindow>
 #include <QStringListModel>
@@ -85,6 +86,7 @@ private:
     FolderModel *_folder_model;
 	PlaybackActionClient _playback;
 	RecordActionClient _record;
+	LoadConfig *_config_dialog;
 };
 
 }

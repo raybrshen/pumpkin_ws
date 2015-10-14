@@ -44,12 +44,14 @@ public:
     void run();
 
 Q_SIGNALS:
-    void filesReady(QString base_path, std::vector<pumpkin_messages::FileList> file_list);
+	void filesReady(const QString &base_path, const std::vector<pumpkin_messages::FileList> &file_list);
+	void configFilesReady(const QString &base_path, const std::vector<std::string> &msg);
 	void sendStatusMessage(const QString &msg, int timeout);
     void rosShutdown();
 
 public Q_SLOTS:
     void callFiles();
+	void callConfigFiles();
 
 private:
 	int init_argc;

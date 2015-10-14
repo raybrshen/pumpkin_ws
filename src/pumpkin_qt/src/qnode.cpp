@@ -49,6 +49,9 @@ bool QNode::init() {
 	ros::NodeHandle n;
 	// Add your ros communications here.
     _file_client = n.serviceClient<pumpkin_messages::Files>("file_lister");
+	ROS_INFO("Waiting for \"file_lister\" ros server.");
+	_file_client.waitForExistence();
+	ROS_INFO("Server \"file_lister\" found.");
 	start();
 	return true;
 }
@@ -72,11 +75,24 @@ void QNode::callFiles() {
     msg.request.type = static_cast<uint8_t>(pumpkin_messages::FileType::PlaybackFile);
     if (!_file_client.call(msg)) {
 		ROS_FATAL("Could not load the files directory");
-        Q_EMIT rosShutdown();
-		return;
+		this->terminate();	//kill the thread
+		return;				//for security reasons
     }
 	ROS_INFO("Paths loaded");
-    Q_EMIT filesReady(QString::fromStdString(msg.response.base_path), std::move(msg.response.files));
+	Q_EMIT filesReady(QString::fromStdString(msg.response.base_path), std::move(msg.response.files));
+}
+
+void QNode::callConfigFiles()
+{
+	pumpkin_messages::Files msg;
+	msg.request.type = static_cast<uint8_t>(pumpkin_messages::FileType::ConfigFile);
+	if (!_file_client.call(msg)) {
+		ROS_FATAL("Could not load the files directory");
+		this->terminate();	//kill the thread
+		return;				//for security reasons
+	}
+	ROS_INFO("Config file list loaded.");
+	Q_EMIT(configFilesReady(QString::fromStdString(msg.response.base_path + "/" + msg.response.files[0].folder), msg.response.files[0].filenames));
 }
 
 }  // namespace pumpkin_qt

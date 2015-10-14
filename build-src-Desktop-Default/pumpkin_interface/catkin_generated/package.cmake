@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "pumpkin_interface")
+set(pumpkin_interface_MAINTAINER "labrob <labrob@todo.todo>")
+set(pumpkin_interface_DEPRECATED "")
+set(pumpkin_interface_VERSION "0.0.0")
+set(pumpkin_interface_BUILD_DEPENDS "message_generation" "pumpkin" "pumpkin_description" "pumpkin_moveit" "roscpp" "rospy" "std_msgs")
+set(pumpkin_interface_RUN_DEPENDS "message_runtime" "pumpkin" "pumpkin_description" "pumpkin_moveit" "roscpp" "rospy" "std_msgs")
+set(pumpkin_interface_BUILDTOOL_DEPENDS "catkin")
