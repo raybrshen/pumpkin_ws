@@ -17,4 +17,4 @@ You need to run `catkin_make` twice because analog\_array and pumpking_messages 
 
 To configure your IDE there are some instruction (here)[http://wiki.ros.org/IDEs].
 
-We are working in a full Wiki for our modified version of this robot (here)[wiki/Home]
+We are working in a full Wiki for our modified version of this robot (here)[https://bitbucket.org/bioinroboticsuottawa/pumpkin_ws/wiki/Home]
