@@ -1,0 +1,5 @@
+string folder
+string filename
+uint8 service
+---
+uint8 result
