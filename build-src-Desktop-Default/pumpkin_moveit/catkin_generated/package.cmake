@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "pumpkin_moveit")
-set(pumpkin_moveit_MAINTAINER "MoveIt Setup Assistant <assistant@moveit.ros.org>")
-set(pumpkin_moveit_DEPRECATED "")
-set(pumpkin_moveit_VERSION "0.2.0")
-set(pumpkin_moveit_BUILD_DEPENDS "pumpkin_description")
-set(pumpkin_moveit_RUN_DEPENDS "moveit_ros_move_group" "moveit_planners_ompl" "moveit_ros_visualization" "joint_state_publisher" "robot_state_publisher" "xacro" "pumpkin_description")
-set(pumpkin_moveit_BUILDTOOL_DEPENDS "catkin")

@@ -6,6 +6,7 @@
 #include "playbackactionclient.hpp"
 #include "recordactionclient.hpp"
 #include "loadconfig.hpp"
+#include "sscmovecommand.hpp"
 
 #include <QMainWindow>
 #include <QStringListModel>
@@ -77,6 +78,8 @@ public Q_SLOTS:
 	void runRecord();
 	void changeFilename(const QString& filename);
 	void actionFinished(int state);
+	void showSSCMoveDialog();
+	void showAboutDialog();
 
 private:
 	Ui::PumpkinQTDesign _ui;
@@ -87,6 +90,7 @@ private:
 	PlaybackActionClient _playback;
 	RecordActionClient _record;
 	LoadConfig *_config_dialog;
+	SSCMoveCommand *_move_dialog;
 };
 
 }

@@ -1,4 +1,5 @@
 #include "../include/pumpkin_qt/loadconfig.hpp"
+#include <ros/ros.h>
 
 #include <QComboBox>
 
@@ -7,9 +8,12 @@ namespace pumpkin_qt {
 using namespace Qt;
 
 LoadConfig::LoadConfig(QWidget *parent) :
-	QDialog(parent, Qt::Win)
+	QDialog(parent)
 {
 	_ui.setupUi(this);
+	this->setResult(QDialog::DialogCode::Rejected);
+
+	QObject::connect(_ui.loadButton, SIGNAL(clicked()), this, SLOT(setConfigurationFile()));
 }
 
 LoadConfig::~LoadConfig()
@@ -30,8 +34,8 @@ void LoadConfig::setConfigurationFile()
 {
 	QString value = _ui.comboBox->currentText();
 	value = _base_path + "/" + value;
-	ros::param::set("/pumpkin/_config_file", config_file.toStdString(value));
-	this->close();
+	ros::param::set("/pumpkin/_config_file", value.toStdString());
+	this->accept();
 }
 
 }

@@ -62,7 +62,7 @@ void QNode::run() {
         ros::param::get("/pumpkin/config/ros_rate", rate);
     }
     ros::Rate loop_rate(rate);
-    while ( ros::ok() ) {
+	while ( ros::ok() ) {
 		ros::spinOnce();
         loop_rate.sleep();
 	}
@@ -75,7 +75,7 @@ void QNode::callFiles() {
     msg.request.type = static_cast<uint8_t>(pumpkin_messages::FileType::PlaybackFile);
     if (!_file_client.call(msg)) {
 		ROS_FATAL("Could not load the files directory");
-		this->terminate();	//kill the thread
+		ros::shutdown();
 		return;				//for security reasons
     }
 	ROS_INFO("Paths loaded");
@@ -88,7 +88,7 @@ void QNode::callConfigFiles()
 	msg.request.type = static_cast<uint8_t>(pumpkin_messages::FileType::ConfigFile);
 	if (!_file_client.call(msg)) {
 		ROS_FATAL("Could not load the files directory");
-		this->terminate();	//kill the thread
+		ros::shutdown();
 		return;				//for security reasons
 	}
 	ROS_INFO("Config file list loaded.");

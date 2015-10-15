@@ -6,6 +6,7 @@ PlaybackActionClient::PlaybackActionClient(QObject *parent) :
 	QObject(parent)
 {
 	_goal.filename = std::string();
+	_running = false;
 }
 
 PlaybackActionClient::~PlaybackActionClient()
@@ -36,10 +37,13 @@ void PlaybackActionClient::playbackFile() {
 
 void PlaybackActionClient::playbackStop() {
 	Q_EMIT(blockRecTab(false));
-	_playback_client->cancelGoal();
+	if (_running)
+		_playback_client->cancelGoal();
+	_running = false;
 }
 
 void PlaybackActionClient::playbackActiveCallback() {
+	_running = true;
 	Q_EMIT(blockRecTab(true));
 	Q_EMIT(sendStatusMessage(QString("Start playback file %0.").arg(QString::fromStdString(_goal.filename)), 1000));
 }
@@ -68,6 +72,7 @@ void PlaybackActionClient::playbackDoneCallback(const actionlib::SimpleClientGoa
 			Q_EMIT(sendStatusMessage(QString("Fatal: UNKNOWN ERROR!"), 1000));
 			ROS_FATAL("UNKNOWN ERROR");
 	}
+	_running = false;
 	Q_EMIT(playbackPercentage(0));
 	Q_EMIT(playbackFinished(result->state));
 }

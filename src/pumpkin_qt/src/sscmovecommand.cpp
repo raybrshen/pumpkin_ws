@@ -26,17 +26,20 @@ SSCMoveCommand::SSCMoveCommand(QWidget *parent) :
 	ros::param::get("/pumpkin/config/ssc", config);
 
 	for (XmlRpc::XmlRpcValue::iterator it = config.begin(); it != config.end(); ++it) {
-		QScrollArea *tab = new QScrollArea(_ui.moveTab);
-		QBoxLayout *box = new QBoxLayout(QBoxLayout::TopToBottom, tab);
+		QScrollArea *tabScroll = new QScrollArea(_ui.moveTab);
+		tabScroll->setAlignment(Qt::AlignHCenter);
+		QWidget *tabContent = new QWidget(tabScroll);
+		QBoxLayout *box = new QBoxLayout(QBoxLayout::TopToBottom, tabContent);
 
 		for (XmlRpc::XmlRpcValue::iterator part_it = it->second.begin(); part_it != it->second.end(); ++part_it) {
 			int pin, min, max, def;
-			pin = int(it->second["pin"]);
-			min = int(it->second["pulse_min"]);
-			max = int(it->second["pulse_max"]);
-			def = int(it->second["pulse_rest"]);
+			pin = int(part_it->second["pin"]);
+			min = int(part_it->second["pulse_min"]);
+			max = int(part_it->second["pulse_max"]);
+			def = int(part_it->second["pulse_rest"]);
+			//ROS_INFO("Pin: %d, Min: %d, Max: %d, Def: %d.", pin, min, max, def);
 			Ui::SSCMoveBlocksDesign *block = new Ui::SSCMoveBlocksDesign;
-			QWidget *block_widget = new QWidget(tab);
+			QWidget *block_widget = new QWidget(tabContent);
 			block->setupUi(block_widget);
 			block->blockLabel->setText(QString::fromStdString(part_it->first));
 			block->activeButton->setText(QString("Active ") + QString::fromStdString(part_it->first));
@@ -49,8 +52,9 @@ SSCMoveCommand::SSCMoveCommand(QWidget *parent) :
 			_blocks.insert(pin, block);
 		}
 
-		tab->setLayout(box);
-		_ui.moveTab->addTab(tab, QString::fromStdString(it->first));
+		tabContent->setLayout(box);
+		tabScroll->setWidget(tabContent);
+		_ui.moveTab->addTab(tabScroll, QString::fromStdString(it->first));
 	}
 }
 

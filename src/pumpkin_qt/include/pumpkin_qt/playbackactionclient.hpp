@@ -16,6 +16,7 @@ class PlaybackActionClient : public QObject
 public:
 	explicit PlaybackActionClient(QObject *parent = 0);
 	virtual ~PlaybackActionClient();
+	bool isRunning() const {return _running;}
 
 Q_SIGNALS:
 	void playbackPercentage(int percentage);
@@ -32,6 +33,7 @@ public Q_SLOTS:
 private:
 	actionlib::SimpleActionClient<pumpkin_messages::PlaybackAction> *_playback_client;
 	pumpkin_messages::PlaybackGoal _goal;
+	bool _running;
 
 	void playbackDoneCallback(const actionlib::SimpleClientGoalState &goal, const pumpkin_messages::PlaybackResultConstPtr &result);
 	void playbackActiveCallback();

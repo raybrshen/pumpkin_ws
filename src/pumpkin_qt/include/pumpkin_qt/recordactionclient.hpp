@@ -16,6 +16,7 @@ class RecordActionClient : public QObject
 public:
 	explicit RecordActionClient(QObject *parent = 0);
 	virtual ~RecordActionClient();
+	bool isRunning() const {return _running;}
 
 Q_SIGNALS:
 	void recordMinuteFeedback(int minutes);

@@ -1,4 +1,5 @@
 <launch>
+	<node name="load_config" pkg="pumpkin" type="load_config" />
 	<node name="playback_action" pkg="pumpkin" type="playback_action" />
 	<node name="recorder" pkg="pumpkin" type="recorder" />
 </launch>

@@ -166,6 +166,11 @@ int main (int argc, char *argv[]) {
 		loop.sleep();
 	}
 
+	if (!ros::ok()) {
+		ros::shutdown();
+		return -1;
+	}
+
 	XmlRpc::XmlRpcValue config;
 	ros::param::get("/pumpkin/config", config);
 	//std::vector<YAML::Node> movements = std::move(YAML::LoadAllFromFile(file));

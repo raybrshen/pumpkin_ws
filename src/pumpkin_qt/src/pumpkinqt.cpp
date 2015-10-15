@@ -1,16 +1,16 @@
 #include "../include/pumpkin_qt/pumpkinqt.hpp"
 #include <QLineEdit>
+#include <QMessageBox>
 
 namespace pumpkin_qt {
 
 using namespace Qt;
 
 PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
-	QMainWindow(parent), _node(argc, argv, this), _playback(this), _record(this), _config_dialog(new LoadConfig(this))
+	QMainWindow(parent), _node(argc, argv, this), _playback(this), _record(this),
+	_config_dialog(nullptr), _folder_model(nullptr), _move_dialog(nullptr)
 {
 	_ui.setupUi(this);
-    _folder_model = nullptr;
-
 
     //Link signals
 	QObject::connect(&_node, SIGNAL(rosShutdown()), this, SLOT(close()));
@@ -18,6 +18,9 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 					 this, SLOT(fillTable(QString,std::vector<pumpkin_messages::FileList>)));
 	QObject::connect(&_node, SIGNAL(started()), &_playback, SLOT(init()));
 	QObject::connect(&_node, SIGNAL(started()), &_record, SLOT(init()));
+
+	QObject::connect(_ui.actionSSC, SIGNAL(triggered()), this, SLOT(showSSCMoveDialog()));
+	QObject::connect(_ui.actionAbout, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
 
 	QObject::connect(_ui.folderTree, SIGNAL(clicked(QModelIndex)), this, SLOT(folderSelected(QModelIndex)));
 	QObject::connect(_ui.fileView, SIGNAL(clicked(QModelIndex)), this, SLOT(fileSelected(QModelIndex)));
@@ -56,16 +59,29 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 	QObject::connect(&_record, SIGNAL(sendStatusMessage(QString,int)), _ui.statusbar, SLOT(showMessage(QString,int)));
 
 	_node.init();
-
-	_node.callConfigFiles();
 	_node.callFiles();
+
+	if (!ros::param::has("/pumpkin/config")) {
+		_config_dialog = new LoadConfig(this);
+		QObject::connect(&_node, SIGNAL(rosShutdown()), _config_dialog, SLOT(close()));
+		QObject::connect(&_node, SIGNAL(configFilesReady(QString,std::vector<std::string>)), _config_dialog, SLOT(load(QString,std::vector<std::string>)));
+		_node.callConfigFiles();
+		int result = _config_dialog->exec();
+		if (result == QDialog::Rejected) {
+			QApplication::closeAllWindows();
+			_node.terminate();
+		}
+	}
 }
 
 PumpkinQT::~PumpkinQT()
 {
     qDeleteAll(_model_list);
 	delete _folder_model;
-	delete _config_dialog;
+	if (_config_dialog)
+		delete _config_dialog;
+	if (_move_dialog)
+		delete _move_dialog;
 }
 
 void PumpkinQT::resizeEvent(QResizeEvent *event)
@@ -157,6 +173,27 @@ void PumpkinQT::changeFilename(const QString &filename)
 void PumpkinQT::actionFinished(int state)
 {
 	_node.callFiles();
+}
+
+void PumpkinQT::showSSCMoveDialog()
+{
+	if (!_move_dialog) {
+		_move_dialog = new SSCMoveCommand(this);
+		QObject::connect(&_node, SIGNAL(rosShutdown()), _move_dialog, SLOT(close()));
+	}
+	if (_playback.isRunning())
+		_playback.playbackStop();
+	if (_record.isRunning())
+		_record.recordStop();
+	_move_dialog->exec();
+}
+
+void PumpkinQT::showAboutDialog()
+{
+	QMessageBox *box = new QMessageBox(this);
+	box->setText("Dr. Robot Pumpkin. University of Ottawa");
+	box->exec();
+	delete box;
 }
 
 /********************************

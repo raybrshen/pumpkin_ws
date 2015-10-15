@@ -8,6 +8,7 @@ RecordActionClient::RecordActionClient(QObject *parent) :
 	_minutes = _seconds = 0;
 	_goal.filename = std::string();
 	_goal.max_time = 0.0;
+	_running = false;
 }
 
 RecordActionClient::~RecordActionClient()
@@ -54,10 +55,11 @@ void RecordActionClient::recordFile() {
 }
 
 void RecordActionClient::recordStop() {
-	_running = false;
 	Q_EMIT(blockPlayTab(false));
-	_record_client->cancelGoal();
+	if (_running)
+		_record_client->cancelGoal();
 	Q_EMIT(sendStatusMessage(QString("Stopped recording"), 1000));
+	_running = false;
 }
 
 void RecordActionClient::recordActiveCallback() {
