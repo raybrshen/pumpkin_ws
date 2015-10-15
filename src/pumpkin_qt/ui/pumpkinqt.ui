@@ -19,32 +19,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTreeView" name="folderTree">
-      <property name="statusTip">
-       <string>Select a folder</string>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QListView" name="fileView">
-      <property name="statusTip">
-       <string>Select a file.</string>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0" colspan="2">
      <widget class="QTabWidget" name="mainBlock">
       <property name="sizePolicy">
@@ -213,6 +187,32 @@
       </widget>
      </widget>
     </item>
+    <item row="0" column="0">
+     <widget class="QTreeView" name="folderTree">
+      <property name="statusTip">
+       <string>Select a folder</string>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QListView" name="fileView">
+      <property name="statusTip">
+       <string>Select a file.</string>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -226,9 +226,10 @@
    </property>
    <widget class="QMenu" name="menuCommand">
     <property name="title">
-     <string>Command</string>
+     <string>Options</string>
     </property>
     <addaction name="actionSSC"/>
+    <addaction name="actionFiles"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -252,6 +253,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionFiles">
+   <property name="text">
+    <string>Manage files</string>
    </property>
   </action>
  </widget>

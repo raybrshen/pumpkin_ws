@@ -7,6 +7,7 @@
 #include "recordactionclient.hpp"
 #include "loadconfig.hpp"
 #include "sscmovecommand.hpp"
+#include "filesdialog.hpp"
 
 #include <QMainWindow>
 #include <QStringListModel>
@@ -19,6 +20,9 @@
 
 namespace pumpkin_qt {
 
+/**
+ * @brief The FolderItem is a class to manipulate the folder tree structure for this project
+ */
 class FolderItem {
 private:
     FolderItem *_parent;
@@ -38,9 +42,12 @@ public:
     inline FolderItem * parent() {return _parent;}
 };
 
+//Help typedef
 typedef QList<QPair<int, QString> > FolderListType;
 
-
+/**
+ * @brief The FolderModel is the implement of the abstract model to use on the Tree View
+ */
 class FolderModel : public QAbstractItemModel {
     Q_OBJECT
 private:
@@ -57,18 +64,24 @@ public:
     int columnCount(const QModelIndex &parent) const;
 };
 
-
+/**
+ * @brief The PumpkinQT class is the implementation of the main window of this node
+ */
 class PumpkinQT : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit PumpkinQT(int argc, char *argv[], QWidget *parent = 0);
     ~PumpkinQT();
+
+protected:
     void resizeEvent(QResizeEvent *event);
 
 Q_SIGNALS:
 	void changePlaybackFilename(const QString & str);
 	void changeRecordFilename(const QString & str);
+	void selectFolder(const QString &folder);
+	void selectFile(const QString &file);
 
 public Q_SLOTS:
     void fillTable(const QString& base_path, const std::vector<pumpkin_messages::FileList>& file_list);
@@ -91,6 +104,7 @@ private:
 	RecordActionClient _record;
 	LoadConfig *_config_dialog;
 	SSCMoveCommand *_move_dialog;
+	FilesDialog *_files_dialog;
 };
 
 }

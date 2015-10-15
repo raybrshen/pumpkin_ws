@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "file_type.h"
 #include "pumpkin_messages/Files.h"
+#include "pumpkin_messages/FilesHandler.h"
 #include <boost/filesystem.hpp>
 
 using namespace pumpkin_messages;
@@ -29,18 +30,76 @@ void get_files_recursively(const bfs::path &dir, const std::string &ext, std::ve
 				}
 		}
 	}
-	if (files.filenames.size() > 0) {
-		files.folder = dir.leaf().string();
-		files.parent_folder = 0;
-		found.emplace_back(std::move(files));
-		if (children.size()) {
-			int pos = found.size();
-			std::for_each(children.begin(), children.end(), [&pos](FileList &x) {
-				if (x.parent_folder == 0) x.parent_folder = pos;
-			});
-			found.insert(found.end(), children.begin(), children.end());
-		}
+	files.folder = dir.leaf().string();
+	files.parent_folder = 0;
+	//ROS_INFO("I'm %s", files.folder.c_str());
+	found.emplace_back(std::move(files));
+	if (children.size()) {
+		//ROS_INFO("I have %d children.", (int)children.size());
+		int pos = found.size();
+		std::for_each(children.begin(), children.end(), [&pos](FileList &x) {
+				x.parent_folder += pos;
+		});
+		found.insert(found.end(), children.begin(), children.end());
 	}
+}
+
+bool HandleFiles(FilesHandler::Request &req, FilesHandler::Response &res) {
+	bfs::path path(req.folder);
+	if (!bfs::is_directory(path))
+		return false;
+	switch (static_cast<FHST>(req.service))
+	{
+		case FHST::CreateFile:
+			ROS_FATAL("Create files is not yet implemented.");
+			return false;
+		break;
+		case FHST::CreateFolder:
+			path /= req.filename;
+			if (bfs::exists(path)) {
+				ROS_WARN("Folder already exists");
+				res.result = static_cast<uint8_t>(IOState::FileAlreadyExists);
+			} else {
+				if (bfs::create_directory(path))
+					res.result = static_cast<uint8_t>(IOState::OK);
+				else
+					res.result = static_cast<uint8_t>(IOState::ErrorCreating);
+			}
+		break;
+		case FHST::DeleteFile:
+			path /= req.filename;
+			if (!bfs::exists(path)) {
+				ROS_WARN("File not exists");
+				res.result = static_cast<uint8_t>(IOState::FileNotExists);
+			} else if (bfs::is_directory(path)) {
+				ROS_WARN("Do not pretend to remove a file, but pass me a folder.");
+				res.result = static_cast<uint8_t>(IOState::BadFile);
+			} else {
+				if (bfs::remove(path))
+					res.result = static_cast<uint8_t>(IOState::OK);
+				else
+					res.result = static_cast<uint8_t>(IOState::ErrorDeleting);
+			}
+		break;
+		case FHST::DeleteFolder:
+			if (!bfs::exists(path)) {
+				ROS_WARN("Folder not exists");
+				res.result = static_cast<uint8_t>(IOState::FileNotExists);
+			} else if (!bfs::is_directory(path)) {
+				ROS_WARN("Do not pretend to remove a direcory, but pass me a file.");
+				res.result = static_cast<uint8_t>(IOState::BadFile);
+			} else {
+				if (bfs::remove(path))
+					res.result = static_cast<uint8_t>(IOState::OK);
+				else
+					res.result = static_cast<uint8_t>(IOState::ErrorDeleting);
+			}
+		break;
+		default:
+			ROS_FATAL("Instruction not identified");
+			return false;
+	}
+	return true;
 }
 
 bool ListFiles (Files::Request &req, Files::Response &res)
@@ -89,7 +148,8 @@ int main (int argc, char** argv)
 		return -1;
 	}
 
-    ros::ServiceServer files = n.advertiseService("file_lister", ListFiles);
+	ros::ServiceServer files = n.advertiseService("file_lister", ListFiles);
+	ros::ServiceServer handler = n.advertiseService("file_handler", HandleFiles);
     ROS_INFO("Ready.");
     ros::spin();
 

@@ -14,7 +14,19 @@ enum class IOState : uint8_t {
 	OK = 0,
 	EndOfFile,
 	ErrorOpening,
-	BadFile
+	ErrorCreating,
+	FileAlreadyExists,
+	FileNotExists,
+	ErrorDeleting,
+	BadFile,
+};
+
+//File Handler Service Type
+enum class FHST : uint8_t {
+	CreateFile,
+	CreateFolder,
+	DeleteFile,
+	DeleteFolder,
 };
 
 }

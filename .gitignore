@@ -1,5 +1,9 @@
-build/
+build*/
 devel/
+
+#Image files (the images are obtained from .qrc)
+*.png
+
 
 # Compiled Object files
 *.slo

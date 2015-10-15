@@ -54,6 +54,7 @@ add_service_files(
   Files.srv
   Serials.srv
   SSCMoveCommand.srv
+  FilesHandler.srv
 )
 
 ## Generate actions in the 'action' folder

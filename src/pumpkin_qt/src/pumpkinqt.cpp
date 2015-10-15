@@ -1,6 +1,7 @@
 #include "../include/pumpkin_qt/pumpkinqt.hpp"
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QLabel>
 
 namespace pumpkin_qt {
 
@@ -72,12 +73,23 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 			_node.terminate();
 		}
 	}
+
+	_files_dialog = new FilesDialog(this);
+
+	QObject::connect(this, SIGNAL(selectFolder(QString)), _files_dialog, SLOT(setSelectedFolder(QString)));
+	QObject::connect(this, SIGNAL(selectFile(QString)), _files_dialog, SLOT(setSelectedFile(QString)));
+	QObject::connect(_ui.actionFiles, SIGNAL(triggered()), _files_dialog, SLOT(show()));
+
+	//Theses signals (results from the FilesDialog) below can be handled
+	QObject::connect(_files_dialog, SIGNAL(accepted()), &_node, SLOT(callFiles()));
+	QObject::connect(_files_dialog, SIGNAL(rejected()), &_node, SLOT(callFiles()));
 }
 
 PumpkinQT::~PumpkinQT()
 {
     qDeleteAll(_model_list);
 	delete _folder_model;
+	delete _files_dialog;
 	if (_config_dialog)
 		delete _config_dialog;
 	if (_move_dialog)
@@ -91,9 +103,9 @@ void PumpkinQT::resizeEvent(QResizeEvent *event)
 		QFontMetrics metric = _ui.playbackFileName->fontMetrics();
 		if (metric.width(_filename) > _ui.playbackFileName->width()) {
 			_ui.playbackFileName->setText(metric.elidedText(_filename, Qt::ElideLeft, _ui.playbackFileName->width()));
-        } else {
+		} /*else {
 			_ui.playbackFileName->setText(_filename);
-        }
+		}*/
     }
 }
 
@@ -103,28 +115,34 @@ void PumpkinQT::fillTable(const QString &base_path, const std::vector<pumpkin_me
         delete _folder_model;
     _base_path = base_path;
     _model_list.clear();
-    _model_list.reserve(file_list.size());
+	_model_list.reserve(file_list.size());
     FolderListType folders;
     for (int i = 0; i < file_list.size(); ++i) {
-        const pumpkin_messages::FileList &files = file_list[i];
-        QStringList list;
-        for (std::vector<std::string>::const_iterator it = files.filenames.begin(); it != files.filenames.end(); ++it) {
-            list << QString::fromStdString(*it);
-        }
-		//ROS_INFO("New path");
-        //First of all, add all files to respective list model
-        _model_list.append(new QStringListModel(list, this));
-        folders.append(QPair<int, QString>(files.parent_folder, QString(files.folder.c_str())));
+		const pumpkin_messages::FileList &files = file_list[i];
+		if (files.filenames.size() > 0) {
+			QStringList list;
+			for (std::vector<std::string>::const_iterator it = files.filenames.begin(); it != files.filenames.end(); ++it) {
+				list << QString::fromStdString(*it);
+			}
+			//ROS_INFO("New path");
+			//First of all, add all files to respective list model
+			_model_list.append(new QStringListModel(list, this));
+		} else {
+			//ROS_INFO("New void path");
+			_model_list.append(new QStringListModel(this));
+		}
+		folders.append(QPair<int, QString>(files.parent_folder, QString::fromStdString(files.folder)));
     }
 	//ROS_INFO("Loaded structure.");
-    _folder_model = new FolderModel(folders, this);
+	_folder_model = new FolderModel(folders, this);
 	_ui.folderTree->setModel(_folder_model);
 	_ui.folderTree->setColumnHidden(1, true);
+	Q_EMIT(selectFolder(QString()));
 }
 
 void PumpkinQT::folderSelected(const QModelIndex &index) {
     const QModelIndex & it =_folder_model->index(index.row(), 1, index.parent());
-    int data = it.data().toInt();
+	int data = it.data().toInt();
 	//ROS_INFO("Selected folder %d.", data);
 	_ui.fileView->setModel(_model_list.at(data));
     QStringList rel;
@@ -135,6 +153,9 @@ void PumpkinQT::folderSelected(const QModelIndex &index) {
         parent = parent.parent();
     }
     _relative_path = rel.join("/");
+	_ui.playbackFileName->setText("Playback file");
+	Q_EMIT(selectFolder(_base_path + "/" + _relative_path));
+	//Q_EMIT(selectFile(QString()));
 }
 
 void PumpkinQT::fileSelected(const QModelIndex &index) {
@@ -146,10 +167,13 @@ void PumpkinQT::fileSelected(const QModelIndex &index) {
 		QFontMetrics metric = _ui.playbackFileName->fontMetrics();
 		if (metric.width(_filename) > _ui.playbackFileName->width()) {
 			_ui.playbackFileName->setText(metric.elidedText(_filename, Qt::ElideLeft, _ui.playbackFileName->width()));
+		} else {
+			_ui.playbackFileName->setText(_filename);
 		}
 	} else {
 		_ui.recordFileName->setText(filename.remove(filename.size()-5, 5));
 	}
+	Q_EMIT(selectFile(filename));
 }
 
 void PumpkinQT::runPlayback()
@@ -234,7 +258,7 @@ int FolderItem::row() const {
  *********************************/
 
 FolderModel::FolderModel(const FolderListType &folders, QObject *parent) : QAbstractItemModel(parent) {
-    _root = new FolderItem(QString("Folder"), -1);
+	_root = new FolderItem(QString("Folder"), -1);
     QList<FolderItem *> stack;
     stack.reserve(folders.size() + 1);
     stack.append(_root);
@@ -242,7 +266,8 @@ FolderModel::FolderModel(const FolderListType &folders, QObject *parent) : QAbst
     int i = 0;
 	//ROS_INFO("Started filling folder model with %d elements.", folders.count());
     for (FolderListType::const_iterator it = folders.begin(); it != folders.end(); ++it, ++i) {
-        int parent_index = it->first - 1;
+		int parent_index = it->first - 1;
+		//ROS_INFO("Folder %d - %s, parent: %d", i, it->second.toStdString().c_str(), parent_index);
         while (!stack.isEmpty()) {
             if (stack.back()->data(1).toInt() == parent_index) {
 				//ROS_INFO("Parent %d", stack.back()->data(1).toInt());
@@ -250,8 +275,10 @@ FolderModel::FolderModel(const FolderListType &folders, QObject *parent) : QAbst
             }
             stack.removeLast();
         }
-        if (stack.isEmpty())
+		if (stack.isEmpty()) {
+			ROS_FATAL("Error in file structure");
             throw QString("Error file structure.");
+		}
 		//ROS_INFO("Found element");
         parentItem = stack.back();
         stack.append(new FolderItem(it->second, i, parentItem));
