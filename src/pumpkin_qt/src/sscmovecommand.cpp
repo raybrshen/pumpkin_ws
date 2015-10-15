@@ -56,6 +56,9 @@ SSCMoveCommand::SSCMoveCommand(QWidget *parent) :
 		tabScroll->setWidget(tabContent);
 		_ui.moveTab->addTab(tabScroll, QString::fromStdString(it->first));
 	}
+
+	QObject::connect(_ui.sendButton, SIGNAL(clicked()), this, SLOT(sendCommand()));
+	QObject::connect(_ui.cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 SSCMoveCommand::~SSCMoveCommand()

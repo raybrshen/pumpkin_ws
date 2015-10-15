@@ -35,7 +35,7 @@
     <item row="0" column="1">
      <widget class="QListView" name="fileView">
       <property name="statusTip">
-       <string>Select a files</string>
+       <string>Select a file.</string>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
