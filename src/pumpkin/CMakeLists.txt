@@ -27,6 +27,10 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
   urdf
   pumpkin_messages
+  moveit_core
+  moveit_ros_planning_interface
+  pluginlib
+  interactive_markers
   genmsg
   actionlib_msgs
   actionlib
@@ -140,6 +144,7 @@ add_executable(pumpkin_trajectory_exec src/pumpkin_trajectory_exec.cpp)
 add_executable(load_config src/load_config.cpp)
 add_executable(arduino_to_rviz src/arduino_2_rviz.cpp)
 add_executable(playback_action src/playback_action.cpp)
+add_executable(pumpkin_planner src/planner.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -148,6 +153,7 @@ add_dependencies(arduino_to_rviz ${catkin_EXPORTED_TARGETS})
 add_dependencies(sensor_reads ${catkin_EXPORTED_TARGETS})
 add_dependencies(state_publisher ${catkin_EXPORTED_TARGETS})
 add_dependencies(playback_action ${catkin_EXPORTED_TARGETS})
+add_dependencies(pumpkin_planner ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(pumpkin_node
@@ -165,6 +171,7 @@ target_link_libraries(pumpkin_trajectory_exec ${catkin_LIBRARIES})
 target_link_libraries(load_config ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(arduino_to_rviz ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(playback_action ${catkin_LIBRARIES} yaml-cpp)
+target_link_libraries(pumpkin_planner ${catkin_LIBRARIES})
 
 #############
 ## Install ##

@@ -31,6 +31,7 @@ class PlaybackActionServer {
 	double _percentage_step;
 	PlaybackFeedback _feedback;
 	PlaybackResult _result;
+	bool _stop_after;
 
 public:
     PlaybackActionServer() : _server(_nh, "playback_action", false), _aux_vec(32) {
@@ -38,6 +39,7 @@ public:
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
 
 		_pub = _nh.advertise<SSCMoveList>("move_ssc_topic", 32);
+	    _stop_after = true;
 
         _server.start();
 	}
@@ -53,6 +55,7 @@ public:
 		}
 		auto goal = _server.acceptNewGoal();
 		std::string filename = goal->filename;
+		_stop_after = goal->stop_after;
 		_feedback.percentage = 0.0;
 
 		try {
@@ -75,7 +78,7 @@ public:
 		_result.state = static_cast<uint8_t>(IOState::OK);
 		_server.setAborted(_result);
         //TODO reconfigure robot shutdown after end of scene
-        _pub.publish(SSCMoveList());
+        //_pub.publish(SSCMoveList());
 	}
 
 	void step() {
@@ -138,8 +141,8 @@ public:
 		if (_step_it == _end_it) {
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
-            //TODO reconfigure robot shutdown after end of scene
-            _pub.publish(SSCMoveList());
+            if (_stop_after)
+                _pub.publish(SSCMoveList());
 		}
 
 	}

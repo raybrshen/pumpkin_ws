@@ -34,6 +34,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 find_package(Boost REQUIRED COMPONENTS system thread)
 include_directories(${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+link_directories(${catkin_LIBRARY_DIRS} ${Boost_LIBRARY_DIRS})
 # Use this to define what the package will export (e.g. libs, headers).
 # Since the default here is to produce only a binary, we don't worry about
 # exporting anything. 

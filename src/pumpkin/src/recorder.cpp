@@ -27,12 +27,12 @@ class RecordActionServer {
 	unsigned int _count;
 	ros::Time _start;
 	double _max_time;
-	bool _first_move;
+	bool _first_move, _verbose;
 	pumpkin_messages::RecordFeedback _feedback;
 	pumpkin_messages::RecordResult _result;
 
 public:
-	RecordActionServer(): _server(_nh, "recorder_action", false) {
+	RecordActionServer(bool setVerbose = false): _server(_nh, "recorder_action", false), _verbose(setVerbose) {
 		_server.registerGoalCallback(boost::bind(&RecordActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&RecordActionServer::onPreempt, this));
 
@@ -82,6 +82,10 @@ public:
 			_file << "---" << std::endl;
 		} else {
 			_first_move = false;
+		}
+
+		if (_verbose) {
+			std::cout << msg << std::endl;
 		}
 
 		_node["header"]["seq"] = msg->header.seq;

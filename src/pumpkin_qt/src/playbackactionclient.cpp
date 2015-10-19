@@ -1,3 +1,4 @@
+#include <pumpkin_messages/PlaybackGoal.h>
 #include "../include/pumpkin_qt/playbackactionclient.hpp"
 
 namespace pumpkin_qt {
@@ -6,6 +7,7 @@ PlaybackActionClient::PlaybackActionClient(QObject *parent) :
 	QObject(parent)
 {
 	_goal.filename = std::string();
+	_goal.stop_after = true;
 	_running = false;
 }
 

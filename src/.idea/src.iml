@@ -13,6 +13,30 @@
     <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in">
       <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_messages/catkin_generated/pumpkin_messages-msg-extras.cmake.installspace.in" isTestSource="false" />
     </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_filesdialog.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_filesdialog.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_loadconfig.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_loadconfig.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_playbackactionclient.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_playbackactionclient.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_pumpkinqt.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_pumpkinqt.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_qnode.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_qnode.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_recordactionclient.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_recordactionclient.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_sscmovecommand.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_sscmovecommand.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/qrc_images.cxx">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/qrc_images.cxx" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in">
       <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/MinSizeRel/analog_read/catkin_generated/analog_read-msg-extras.cmake.develspace.in" isTestSource="false" />
     </content>
@@ -59,6 +83,7 @@
       <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/calibrate.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/load_config.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/mosfet_status_publisher.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/planner.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback_action.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin/src/playback_joint_states.cpp" isTestSource="false" />
@@ -81,18 +106,26 @@
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/action/Playback.action" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/action/Record.action" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/action/Scene.action" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_messages/package.xml" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_moveit/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_moveit/package.xml" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/package.xml" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/resources/images.qrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/filesdialog.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/loadconfig.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/playbackactionclient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/pumpkinqt.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/qnode.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/recordactionclient.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/src/sscmovecommand.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/ui/filesdialog.ui" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/ui/loadconfig.ui" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/ui/pumpkinqt.ui" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/ui/sscmoveblock.ui" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pumpkin_qt/ui/sscmovecommand.ui" isTestSource="false" />
     </content>
     <content url="file:///opt/ros/indigo/share/catkin/cmake/em/order_packages.cmake.em">
       <sourceFolder url="file:///opt/ros/indigo/share/catkin/cmake/em/order_packages.cmake.em" isTestSource="false" />
@@ -218,6 +251,16 @@
           <root url="file:///usr/lib/x86_64-linux-gnu/sigc++-2.0/include" />
           <root url="file:///usr/local/include" />
         </SOURCES>
+        <excluded>
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/qrc_images.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_filesdialog.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_recordactionclient.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_qnode.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_pumpkinqt.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_loadconfig.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_sscmovecommand.cxx" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/354de260/354de260/Debug/pumpkin_qt/include/pumpkin_qt/moc_playbackactionclient.cxx" />
+        </excluded>
       </library>
     </orderEntry>
   </component>

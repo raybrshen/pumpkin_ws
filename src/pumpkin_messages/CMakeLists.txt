@@ -62,6 +62,7 @@ add_action_files(
   FILES
   Record.action
   Playback.action
+  Scene.action
 )
 
 ## Generate added messages and services with any dependencies listed here
