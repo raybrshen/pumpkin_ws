@@ -171,7 +171,7 @@ target_link_libraries(pumpkin_trajectory_exec ${catkin_LIBRARIES})
 target_link_libraries(load_config ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(arduino_to_rviz ${catkin_LIBRARIES} yaml-cpp)
 target_link_libraries(playback_action ${catkin_LIBRARIES} yaml-cpp)
-target_link_libraries(pumpkin_planner ${catkin_LIBRARIES})
+target_link_libraries(pumpkin_planner ${catkin_LIBRARIES} yaml-cpp)
 
 #############
 ## Install ##

@@ -1,6 +1,6 @@
 #Goal
 string filename
-bool stop_after
+bool  direct
 ---
 #Result
 uint8 state

@@ -141,6 +141,9 @@ int main (int argc, char *argv[]) {
 	//So far... we have the planner (by default it should be OMPL)
 	moveit_msgs::MotionPlanRequest req;
 	moveit_msgs::MotionPlanResponse res;
+	robot_model::RobotState state(pumpkinModel);
+	
+	
 
 	XmlRpc::XmlRpcValue sscConf;
 	ros::param::get("/pumpkin/config/ssc", sscConf);
@@ -173,10 +176,10 @@ int main (int argc, char *argv[]) {
 			continue;
 		switch (state) {
 			case SceneState::Switching:
-
+				
 			break;
 			case SceneState::Preparing:
-
+				pumpkinModel->copy
 			break;
 			case SceneState::Moving:
 

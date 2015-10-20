@@ -1,0 +1,9 @@
+#Goal
+string[] filenames
+---
+#Result
+uint8 state
+---
+#Feedback
+uint32 current_move
+float64 partial

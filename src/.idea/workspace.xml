@@ -150,18 +150,8 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11fe2ebc-224d-42c3-89b0-5fa97936eb05" name="Default" comment="Starting QT">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin/src/planner.cpp" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pumpkin/playback/magazine-pic-1433961109.yaml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin/CMakeLists.txt" afterPath="$PROJECT_DIR$/pumpkin/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_messages/CMakeLists.txt" afterPath="$PROJECT_DIR$/pumpkin_messages/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/CMakeLists.txt" afterPath="$PROJECT_DIR$/pumpkin_qt/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_messages/action/Playback.action" afterPath="$PROJECT_DIR$/pumpkin_messages/action/Playback.action" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin/src/playback_action.cpp" afterPath="$PROJECT_DIR$/pumpkin/src/playback_action.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin_qt/src/playbackactionclient.cpp" afterPath="$PROJECT_DIR$/pumpkin_qt/src/playbackactionclient.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pumpkin/src/recorder.cpp" afterPath="$PROJECT_DIR$/pumpkin/src/recorder.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/src.iml" afterPath="$PROJECT_DIR$/.idea/src.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="11fe2ebc-224d-42c3-89b0-5fa97936eb05" name="Default" comment="Started to make the scene planner.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pumpkin/src/moveit.cpp" />
     </list>
     <ignored path="src.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -185,8 +175,8 @@
       <file leaf-file-name="planner.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pumpkin/src/planner.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4375">
-              <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.41666666">
+              <caret line="133" column="64" selection-start-line="133" selection-start-column="64" selection-end-line="133" selection-end-column="64" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -1578,12 +1568,18 @@
       <option name="project" value="LOCAL" />
       <updated>1444341976705</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Started to make the scene planner.">
+      <created>1445291610076</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1445291610076</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1215" height="1028" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2452675" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1617,7 +1613,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Tecnically, finished this part.&#10;Made some adjustments in &quot;ssc&quot; and &quot;arduito_2_rviz&quot; files/" />
     <MESSAGE value="Changed serial class for the ros." />
     <MESSAGE value="Changed serial class for the ros.&#10;Fixed CMakeLists" />
     <MESSAGE value="Changed serial class for the ros serial version.&#10;Fixed a bit." />
@@ -1642,7 +1637,8 @@
     <MESSAGE value="Action server not accepting boost bind." />
     <MESSAGE value="Problem in getting file list." />
     <MESSAGE value="Starting QT" />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting QT" />
+    <MESSAGE value="Started to make the scene planner." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started to make the scene planner." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -2055,8 +2051,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pumpkin/src/planner.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4375">
-          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.41666666">
+          <caret line="133" column="64" selection-start-line="133" selection-start-column="64" selection-end-line="133" selection-end-column="64" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
