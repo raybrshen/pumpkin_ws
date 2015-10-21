@@ -16,6 +16,7 @@
 using namespace pumpkin_messages;
 
 class PlaybackActionServer {
+
 	struct auxiliar_calibration {
 		int arduino_min;
 		int arduino_max;
@@ -29,6 +30,7 @@ class PlaybackActionServer {
 	//private members
 	ros::NodeHandle _nh;
 	ros::Publisher _ssc, _joint;
+	std::vector<std::string> _movement_files;
 	actionlib::SimpleActionServer<PlaybackAction> _server;
 	std::vector<auxiliar_calibration> _aux_vec;
 	std::vector<YAML::Node> _movement;
@@ -36,23 +38,24 @@ class PlaybackActionServer {
 	double _percentage_step;
 	PlaybackFeedback _feedback;
 	PlaybackResult _result;
-	bool _direct;
+	//bool _direct;
+	int _movement_index;
 	ros::Rate _loop;
 
 public:
-	PlaybackActionServer() : _server(_nh, "playback_action", false), _aux_vec(32) {
+	PlaybackActionServer() : _server(_nh, "playback_action", false), _aux_vec(32), _loop(1000) {
 		_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
 
 		_ssc = _nh.advertise<SSCMoveList>("move_ssc_topic", 32);
 		_joint = _nh.advertise<sensor_msgs::JointState>("playback_joints", 32);
-		_direct = true;
+		//_direct = true;
 
         _server.start();
 	}
 
 	~PlaybackActionServer() {
-		_pub.publish(SSCMoveList());
+		_ssc.publish(SSCMoveList());
         _server.shutdown();
 	}
 
@@ -81,8 +84,8 @@ public:
 	}
 
 	void onPreempt() {
-		if (_direct)
-			_ssc.publish(SSCMoveList());
+		//if (_direct)
+		_ssc.publish(SSCMoveList());
 		_result.state = static_cast<uint8_t>(IOState::OK);
 		_server.setAborted(_result);
         //TODO reconfigure robot shutdown after end of scene
@@ -90,8 +93,10 @@ public:
 	}
 
 	void step() {
-		if (!_server.isActive())
+		if (!_server.isActive()) {
+			_loop.sleep();
 			return;
+		}
 
 		if (_step_it->IsNull()) {
 			_result.state = static_cast<uint8_t>(IOState::BadFile);
@@ -106,8 +111,8 @@ public:
 			_server.setAborted(_result);
 			_step_it = _end_it;
 
-			if (_direct)
-				_ssc.publish(SSCMoveList());
+			//if (_direct)
+			_ssc.publish(SSCMoveList());
 			return;
 		}
 
@@ -117,53 +122,33 @@ public:
 
 		++_step_it;
 
-		if (_direct) {
-			SSCMoveList command;
-			for (int i = 0; i < reads.size(); ++i) {
-				SSCMove move;
-				const auxiliar_calibration &aux = _aux_vec[i];
-				move.channel = aux.ssc_pin;
-				if (aux.arduino_max - aux.arduino_min <= 0) {
-					ROS_WARN("Arduino calibration error");
-					continue;
-				} else {
-					move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
-												  / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
-					if (move.pulse > aux.ssc_max) {
-						ROS_WARN("Pulse overflow: %d", int(move.pulse));
-						move.pulse = aux.ssc_max;
-					} else if (move.pulse < aux.ssc_min) {
-						ROS_WARN("Pulse underflow: %d", int(move.pulse));
-						move.pulse = aux.ssc_min;
-					}
+		SSCMoveList command;
+		for (int i = 0; i < reads.size(); ++i) {
+			SSCMove move;
+			const auxiliar_calibration &aux = _aux_vec[i];
+			move.channel = aux.ssc_pin;
+			if (aux.arduino_max - aux.arduino_min <= 0) {
+				ROS_WARN("Arduino calibration error");
+				continue;
+			} else {
+				move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
+											  / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
+				if (move.pulse > aux.ssc_max) {
+					ROS_WARN("Pulse overflow: %d", int(move.pulse));
+					move.pulse = aux.ssc_max;
+				} else if (move.pulse < aux.ssc_min) {
+					ROS_WARN("Pulse underflow: %d", int(move.pulse));
+					move.pulse = aux.ssc_min;
 				}
-				move.speed = 0;
-				command.list.emplace_back(std::move(move));
 			}
-
-			if (command.list.size())
-				_ssc.publish(command);
-			else
-				ROS_WARN("Outbound error!");
-		} else {
-			sensor_msgs::JointState joint_msg;
-			for(int i = 0; i < reads.size(); i++) {
-				const auxiliar_calibration & aux = _aux_vec[i];
-				double value = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
-						/ (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
-
-				if (value > aux.joint_upper)
-					value = aux.joint_upper;
-				else if (value < aux.joint_lower)
-					value = aux.joint_lower;
-
-				joint_msg.name.push_back(aux.joint_name);
-				joint_msg.position.push_back(value);
-			}
-			joint_msg.header.stamp = ros::Time::now();
-
-			_joint.publish(joint_msg);
+			move.speed = 0;
+			command.list.emplace_back(std::move(move));
 		}
+
+		if (command.list.size())
+			_ssc.publish(command);
+		else
+			ROS_WARN("Outbound error!");
 
 		_feedback.percentage += _percentage_step;
 		_server.publishFeedback(_feedback);
@@ -171,12 +156,12 @@ public:
 		if (_step_it == _end_it) {
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
-			if (_direct)
-				_ssc.publish(SSCMoveList());
+			//if (_direct)
+			_ssc.publish(SSCMoveList());
 		}
 
-		if (_direct)
-			_loop.sleep();
+		//if (_direct)
+		_loop.sleep();
 	}
 
 	void calibrate (int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin,
@@ -238,7 +223,7 @@ int main (int argc, char *argv[]) {
 	auto joints = pumpkinModel.joints_;
 	for (auto it = config["arduino"].begin(), end_it = config["arduino"].end(); it != end_it; ++it) {
 		for (auto part_it = it->second.begin(), part_end_it = it->second.end(); part_it != part_end_it; ++part_it) {
-			const XmlRpc::XmlRpcValue & ssc_ref = config["ssc"][it->first][part_it->first];
+			XmlRpc::XmlRpcValue & ssc_ref = config["ssc"][it->first][part_it->first];
 			std::string joint_name = (it->first)[0] + "_" + part_it->first;
 			server.calibrate(int(part_it->second["pin"]),
 			                 int(part_it->second["analog_read_min"]),

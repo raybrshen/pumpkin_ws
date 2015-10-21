@@ -4,7 +4,16 @@ project(pumpkin_messages)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED message_generation message_runtime std_msgs genmsg actionlib_msgs actionlib)
+find_package(catkin REQUIRED
+  roscpp
+  message_generation
+  message_runtime
+  std_msgs
+  genmsg
+  actionlib_msgs
+#  actionlib
+  trajectory_msgs
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -52,7 +61,7 @@ add_message_files(
 add_service_files(
   FILES
   Files.srv
-  Serials.srv
+  Planner.srv
   SSCMoveCommand.srv
   FilesHandler.srv
 )
@@ -62,7 +71,7 @@ add_action_files(
   FILES
   Record.action
   Playback.action
-  Scene.action
+# Scene.action
 )
 
 ## Generate added messages and services with any dependencies listed here
@@ -70,6 +79,7 @@ generate_messages(
   DEPENDENCIES
   std_msgs  # Or other packages containing msgs
   actionlib_msgs
+  trajectory_msgs
 )
 
 ###################################
@@ -83,8 +93,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES pumpkin_messages
-#  CATKIN_DEPENDS other_catkin_pkg
+#  LIBRARIES pumpkin_library
+  CATKIN_DEPENDS std_msgs actionlib_msgs trajectory_msgs
 #  DEPENDS system_lib
 )
 
@@ -135,11 +145,11 @@ include_directories(include)
 # )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

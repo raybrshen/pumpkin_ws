@@ -1,10 +1,11 @@
 #Goal
-string filename
-bool  direct
+string[] filenames
+#bool stop
 ---
 #Result
 uint8 state
 ---
 #Feedback
+uint32 movement_index
 float64 percentage
 

@@ -12,6 +12,7 @@
 
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_model/joint_model.h>
+#include <moveit/planning_scene/planning_scene.h>
 #include <moveit/planning_interface/planning_interface.h>
 #include <moveit/planning_scene/planning_scene.h>
 #include <moveit/kinematic_constraints/utils.h>
@@ -56,15 +57,15 @@ void onGoal(SceneServer& server) {
 		ssc.publish(pmsg::SSCMoveList());
 	}
 	auto goal = server.acceptNewGoal();
-	playback_list.swap(goal->filenames);
+	playback_list = goal->filenames;
 	atual_step = 0;
 }
 
 void onPreempt(SceneServer& server, PlaybackClient &client) {
-	if (state == SceneState::OnMovement) {
+	if (state == SceneState::Moving) {
 		client.cancelGoal();
 		result.state = client.getResult()->state;
-	} else if (state == SceneState::OnIntermediate) {
+	} else if (state == SceneState::Switching) {
 		ssc.publish(pmsg::SSCMoveList());
 		result.state = static_cast<uint8_t>(pmsg::IOState::OK);
 	}
@@ -89,14 +90,14 @@ int main (int argc, char *argv[]) {
 	PlaybackClient client("playback_action", false);
 	SceneServer server("scene_action", false);
 
-	server.registerGoalCallback(boost::bind(&onGoal, server));
-	server.registerPreemptCallback(boost::bind(&onPreempt, server, client));
+	server.registerGoalCallback(boost::bind(onGoal, server));
+	server.registerPreemptCallback(boost::bind(onPreempt, server, client));
 
 	state = SceneState::Stopped;
 	atual_step = 0;
 
-	playback = nh.subscribe("playback_joints", 32, &playbackMoves);
-	ssc = nh.advertise("move_ssc_topic", 32);
+	playback = nh.subscribe<sensor_msgs::JointState>("playback_joints", 32, &playbackMoves);
+	ssc = nh.advertise<pmsg::SSCMoveList>("move_ssc_topic", 32);
 
 	client.waitForServer();
 
@@ -139,8 +140,12 @@ int main (int argc, char *argv[]) {
 	}
 
 	//So far... we have the planner (by default it should be OMPL)
-	moveit_msgs::MotionPlanRequest req;
+	planning_interface::MotionPlanRequest req;
+	planning_interface::MotionPlanResponse res;
 	moveit_msgs::MotionPlanResponse res;
+	robot_model::RobotState state(pumpkinModel);
+	
+	
 
 	XmlRpc::XmlRpcValue sscConf;
 	ros::param::get("/pumpkin/config/ssc", sscConf);
@@ -163,6 +168,8 @@ int main (int argc, char *argv[]) {
 		}
 	}
 
+	planner->getPlanningContext(planningScene).;
+
 	double rate;
 	if (!ros::param::get("/pumpkin/config/ros_rate", rate))
 		rate = 100;
@@ -173,10 +180,10 @@ int main (int argc, char *argv[]) {
 			continue;
 		switch (state) {
 			case SceneState::Switching:
-
+				
 			break;
 			case SceneState::Preparing:
-
+				pumpkinModel->copy
 			break;
 			case SceneState::Moving:
 

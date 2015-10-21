@@ -50,6 +50,8 @@
   <build_depend>analog_read</build_depend>
   <build_depend>actionlib</build_depend>
   <build_depend>actionlib_msgs</build_depend>
+  <build_depend>pumpkin_messages</build_depend>
+  <build_depend>moveit_core</build_depend>
   <!-- Runtime Dependencies below -->
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
@@ -60,6 +62,8 @@
   <run_depend>roslib</run_depend>
   <run_depend>actionlib</run_depend>
   <run_depend>actionlib_msgs</run_depend>
+  <run_depend>pumpkin_messages</run_depend>
+  <run_depend>moveit_core</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
