@@ -29,7 +29,7 @@ class PlaybackActionServer {
 	};
 	//private members
 	ros::NodeHandle _nh;
-	ros::Publisher _ssc, _joint;
+	ros::Publisher _ssc;//, _joint;
 	std::vector<std::string> _movement_files;
 	actionlib::SimpleActionServer<PlaybackAction> _server;
 	std::vector<auxiliar_calibration> _aux_vec;
@@ -48,7 +48,7 @@ public:
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
 
 		_ssc = _nh.advertise<SSCMoveList>("move_ssc_topic", 32);
-		_joint = _nh.advertise<sensor_msgs::JointState>("playback_joints", 32);
+		//_joint = _nh.advertise<sensor_msgs::JointState>("playback_joints", 32);
 		//_direct = true;
 
         _server.start();
@@ -64,12 +64,13 @@ public:
 			_ssc.publish(SSCMoveList());
 		}
 		auto goal = _server.acceptNewGoal();
-		std::string filename = goal->filename;
-		_direct = goal->direct;
+		_movement_files = std::move(goal->filename);
+		//_direct = goal->direct;
+		_movement_index = 0;
 		_feedback.percentage = 0.0;
 
 		try {
-			_movement = std::move(YAML::LoadAllFromFile(filename));
+			_movement = std::move(YAML::LoadAllFromFile(_movement_files[0]));
 		} catch (YAML::BadFile) {
             _result.state = static_cast<uint8_t>(IOState::BadFile);
 			_server.setAborted(_result);
@@ -224,7 +225,7 @@ int main (int argc, char *argv[]) {
 	for (auto it = config["arduino"].begin(), end_it = config["arduino"].end(); it != end_it; ++it) {
 		for (auto part_it = it->second.begin(), part_end_it = it->second.end(); part_it != part_end_it; ++part_it) {
 			XmlRpc::XmlRpcValue & ssc_ref = config["ssc"][it->first][part_it->first];
-			std::string joint_name = (it->first)[0] + "_" + part_it->first;
+			std::string joint_name = (it->first)[0] + ("_" + part_it->first);
 			server.calibrate(int(part_it->second["pin"]),
 			                 int(part_it->second["analog_read_min"]),
 			                 int(part_it->second["analog_read_max"]),

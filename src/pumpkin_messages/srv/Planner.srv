@@ -1,5 +1,5 @@
 #Request
-string[] joint_names
+#string[] joint_names
 float64[] initial_positions
 float64[] final_positions
 ---

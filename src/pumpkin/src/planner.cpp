@@ -1,17 +1,16 @@
 #include <ros/ros.h>
 #include <pluginlib/class_loader.h>
 #include <yaml-cpp/yaml.h>
+#include <algorithm>
 
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/server/simple_action_server.h>
-#include "pumpkin_messages/PlaybackAction.h"
-#include "pumpkin_messages/SceneAction.h"
-#include "pumpkin_messages/analog_array.h"
-#include "pumpkin_messages/SSCMoveList.h"
+#include "pumpkin_messages/Planner.h"
 #include "file_type.h"
 
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_model/joint_model.h>
+#include <moveit/robot_model/joint_model_group.h>
 #include <moveit/planning_scene/planning_scene.h>
 #include <moveit/planning_interface/planning_interface.h>
 #include <moveit/planning_scene/planning_scene.h>
@@ -20,178 +19,136 @@
 
 namespace pmsg = pumpkin_messages;
 
-typedef actionlib::SimpleActionClient<pmsg::PlaybackAction> PlaybackClient;
-typedef actionlib::SimpleActionServer<pmsg::SceneAction> SceneServer;
+class PumpkinPlanner {
+	ros::ServiceServer _server;
+	ros::NodeHandle _nh;
 
-enum class SceneState {
-	Stopped,
-	Moving,
-	Preparing,
-	Switching,
+	robot_model::RobotModelPtr _model;
+	planning_scene::PlanningScenePtr _planningScene;
+	planning_interface::PlannerManagerPtr _planner;
+	std::vector<robot_state::JointModelGroup *> _joint_groups;
+
+	std::vector<int> _indexes;
+
+public:
+	PumpkinPlanner() {
+		robot_model_loader::RobotModelLoader pumpkinModelLoader("/pumpkin/moveit/robot_description");
+		_model = pumpkinModelLoader.getModel();
+
+		_planningScene(new planning_scene::PlanningScene(_model));
+		std::string plannerName;
+
+		boost::scoped_ptr<pluginlib::ClassLoader<planning_interface::PlannerManager> > plannerLoader;
+
+		if (!_nh.getParam("/pumpkin/moveit/planning_plugin", plannerName))
+			ROS_FATAL_STREAM("Could not find planner plugin name");
+		try
+		{
+			plannerLoader.reset(new pluginlib::ClassLoader<planning_interface::PlannerManager>("moveit_core", "planning_interface::PlannerManager"));
+		}
+		catch(pluginlib::PluginlibException& ex)
+		{
+			ROS_FATAL_STREAM("Exception while creating planning plugin loader " << ex.what());
+		}
+		try
+		{
+			_planner.reset(plannerLoader->createUnmanagedInstance(plannerName));
+			if (!_planner->initialize(pumpkinModel, _nh.getNamespace()))
+				ROS_FATAL_STREAM("Could not initialize planner instance");
+			ROS_INFO_STREAM("Using planning interface '" << _planner->getDescription() << "'");
+		}
+		catch(pluginlib::PluginlibException& ex)
+		{
+			const std::vector<std::string> &classes = plannerLoader->getDeclaredClasses();
+			std::stringstream ss;
+			for (std::size_t i = 0 ; i < classes.size() ; ++i)
+				ss << classes[i] << " ";
+			ROS_ERROR_STREAM("Exception while loading planner '" << plannerName << "': " << ex.what() << std::endl
+							 << "Available plugins: " << ss.str());
+		}
+
+		_server = _nh.advertiseService<PumpkinPlanner, pmsg::PlannerRequest, pmsg::PlannerResponse>("planner", &PumpkinPlanner::plan, this);
+
+	}
+
+	bool setJoints(const std::string & group_name, const std::vector<std::string> & joints ) {
+		_joint_groups.push_back(_model->getJointModelGroup(group_name));
+		const std::vector<std::string> &ordered_names = _joint_groups.back()->getJointModelNames();
+		for (const auto it = ordered_names.begin(); it != ordered_names.end(); ++it) {
+			std::vector<std::string>::iterator pos = std::find(joints.begin(), joints.end(), *it);
+			if (pos == joints.end())
+				return false;
+			_indexes.push_back(pos - joints.begin());
+		}
+	}
+
+	bool plan(pmsg::PlannerRequest& req, pmsg::PlannerResponse& res) {
+
+		planning_interface::MotionPlanRequest planReq;
+		planning_interface::MotionPlanResponse planRes;
+
+		robot_state::RobotState & now = _planningScene->getCurrentStateNonConst();
+		robot_state::RobotState after(_model);
+		int i = 0;
+		for (auto it = _joint_groups.begin(); it != _joint_groups.end(); ++it) {
+			std::vector<double> joint_now, joint_after;
+			joint_now.resize((*it)->getVariableCount());
+			joint_after.resize(joint_now.size());
+			for (int j = 0; j != joint_now.size(); ++j) {
+				joint_now[j] = req.initial_positions[_indexes[i]];
+				joint_after[j] = req.final_positions[_indexes[i++]];
+			}
+			now.setJointGroupPositions(*it, joint_now);
+			after.setJointGroupPositions(*it, joint_after);
+			planReq.goal_constraints.push_back(kinematic_constraints::constructGoalConstraints(after, *it));
+		}
+
+		planning_interface::PlanningContextPtr context = planner_instance->getPlanningContext(planning_scene, planReq, planRes.error_code_);
+		context->solve(planRes);
+		moveit_msgs::MotionPlanResponse resMsg;
+		planRes.getMessage(resMsg);
+		res.joint_trajectory = resMsg.trajectory.joint_trajectory;
+	}
 };
-
-struct auxiliar_calibration {
-	int ssc_min;
-	int ssc_max;
-	int ssc_pin;
-	double joint_min;
-	double joint_max;
-};
-
-SceneState state;
-std::vector<std::string> playback_list;
-std::vector<double> joint_positions;
-std::map<std::string, auxiliar_calibration> joint_map;
-pmsg::SceneFeedback feedback;
-pmsg::SceneResult result;
-uint32_t atual_step;
-
-std::vector<std::string> joint_names;
-std::vector<std::vector<double> > joint_steps;
-
-ros::Subscriber playback;
-ros::Publisher ssc;
-
-void onGoal(SceneServer& server) {
-	if (state != SceneState::Stopped) {
-		ssc.publish(pmsg::SSCMoveList());
-	}
-	auto goal = server.acceptNewGoal();
-	playback_list = goal->filenames;
-	atual_step = 0;
-}
-
-void onPreempt(SceneServer& server, PlaybackClient &client) {
-	if (state == SceneState::Moving) {
-		client.cancelGoal();
-		result.state = client.getResult()->state;
-	} else if (state == SceneState::Switching) {
-		ssc.publish(pmsg::SSCMoveList());
-		result.state = static_cast<uint8_t>(pmsg::IOState::OK);
-	}
-	server.setAborted(result);
-}
-
-void playbackMoves(sensor_msgs::JointStateConstPtr &msg) {
-	if (joint_names.empty()) {
-		joint_names = msg->name;
-	}
-	joint_steps.push_back(msg->position);
-}
 
 int main (int argc, char *argv[]) {
 	ros::init(argc, argv, "pumpkin_planner");
-	ros::NodeHandle nh;
+	ros::start();
 
-	while (!ros::param::has("/pumpkin/config")) {
-		ros::Duration(1, 0).sleep();
+	PumpkinPlanner planner;
+
+	ros::Rate loop(1000);
+	while (!ros::param::has("pumpkin/config")) {
+		loop.sleep();
 	}
 
-	PlaybackClient client("playback_action", false);
-	SceneServer server("scene_action", false);
+	XmlRpc::XmlRpcValue config;
+	ros::param::get("/pumpkin/config/ssc", config);
 
-	server.registerGoalCallback(boost::bind(onGoal, server));
-	server.registerPreemptCallback(boost::bind(onPreempt, server, client));
-
-	state = SceneState::Stopped;
-	atual_step = 0;
-
-	playback = nh.subscribe<sensor_msgs::JointState>("playback_joints", 32, &playbackMoves);
-	ssc = nh.advertise<pmsg::SSCMoveList>("move_ssc_topic", 32);
-
-	client.waitForServer();
-
-	//Create the pumpkin model
-	robot_model_loader::RobotModelLoader pumpkinModelLoader("pumpkin_description");
-	robot_model::RobotModelPtr pumpkinModel = pumpkinModelLoader.getModel();
-
-	//Create the planning scene, that coordinates the objects in the world
-	planning_scene::PlanningScenePtr planningScene(new planning_scene::PlanningScene(pumpkinModel));
-
-	boost::scoped_ptr<pluginlib::ClassLoader<planning_interface::PlannerManager> > plannerLoader;
-	planning_interface::PlannerManagerPtr planner;
-	std::string plannerName;
-
-	if (!nh.getParam("planning_plugin", plannerName))
-		ROS_FATAL_STREAM("Could not find planner plugin name");
-	try
-	{
-		plannerLoader.reset(new pluginlib::ClassLoader<planning_interface::PlannerManager>("moveit_core", "planning_interface::PlannerManager"));
-	}
-	catch(pluginlib::PluginlibException& ex)
-	{
-		ROS_FATAL_STREAM("Exception while creating planning plugin loader " << ex.what());
-	}
-	try
-	{
-		planner.reset(plannerLoader->createUnmanagedInstance(plannerName));
-		if (!planner->initialize(pumpkinModel, nh.getNamespace()))
-			ROS_FATAL_STREAM("Could not initialize planner instance");
-		ROS_INFO_STREAM("Using planning interface '" << planner->getDescription() << "'");
-	}
-	catch(pluginlib::PluginlibException& ex)
-	{
-		const std::vector<std::string> &classes = plannerLoader->getDeclaredClasses();
-		std::stringstream ss;
-		for (std::size_t i = 0 ; i < classes.size() ; ++i)
-			ss << classes[i] << " ";
-		ROS_ERROR_STREAM("Exception while loading planner '" << plannerName << "': " << ex.what() << std::endl
-		                 << "Available plugins: " << ss.str());
-	}
-
-	//So far... we have the planner (by default it should be OMPL)
-	planning_interface::MotionPlanRequest req;
-	planning_interface::MotionPlanResponse res;
-	moveit_msgs::MotionPlanResponse res;
-	robot_model::RobotState state(pumpkinModel);
-	
-	
-
-	XmlRpc::XmlRpcValue sscConf;
-	ros::param::get("/pumpkin/config/ssc", sscConf);
-
-	//Build que calibration parameters
-	typedef std::vector<moveit::core::JointModel *> JointVector;
-	for (XmlRpc::XmlRpcValue::iterator sscClusterIt = sscConf.begin(); sscClusterIt != sscConf.end(); ++sscClusterIt) {
-		auto joints = pumpkinModel->getJointModelGroup(sscClusterIt->first)->getJointModels();
-		for(JointVector::iterator jointIt = joints.begin(); jointIt != joints.end(); ++jointIt) {
-			const std::string &name = (*jointIt)->getName();
-			const std::string &part_name = name.substr(2);
-			auto bounds = (*jointIt)->getVariableBounds[0];
-			joint_map.insert(std::pair(name, auxiliar_calibration {
-										  int(sscClusterIt->second[part_name]["pulse_min"]),		//SSC min
-										  int(sscClusterIt->second[part_name]["pulse_max"]),		//SSC max
-										  int(sscClusterIt->second[part_name]["pin"]),				//SSC pin
-										  bounds.min_position,										//Joint min
-										  bounds.max_position,										//Joint max
-									  }));
+	for (auto it = config.begin(); it != config.end(); ++it) {
+		std::vector<std::string> joint_names;
+		for (auto it2 = config->second.begin(); it2 != config->second.end(); ++it2) {
+			char side = it2->first[0];
+			if (side == 'l' || side == 'r') {
+				joint_names.push_back(side + ("_"+it->first));
+			}
+			if (!planner.setJoints(*it, joint_names)) {
+				ROS_FATAL_STREAM("Could not set joints in " << *it);
+				return -1;
+			}
 		}
 	}
-
-	planner->getPlanningContext(planningScene).;
 
 	double rate;
-	if (!ros::param::get("/pumpkin/config/ros_rate", rate))
-		rate = 100;
-	ros::Rate ros_rate(rate);
+	ros::param::get("/pumpkin/config/ros_rate", rate);
+	loop = ros::Rate(rate);
 
 	while (ros::ok()) {
-		if (!server.isActive())
-			continue;
-		switch (state) {
-			case SceneState::Switching:
-				
-			break;
-			case SceneState::Preparing:
-				pumpkinModel->copy
-			break;
-			case SceneState::Moving:
-
-			case SceneState::Stopped:
-				ros_rate.sleep();
-			break;
-		}
+		ros::spinOnce();
+		loop.sleep();
 	}
+
+	ros::shutdown();
 
 	return 0;
 }
