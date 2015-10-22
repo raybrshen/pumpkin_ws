@@ -12,10 +12,17 @@
 #include "pumpkin_messages/PlaybackAction.h"
 #include "sensor_msgs/JointState.h"
 #include "pumpkin_messages/SSCMoveList.h"
+#include "pumpkin_messages/Planner.h"
 
 using namespace pumpkin_messages;
 
 class PlaybackActionServer {
+
+	enum State {
+		Moving,
+		RequestPlanning,
+		ExecutingPlanning,
+	};
 
 	struct auxiliar_calibration {
 		int arduino_min;
@@ -29,7 +36,8 @@ class PlaybackActionServer {
 	};
 	//private members
 	ros::NodeHandle _nh;
-	ros::Publisher _ssc;//, _joint;
+	ros::Publisher _ssc;
+	ros::ServiceClient _planner_client;
 	std::vector<std::string> _movement_files;
 	actionlib::SimpleActionServer<PlaybackAction> _server;
 	std::vector<auxiliar_calibration> _aux_vec;
@@ -38,14 +46,27 @@ class PlaybackActionServer {
 	double _percentage_step;
 	PlaybackFeedback _feedback;
 	PlaybackResult _result;
-	//bool _direct;
-	int _movement_index;
+	State _state;
+	int _movement_index, _plan_index;
 	ros::Rate _loop;
+	Planner _planner;
+
+	void loadFile() {
+		_movement = std::move(YAML::LoadAllFromFile(_movement_files[_movement_index]));
+		_percentage_step = (double)100/_movement.size();
+		_step_it = std::begin(_movement);
+		_end_it = std::end(_movement);
+
+		_feedback.percentage = 0.0;
+		_feedback.movement_index = _movement_index;
+	}
 
 public:
 	PlaybackActionServer() : _server(_nh, "playback_action", false), _aux_vec(32), _loop(1000) {
 		_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
+
+		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("planner");
 
 		_ssc = _nh.advertise<SSCMoveList>("move_ssc_topic", 32);
 		//_joint = _nh.advertise<sensor_msgs::JointState>("playback_joints", 32);
@@ -59,110 +80,212 @@ public:
         _server.shutdown();
 	}
 
+	///
+	/// \brief onGoal Action Server onGoal callback function
+	///
 	void onGoal() {
 		if (_step_it != _end_it) {
 			_ssc.publish(SSCMoveList());
 		}
 		auto goal = _server.acceptNewGoal();
-		_movement_files = std::move(goal->filename);
+		_movement_files = std::move(goal->filenames);
 		//_direct = goal->direct;
 		_movement_index = 0;
-		_feedback.percentage = 0.0;
 
 		try {
-			_movement = std::move(YAML::LoadAllFromFile(_movement_files[0]));
+			loadFile();
 		} catch (YAML::BadFile) {
             _result.state = static_cast<uint8_t>(IOState::BadFile);
 			_server.setAborted(_result);
             ROS_FATAL("ERROR OPENING FILE");
 		}
 
-		_percentage_step = (double)100/_movement.size();
-		_step_it = std::begin(_movement);
-		_end_it = std::end(_movement);
+		_state = Moving;
 
         ROS_INFO("New Goal!");
 	}
 
+	///
+	/// \brief onPreempt - Action Server onPreempt callback function
+	///
 	void onPreempt() {
-		//if (_direct)
 		_ssc.publish(SSCMoveList());
 		_result.state = static_cast<uint8_t>(IOState::OK);
 		_server.setAborted(_result);
-        //TODO reconfigure robot shutdown after end of scene
-        //_pub.publish(SSCMoveList());
 	}
 
+	///
+	/// \brief step - This is the main function of this class... It should be called in the main.
+	/// It executes the server loop, seeking for the movements in the playback files
+	///
 	void step() {
 		if (!_server.isActive()) {
 			_loop.sleep();
 			return;
 		}
 
-		if (_step_it->IsNull()) {
-			_result.state = static_cast<uint8_t>(IOState::BadFile);
-			_server.setAborted(_result);
-			_step_it = _end_it;
-
-			if (_direct)
-				_ssc.publish(SSCMoveList());
-			return;
-		} else if ((*_step_it)["an_read"].IsNull()) {
-			_result.state = static_cast<uint8_t>(IOState::BadFile);
-			_server.setAborted(_result);
-			_step_it = _end_it;
-
-			//if (_direct)
-			_ssc.publish(SSCMoveList());
-			return;
-		}
-
-		//ROS_INFO("New step.");
-
-		std::vector<uint16_t> reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
-
-		++_step_it;
-
 		SSCMoveList command;
-		for (int i = 0; i < reads.size(); ++i) {
-			SSCMove move;
-			const auxiliar_calibration &aux = _aux_vec[i];
-			move.channel = aux.ssc_pin;
-			if (aux.arduino_max - aux.arduino_min <= 0) {
-				ROS_WARN("Arduino calibration error");
-				continue;
-			} else {
-				move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
-											  / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
-				if (move.pulse > aux.ssc_max) {
-					ROS_WARN("Pulse overflow: %d", int(move.pulse));
-					move.pulse = aux.ssc_max;
-				} else if (move.pulse < aux.ssc_min) {
-					ROS_WARN("Pulse underflow: %d", int(move.pulse));
-					move.pulse = aux.ssc_min;
+		std::vector<uint16_t> reads;
+
+		switch(_state) {
+			case Moving:
+				if (_step_it->IsNull()) {
+					_result.state = static_cast<uint8_t>(IOState::BadFile);
+					_server.setAborted(_result);
+					_step_it = _end_it;
+					_ssc.publish(SSCMoveList());
+					return;
+				} else if ((*_step_it)["an_read"].IsNull()) {
+					_result.state = static_cast<uint8_t>(IOState::BadFile);
+					_server.setAborted(_result);
+					_step_it = _end_it;
+
+					//if (_direct)
+					_ssc.publish(SSCMoveList());
+					return;
 				}
-			}
-			move.speed = 0;
-			command.list.emplace_back(std::move(move));
+
+				//ROS_INFO("New step.");
+
+				reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
+
+				++_step_it;
+
+				for (int i = 0; i < reads.size(); ++i) {
+					SSCMove move;
+					const auxiliar_calibration &aux = _aux_vec[i];
+					move.channel = aux.ssc_pin;
+					if (aux.arduino_max - aux.arduino_min <= 0) {
+						ROS_WARN("Arduino calibration error");
+						continue;
+					} else {
+						move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
+													  / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
+						if (move.pulse > aux.ssc_max) {
+							ROS_WARN("Pulse overflow: %d", int(move.pulse));
+							move.pulse = aux.ssc_max;
+						} else if (move.pulse < aux.ssc_min) {
+							ROS_WARN("Pulse underflow: %d", int(move.pulse));
+							move.pulse = aux.ssc_min;
+						}
+					}
+						move.speed = 0;
+						command.list.emplace_back(std::move(move));
+				}
+
+				if (command.list.size())
+					_ssc.publish(command);
+				else
+					ROS_WARN("Outbound error!");
+
+				_feedback.percentage += _percentage_step;
+				_server.publishFeedback(_feedback);
+
+				if (_step_it == _end_it) {
+					++_movement_index;
+					_state = RequestPlanning;
+				} else {
+					_loop.sleep();
+				}
+			break;
+			case RequestPlanning:
+				if (_movement_index == _movement_files.size()) {
+					_result.state = static_cast<uint8_t>(IOState::OK);
+					_server.setSucceeded(_result);
+					_ssc.publish(SSCMoveList());
+				} else {
+					_planner.request.initial_positions.reserve(_aux_vec.size());
+					_planner.request.final_positions.reserve(_aux_vec.size());
+
+					reads = std::move(_movement.back()["an_read"].as<std::vector<uint16_t> >());
+
+					for(int i = 0; i < _aux_vec.size(); ++i) {
+						auxiliar_calibration & aux = _aux_vec[i];
+
+						if (aux.arduino_max == aux.arduino_min == 0)
+							continue;
+
+
+						double value = (double) ((reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+														/ (aux.arduino_max - aux.arduino_min) + aux.joint_lower);
+						if (value > aux.joint_upper) {
+							ROS_WARN("Pulse overflow.");
+							value = aux.joint_upper;
+						} else if (value < aux.joint_lower) {
+							ROS_WARN("Pulse underflow.");
+							value = aux.joint_lower;
+						}
+
+						_planner.request.initial_positions.push_back(value);
+					}
+
+					loadFile();
+
+					reads = std::move(_movement.front()["an_read"].as<std::vector<uint16_t> >());
+
+					for(int i = 0; i < _aux_vec.size(); ++i) {
+						auxiliar_calibration & aux = _aux_vec[i];
+
+						if (aux.arduino_max == aux.arduino_min == 0)
+							continue;
+
+
+						double value = (double) ((reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+														/ (aux.arduino_max - aux.arduino_min) + aux.joint_lower);
+						if (value > aux.joint_upper) {
+							ROS_WARN("Pulse overflow: %lf", value);
+							value = aux.joint_upper;
+						} else if (value < aux.joint_lower) {
+							ROS_WARN("Pulse underflow: %lf", value);
+							value = aux.joint_lower;
+						}
+
+						_planner.request.final_positions.push_back(value);
+					}
+					_planner_client.call(_planner);
+					if (_planner.response.error_codes.val != _planner.response.error_codes.SUCCESS) {
+						_ssc.publish(SSCMoveList());
+						_result.state = static_cast<uint8_t>(IOState::BadFile);//Has to change here for a new code
+						_server.setAborted(_result);
+						_state = Moving;
+					}
+					_plan_index = 0;
+				}
+			break;
+			case ExecutingPlanning:
+				if (_plan_index == _planner.response.joint_trajectory.points.size()) {
+					_state = Moving;
+				} else {
+					trajectory_msgs::JointTrajectoryPoint &trajectory = _planner.response.joint_trajectory.points[_plan_index];
+					_loop = ros::Rate(trajectory.time_from_start);
+					std::vector<std::string> &names = _planner.response.joint_trajectory.joint_names;
+
+					for (int i = 0, size = names.size(); i < size; ++i) {
+						SSCMove move;
+						const std::string &name = names[i];
+						auto it = std::find_if(_aux_vec.begin(), _aux_vec.end(),
+						                       [name](const auxiliar_calibration &x) { return name == x.joint_name; });
+
+						move.channel = it->ssc_pin;
+						move.pulse = (uint16_t) ((trajectory.positions[it - _aux_vec.begin()] - it->joint_lower) *
+						                         (it->ssc_max - it->ssc_min)
+						                         / (it->joint_upper - it->joint_lower) + it->ssc_min);
+						if (move.pulse > it->ssc_max) {
+							ROS_WARN("Pulse overflow: %d", int(move.pulse));
+							move.pulse = it->ssc_max;
+						} else if (move.pulse < it->ssc_min) {
+							ROS_WARN("Pulse underflow: %d", int(move.pulse));
+							move.pulse = it->ssc_min;
+						}
+						move.speed = 0;
+						command.list.emplace_back(move);
+					}
+					_ssc.publish(command);
+					_plan_index++;
+					_loop.sleep();
+				}
+			break;
 		}
-
-		if (command.list.size())
-			_ssc.publish(command);
-		else
-			ROS_WARN("Outbound error!");
-
-		_feedback.percentage += _percentage_step;
-		_server.publishFeedback(_feedback);
-
-		if (_step_it == _end_it) {
-			_result.state = static_cast<uint8_t>(IOState::OK);
-			_server.setSucceeded(_result);
-			//if (_direct)
-			_ssc.publish(SSCMoveList());
-		}
-
-		//if (_direct)
-		_loop.sleep();
 	}
 
 	void calibrate (int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin,

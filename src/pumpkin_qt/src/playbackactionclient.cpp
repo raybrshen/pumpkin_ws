@@ -6,8 +6,6 @@ namespace pumpkin_qt {
 PlaybackActionClient::PlaybackActionClient(QObject *parent) :
 	QObject(parent)
 {
-	_goal.filename = std::string();
-	_goal.stop_after = true;
 	_running = false;
 }
 
@@ -24,14 +22,15 @@ void PlaybackActionClient::init()
 
 void PlaybackActionClient::setPlaybackFilename(const QString &filename)
 {
-	_goal.filename = filename.toStdString();
+	_goal.filenames.clear();
+	_goal.filenames.push_back(filename.toStdString());
 }
 
 void PlaybackActionClient::playbackFile() {
-	if (_goal.filename.empty()) {
+	if (_goal.filenames.empty()) {
 		return;
 	}
-	ROS_INFO("Starting playback file %s", _goal.filename.c_str());
+	ROS_INFO("Starting playback file %s", _goal.filenames[0].c_str());
 	_playback_client->sendGoal(_goal, boost::bind(&PlaybackActionClient::playbackDoneCallback, this, _1, _2),
 							   boost::bind(&PlaybackActionClient::playbackActiveCallback, this),
 							   boost::bind(&PlaybackActionClient::playbackFeedbackCallback, this, _1));
@@ -47,7 +46,7 @@ void PlaybackActionClient::playbackStop() {
 void PlaybackActionClient::playbackActiveCallback() {
 	_running = true;
 	Q_EMIT(blockRecTab(true));
-	Q_EMIT(sendStatusMessage(QString("Start playback file %0.").arg(QString::fromStdString(_goal.filename)), 1000));
+	Q_EMIT(sendStatusMessage(QString("Start playback file %0.").arg(QString::fromStdString(_goal.filenames[0])), 1000));
 }
 
 void PlaybackActionClient::playbackDoneCallback(const actionlib::SimpleClientGoalState &goal,

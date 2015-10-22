@@ -13,6 +13,7 @@ find_package(catkin REQUIRED
   actionlib_msgs
 #  actionlib
   trajectory_msgs
+  moveit_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -80,6 +81,7 @@ generate_messages(
   std_msgs  # Or other packages containing msgs
   actionlib_msgs
   trajectory_msgs
+  moveit_msgs
 )
 
 ###################################
@@ -94,7 +96,7 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES pumpkin_library
-  CATKIN_DEPENDS std_msgs actionlib_msgs trajectory_msgs
+  CATKIN_DEPENDS std_msgs actionlib_msgs trajectory_msgs moveit_msgs
 #  DEPENDS system_lib
 )
 

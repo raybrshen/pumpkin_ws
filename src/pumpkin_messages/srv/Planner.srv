@@ -5,3 +5,4 @@ float64[] final_positions
 ---
 #Response
 trajectory_msgs/JointTrajectory joint_trajectory
+moveit_msgs/MoveItErrorCodes error_codes
