@@ -47,7 +47,7 @@ class PlaybackActionServer {
 	PlaybackFeedback _feedback;
 	PlaybackResult _result;
 	State _state;
-	int _movement_index, _plan_index;
+	unsigned int _movement_index, _plan_index;
 	ros::Rate _loop;
 	Planner _planner;
 
@@ -58,7 +58,7 @@ class PlaybackActionServer {
 		_end_it = std::end(_movement);
 
 		_feedback.percentage = 0.0;
-		_feedback.movement_index = _movement_index;
+		_feedback.movement_index = _movement_index << 1;
 	}
 
 public:
@@ -179,6 +179,7 @@ public:
 					ROS_WARN("Outbound error!");
 
 				_feedback.percentage += _percentage_step;
+				_feedback.movement_index = _movement_index << 1;
 				_server.publishFeedback(_feedback);
 
 				if (_step_it == _end_it) {
@@ -281,6 +282,10 @@ public:
 						command.list.emplace_back(move);
 					}
 					_ssc.publish(command);
+
+					_feedback.percentage = _plan_index/_planner.response.joint_trajectory.points.size();
+					_feedback.movement_index = (_movement_index << 1) | 1;
+
 					_plan_index++;
 					_loop.sleep();
 				}

@@ -22,7 +22,7 @@ Q_SIGNALS:
 	void recordMinuteFeedback(int minutes);
 	void recordSecondFeedback(int seconds);
 	void recordFinished(int state);
-	void blockPlayTab(bool block);
+	void blockOnRecord(bool block);
 	void sendStatusMessage(const QString &msg, int timeout);
 
 public Q_SLOTS:

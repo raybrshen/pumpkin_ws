@@ -55,7 +55,7 @@ void RecordActionClient::recordFile() {
 }
 
 void RecordActionClient::recordStop() {
-	Q_EMIT(blockPlayTab(false));
+	Q_EMIT(blockOnRecord(false));
 	if (_running)
 		_record_client->cancelGoal();
 	Q_EMIT(sendStatusMessage(QString("Stopped recording"), 1000));
@@ -64,14 +64,14 @@ void RecordActionClient::recordStop() {
 
 void RecordActionClient::recordActiveCallback() {
 	_running = true;
-	Q_EMIT(blockPlayTab(true));
+	Q_EMIT(blockOnRecord(true));
 	Q_EMIT(sendStatusMessage(QString("Start recording file %0.").arg(QString::fromStdString(_goal.filename)), 1000));
 }
 
 void RecordActionClient::recordDoneCallback(const actionlib::SimpleClientGoalState &goal,
 								 const pumpkin_messages::RecordResultConstPtr &result) {
 	_running = false;
-	Q_EMIT(blockPlayTab(false));
+	Q_EMIT(blockOnRecord(false));
 	bool aborted = (goal == actionlib::SimpleClientGoalState::ABORTED);
 	switch (static_cast<pumpkin_messages::IOState>(result->state)) {
 		case pumpkin_messages::IOState::BadFile:

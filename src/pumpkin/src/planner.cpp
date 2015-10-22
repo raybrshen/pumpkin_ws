@@ -32,7 +32,7 @@ class PumpkinPlanner {
 
 public:
 	PumpkinPlanner() {
-		robot_model_loader::RobotModelLoader pumpkinModelLoader("/pumpkin/moveit/robot_description");
+		robot_model_loader::RobotModelLoader pumpkinModelLoader("robot_description");
 		_model = pumpkinModelLoader.getModel();
 
 		_planningScene.reset(new planning_scene::PlanningScene(_model));
@@ -40,7 +40,7 @@ public:
 
 		boost::scoped_ptr<pluginlib::ClassLoader<planning_interface::PlannerManager> > plannerLoader;
 
-		if (!_nh.getParam("/pumpkin/moveit/planning_plugin", plannerName))
+		if (!_nh.getParam("planning_plugin", plannerName))
 			ROS_FATAL_STREAM("Could not find planner plugin name");
 		try
 		{
@@ -113,12 +113,13 @@ int main (int argc, char *argv[]) {
 	ros::init(argc, argv, "pumpkin_planner");
 	ros::start();
 
-	PumpkinPlanner planner;
-
 	ros::Rate loop(1000);
 	while (!ros::param::has("pumpkin/config")) {
 		loop.sleep();
 	}
+
+	PumpkinPlanner planner;
+
 
 	XmlRpc::XmlRpcValue config;
 	ros::param::get("/pumpkin/config/arduino", config);

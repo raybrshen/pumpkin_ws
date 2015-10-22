@@ -1,7 +1,10 @@
 #include "../include/pumpkin_qt/pumpkinqt.hpp"
 #include <QLineEdit>
+#include <QProgressBar>
 #include <QMessageBox>
 #include <QLabel>
+#include <QListWidget>
+#include <QListWidgetItem>
 
 namespace pumpkin_qt {
 
@@ -26,35 +29,58 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 	QObject::connect(_ui.folderTree, SIGNAL(clicked(QModelIndex)), this, SLOT(folderSelected(QModelIndex)));
 	QObject::connect(_ui.fileView, SIGNAL(clicked(QModelIndex)), this, SLOT(fileSelected(QModelIndex)));
 
+	//Link the files signal for posterior playback, record and scene execution
 	//QObject::connect(this, SIGNAL(changePlaybackFilename(QString)), _ui.playbackFileName, SLOT(setText(QString)));
 	QObject::connect(this, SIGNAL(changePlaybackFilename(QString)), &_playback, SLOT(setPlaybackFilename(QString)));
 	QObject::connect(this, SIGNAL(changeRecordFilename(QString)), &_record, SLOT(setRecordFilename(QString)));
+	QObject::connect(this, SIGNAL(setSceneFilenames(std::vector<std::string>)), &_playback, SLOT(setSceneFilenames(std::vector<std::string>)));
 
 	QObject::connect(_ui.recordFileName, SIGNAL(textEdited(QString)), this, SLOT(changeFilename(QString)));
 	QObject::connect(_ui.minuteSpin, SIGNAL(valueChanged(int)), &_record, SLOT(setRecordTimeMinutes(int)));
 	QObject::connect(_ui.secondSpin, SIGNAL(valueChanged(int)), &_record, SLOT(setRecordTimeSeconds(int)));
 
+	//Link buttons signals
 	QObject::connect(_ui.playButton, SIGNAL(clicked()), this, SLOT(runPlayback()));
 	QObject::connect(_ui.stopPlayButton, SIGNAL(clicked()), &_playback, SLOT(playbackStop()));
 	QObject::connect(_ui.recButton, SIGNAL(clicked()), this, SLOT(runRecord()));
 	QObject::connect(_ui.stopRecButton, SIGNAL(clicked()), &_record, SLOT(recordStop()));
+	QObject::connect(_ui.playSceneButton, SIGNAL(clicked()), this, SLOT(runScene()));
+	QObject::connect(_ui.stopSceneButton, SIGNAL(clicked()), &_playback, SLOT(stopScene()));
 
+	QObject::connect(_ui.addSceneMoveButton, SIGNAL(clicked()), this, SLOT(addSceneFile()));
+	QObject::connect(_ui.removeSceneMoveButton, SIGNAL(clicked()), this, SLOT(removeSceneFile()));
+
+	//Link feedbacks signals
 	QObject::connect(&_playback, SIGNAL(playbackPercentage(int)), _ui.playbackProgress, SLOT(setValue(int)));
+	QObject::connect(&_playback, SIGNAL(scenePercentage(int,int,int)), this, SLOT(updateSceneFeedback(int,int,int)));
 	QObject::connect(&_record, SIGNAL(recordMinuteFeedback(int)), _ui.minuteSpin, SLOT(setValue(int)));
 	QObject::connect(&_record, SIGNAL(recordSecondFeedback(int)), _ui.secondSpin, SLOT(setValue(int)));
 
-	QObject::connect(&_playback, SIGNAL(blockRecTab(bool)), _ui.recordTab, SLOT(setDisabled(bool)));
-	QObject::connect(&_playback, SIGNAL(blockRecTab(bool)), _ui.playButton, SLOT(setDisabled(bool)));
-	QObject::connect(&_playback, SIGNAL(blockRecTab(bool)), _ui.stopPlayButton, SLOT(setEnabled(bool)));
-	QObject::connect(&_record, SIGNAL(blockPlayTab(bool)), _ui.playbackTab, SLOT(setDisabled(bool)));
-	QObject::connect(&_record, SIGNAL(blockPlayTab(bool)), _ui.recButton, SLOT(setDisabled(bool)));
-	QObject::connect(&_record, SIGNAL(blockPlayTab(bool)), _ui.minuteSpin, SLOT(setDisabled(bool)));
-	QObject::connect(&_record, SIGNAL(blockPlayTab(bool)), _ui.secondSpin, SLOT(setDisabled(bool)));
-	QObject::connect(&_record, SIGNAL(blockPlayTab(bool)), _ui.stopRecButton, SLOT(setEnabled(bool)));
+	//Link signals for blocking on playback
+	QObject::connect(&_playback, SIGNAL(blockOnPlayback(bool)), _ui.recordTab, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnPlayback(bool)), _ui.sceneTab, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnPlayback(bool)), _ui.playButton, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnPlayback(bool)), _ui.stopPlayButton, SLOT(setEnabled(bool)));
+	//Link signals for blocking on record
+	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.playbackTab, SLOT(setDisabled(bool)));
+	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.sceneTab, SLOT(setDisabled(bool)));
+	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.recButton, SLOT(setDisabled(bool)));
+	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.minuteSpin, SLOT(setDisabled(bool)));
+	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.secondSpin, SLOT(setDisabled(bool)));
+	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.stopRecButton, SLOT(setEnabled(bool)));
+	//Linkg signals for blocking on scene
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.recordTab, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.playbackFileName, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.stopSceneButton, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.addSceneMoveButton, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.removeSceneMoveButton, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.playSceneButton, SLOT(setEnabled(bool)));
 
+	//Link for respond on finishing playback or record (for now, it only reloads the file tree
 	QObject::connect(&_playback, SIGNAL(playbackFinished(int)), this, SLOT(actionFinished(int)));
 	QObject::connect(&_record, SIGNAL(recordFinished(int)), this, SLOT(actionFinished(int)));
 
+	//Link status message signals
 	QObject::connect(&_node, SIGNAL(sendStatusMessage(QString,int)), _ui.statusbar, SLOT(showMessage(QString,int)));
 	QObject::connect(&_playback, SIGNAL(sendStatusMessage(QString,int)), _ui.statusbar, SLOT(showMessage(QString,int)));
 	QObject::connect(&_record, SIGNAL(sendStatusMessage(QString,int)), _ui.statusbar, SLOT(showMessage(QString,int)));
@@ -111,6 +137,10 @@ void PumpkinQT::resizeEvent(QResizeEvent *event)
 
 void PumpkinQT::fillTable(const QString &base_path, const std::vector<pumpkin_messages::FileList> &file_list)
 {
+	_filename = QString();
+	while(_ui.sceneList->count() > 0) {
+		_ui.sceneList->removeItemWidget(_ui.sceneList->item(0));
+	}
     if (_folder_model)
         delete _folder_model;
     _base_path = base_path;
@@ -141,6 +171,7 @@ void PumpkinQT::fillTable(const QString &base_path, const std::vector<pumpkin_me
 }
 
 void PumpkinQT::folderSelected(const QModelIndex &index) {
+	_filename = QString();
     const QModelIndex & it =_folder_model->index(index.row(), 1, index.parent());
 	int data = it.data().toInt();
 	//ROS_INFO("Selected folder %d.", data);
@@ -188,6 +219,35 @@ void PumpkinQT::runRecord()
 	_record.recordFile();
 }
 
+void PumpkinQT::runScene()
+{
+	if (_ui.sceneList->count() == 0)
+		return;
+	std::vector<std::string> files;
+	for (int i = 0; i < _ui.sceneList->count(); ++i) {
+		files.push_back(_ui.sceneList->item(i)->text().toStdString());
+	}
+	Q_EMIT(setSceneFilenames(files));
+	_playback.playScene();
+}
+
+void PumpkinQT::addSceneFile()
+{
+	if (_filename.isEmpty())
+		return;
+	if (_ui.sceneList->findItems(_filename, Qt::MatchContains).size() > 0)
+		return;
+	_ui.sceneList->addItem(_filename);
+}
+
+void PumpkinQT::removeSceneFile()
+{
+	auto list = _ui.sceneList->selectedItems();
+	if (list.size() == 0)
+		return;
+	_ui.sceneList->removeItemWidget(list[0]);
+}
+
 void PumpkinQT::changeFilename(const QString &filename)
 {
 	QString file = filename + (bool(filename.contains(".yaml")) ? "" : ".yaml");
@@ -218,6 +278,18 @@ void PumpkinQT::showAboutDialog()
 	box->setText("Dr. Robot Pumpkin. University of Ottawa");
 	box->exec();
 	delete box;
+}
+
+void PumpkinQT::updateSceneFeedback(int step, int total, int percentage)
+{
+	_ui.sceneProgress->setValue(percentage);
+	int move = step >> 1;
+	if (step & 1) {
+		//If step is even, it means it is between tho movements
+		_ui.sceneLabel->setText(QString("Playing planned from %0 to %1.").arg(move + 1).arg(move + 2));
+	} else {
+		_ui.sceneLabel->setText(QString("Playing scene movement: %0 of %1.").arg(move+1).arg(total));
+	}
 }
 
 /********************************

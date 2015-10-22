@@ -82,6 +82,7 @@ Q_SIGNALS:
 	void changeRecordFilename(const QString & str);
 	void selectFolder(const QString &folder);
 	void selectFile(const QString &file);
+	void setSceneFilenames(const std::vector<std::string>& filenames);
 
 public Q_SLOTS:
     void fillTable(const QString& base_path, const std::vector<pumpkin_messages::FileList>& file_list);
@@ -89,10 +90,14 @@ public Q_SLOTS:
     void fileSelected(const QModelIndex &index);
 	void runPlayback();
 	void runRecord();
+	void runScene();
+	void addSceneFile();
+	void removeSceneFile();
 	void changeFilename(const QString& filename);
 	void actionFinished(int state);
 	void showSSCMoveDialog();
 	void showAboutDialog();
+	void updateSceneFeedback(int step, int total, int percentage);
 
 private:
 	Ui::PumpkinQTDesign _ui;

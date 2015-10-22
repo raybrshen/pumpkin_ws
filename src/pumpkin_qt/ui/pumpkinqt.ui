@@ -19,7 +19,58 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="2">
+    <item row="0" column="0">
+     <widget class="QTreeView" name="folderTree">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="statusTip">
+       <string>Select a folder</string>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QListView" name="fileView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="statusTip">
+       <string>Select a file.</string>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QListWidget" name="sceneList">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="statusTip">
+       <string>Scene movement list</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="3">
      <widget class="QTabWidget" name="mainBlock">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -28,7 +79,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="playbackTab">
        <property name="minimumSize">
@@ -56,7 +107,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="playbackFileName">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -76,7 +127,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" rowspan="2">
+        <item row="0" column="2" rowspan="2">
          <widget class="QPushButton" name="playButton">
           <property name="text">
            <string>Play</string>
@@ -87,7 +138,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2" rowspan="2">
+        <item row="0" column="3" rowspan="2">
          <widget class="QPushButton" name="stopPlayButton">
           <property name="text">
            <string>Stop</string>
@@ -95,6 +146,13 @@
           <property name="icon">
            <iconset resource="../resources/images.qrc">
             <normaloff>:/images/media-stop-4x.png</normaloff>:/images/media-stop-4x.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="Line" name="line_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
@@ -134,6 +192,9 @@
           </property>
           <property name="maximum">
            <number>60</number>
+          </property>
+          <property name="value">
+           <number>1</number>
           </property>
          </widget>
         </item>
@@ -183,34 +244,112 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="4" rowspan="2">
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QTreeView" name="folderTree">
-      <property name="statusTip">
-       <string>Select a folder</string>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QListView" name="fileView">
-      <property name="statusTip">
-       <string>Select a file.</string>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
+      <widget class="QWidget" name="sceneTab">
+       <attribute name="title">
+        <string>Scene</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="2">
+         <widget class="QPushButton" name="addSceneMoveButton">
+          <property name="statusTip">
+           <string>Click here to add a selected movement to a scene</string>
+          </property>
+          <property name="text">
+           <string>Add Movement</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources/images.qrc">
+            <normaloff>:/images/plus-8x.png</normaloff>:/images/plus-8x.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="3">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="sceneLabel">
+          <property name="text">
+           <string>Scene: 0 of 0.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QPushButton" name="removeSceneMoveButton">
+          <property name="statusTip">
+           <string>Click here to remove a movement from a scene</string>
+          </property>
+          <property name="whatsThis">
+           <string/>
+          </property>
+          <property name="text">
+           <string>Remove Movement</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources/images.qrc">
+            <normaloff>:/images/minus-8x.png</normaloff>:/images/minus-8x.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QProgressBar" name="sceneProgress">
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="playSceneButton">
+          <property name="statusTip">
+           <string>Play scene</string>
+          </property>
+          <property name="text">
+           <string>Play</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources/images.qrc">
+            <normaloff>:/images/media-play-8x.png</normaloff>:/images/media-play-8x.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QPushButton" name="stopSceneButton">
+          <property name="statusTip">
+           <string>Stop scene</string>
+          </property>
+          <property name="text">
+           <string>Stop</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources/images.qrc">
+            <normaloff>:/images/media-stop-8x.png</normaloff>:/images/media-stop-8x.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" colspan="3">
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>

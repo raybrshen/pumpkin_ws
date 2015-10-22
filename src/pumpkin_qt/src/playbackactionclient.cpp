@@ -26,6 +26,12 @@ void PlaybackActionClient::setPlaybackFilename(const QString &filename)
 	_goal.filenames.push_back(filename.toStdString());
 }
 
+void PlaybackActionClient::setSceneFilenames(const std::vector<std::string> &filenames)
+{
+	_goal.filenames.clear();
+	_goal.filenames = filenames;
+}
+
 void PlaybackActionClient::playbackFile() {
 	if (_goal.filenames.empty()) {
 		return;
@@ -36,8 +42,26 @@ void PlaybackActionClient::playbackFile() {
 							   boost::bind(&PlaybackActionClient::playbackFeedbackCallback, this, _1));
 }
 
+void PlaybackActionClient::playScene()
+{
+	if (_goal.filenames.empty())
+		return;
+	ROS_INFO("Start playing scene.");
+	_playback_client->sendGoal(_goal, boost::bind(&PlaybackActionClient::playbackDoneCallback, this, _1, _2),
+							   boost::bind(&PlaybackActionClient::sceneActiveCallback, this),
+							   boost::bind(&PlaybackActionClient::sceneFeedbackCallback, this, _1));
+}
+
 void PlaybackActionClient::playbackStop() {
-	Q_EMIT(blockRecTab(false));
+	Q_EMIT(blockOnPlayback(false));
+	if (_running)
+		_playback_client->cancelGoal();
+	_running = false;
+}
+
+void PlaybackActionClient::stopScene()
+{
+	Q_EMIT(blockOnScene(false));
 	if (_running)
 		_playback_client->cancelGoal();
 	_running = false;
@@ -45,13 +69,14 @@ void PlaybackActionClient::playbackStop() {
 
 void PlaybackActionClient::playbackActiveCallback() {
 	_running = true;
-	Q_EMIT(blockRecTab(true));
+	Q_EMIT(blockOnPlayback(true));
 	Q_EMIT(sendStatusMessage(QString("Start playback file %0.").arg(QString::fromStdString(_goal.filenames[0])), 1000));
 }
 
 void PlaybackActionClient::playbackDoneCallback(const actionlib::SimpleClientGoalState &goal,
 								 const pumpkin_messages::PlaybackResultConstPtr &result) {
-	Q_EMIT(blockRecTab(false));
+	Q_EMIT(blockOnPlayback(false));
+	Q_EMIT(blockOnScene(false));
 	switch (static_cast<pumpkin_messages::IOState>(result->state)) {
 		case pumpkin_messages::IOState::BadFile:
 			Q_EMIT(sendStatusMessage(QString("Error: BAD. The playback file should be corrupted."), 1000));
@@ -84,4 +109,18 @@ void PlaybackActionClient::playbackFeedbackCallback(const pumpkin_messages::Play
 	Q_EMIT(playbackPercentage(int(round(perc))));
 }
 
+void PlaybackActionClient::sceneActiveCallback()
+{
+	_running = true;
+	Q_EMIT(blockOnPlayback(true));
+	Q_EMIT(sendStatusMessage(QString("Start playing scene with %0 movements.").arg(_goal.filenames.size()), 0));
 }
+
+void PlaybackActionClient::sceneFeedbackCallback(const pumpkin_messages::PlaybackFeedbackConstPtr &feedback)
+{
+	double perc = feedback->percentage;
+	perc*100;
+	Q_EMIT(scenePercentage(feedback->movement_index, _goal.filenames.size(), int(round(perc))));
+}
+
+} //namespace end

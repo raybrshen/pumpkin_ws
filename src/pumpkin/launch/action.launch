@@ -1,5 +1,20 @@
 <launch>
+	<arg name="robot_description" value="robot_description" />
+	<param name="$(arg robot_description)" textfile="$(find pumpkin_description)/robots/pumpkin_description.URDF"/>
+	<param name="$(arg robot_description)_semantic" textfile="$(find pumpkin_moveit)/config/pumpkin_description.srdf" />
+
+	<group ns="$(arg robot_description)_planning">
+		<rosparam command="load" file="$(find pumpkin_moveit)/config/joint_limits.yaml"/>
+	</group>
+
+	<group ns="$(arg robot_description)_kinematics">
+		<rosparam command="load" file="$(find pumpkin_moveit)/config/kinematics.yaml"/>
+	</group>
+
+	<include file="$(find pumpkin)/launch/ompl_planning.launch" />
+
 	<node name="load_config" pkg="pumpkin" type="load_config" />
 	<node name="playback_action" pkg="pumpkin" type="playback_action" />
 	<node name="recorder" pkg="pumpkin" type="recorder" />
+	<node name="planner" pkg="pumpkin" type="planner" />
 </launch>
