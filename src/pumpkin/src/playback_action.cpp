@@ -66,11 +66,12 @@ public:
 		_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
 
-		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("planner");
+		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("/planner/planner");
 
-		_ssc = _nh.advertise<SSCMoveList>("move_ssc_topic", 32);
+		_ssc = _nh.advertise<SSCMoveList>("/move_ssc_topic", 32);
 		//_joint = _nh.advertise<sensor_msgs::JointState>("playback_joints", 32);
 		//_direct = true;
+		_planner_client.waitForExistence();
 
         _server.start();
 	}
@@ -243,8 +244,9 @@ public:
 
 						_planner.request.final_positions.push_back(value);
 					}
-					_planner_client.call(_planner);
-					if (_planner.response.error_codes.val != _planner.response.error_codes.SUCCESS) {
+					ROS_WARN("Starting request plan");
+					if (!_planner_client.call(_planner)) {
+						ROS_FATAL("COULD NOT CALL PLANNER SERVICE.");
 						_ssc.publish(SSCMoveList());
 						_result.state = static_cast<uint8_t>(IOState::BadFile);//Has to change here for a new code
 						_server.setAborted(_result);
@@ -254,36 +256,42 @@ public:
 				}
 			break;
 			case ExecutingPlanning:
-				if (_plan_index == _planner.response.joint_trajectory.points.size()) {
+				if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
 					_state = Moving;
 				} else {
-					trajectory_msgs::JointTrajectoryPoint &trajectory = _planner.response.joint_trajectory.points[_plan_index];
-					_loop = ros::Rate(trajectory.time_from_start);
-					std::vector<std::string> &names = _planner.response.joint_trajectory.joint_names;
+					ROS_WARN("Executing planning");
+					_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
+					for (auto it = _planner.response.joint_trajectory.begin(); it != _planner.response.joint_trajectory.end(); ++it) {
+						trajectory_msgs::JointTrajectoryPoint &trajectory = it->points[_plan_index];
 
-					for (int i = 0, size = names.size(); i < size; ++i) {
-						SSCMove move;
-						const std::string &name = names[i];
-						auto it = std::find_if(_aux_vec.begin(), _aux_vec.end(),
-						                       [name](const auxiliar_calibration &x) { return name == x.joint_name; });
+						std::vector<std::string> &names = it->joint_names;
 
-						move.channel = it->ssc_pin;
-						move.pulse = (uint16_t) ((trajectory.positions[it - _aux_vec.begin()] - it->joint_lower) *
-						                         (it->ssc_max - it->ssc_min)
-						                         / (it->joint_upper - it->joint_lower) + it->ssc_min);
-						if (move.pulse > it->ssc_max) {
-							ROS_WARN("Pulse overflow: %d", int(move.pulse));
-							move.pulse = it->ssc_max;
-						} else if (move.pulse < it->ssc_min) {
-							ROS_WARN("Pulse underflow: %d", int(move.pulse));
-							move.pulse = it->ssc_min;
+						for (int i = 0, size = names.size(); i < size; ++i) {
+							SSCMove move;
+							const std::string &name = names[i];
+							auto it = std::find_if(_aux_vec.begin(), _aux_vec.end(),
+							                       [name](const auxiliar_calibration &x) {
+								                       return name == x.joint_name;
+							                       });
+
+							move.channel = it->ssc_pin;
+							move.pulse = (uint16_t) ((trajectory.positions[it - _aux_vec.begin()] - it->joint_lower) *
+							                         (it->ssc_max - it->ssc_min)
+							                         / (it->joint_upper - it->joint_lower) + it->ssc_min);
+							if (move.pulse > it->ssc_max) {
+								ROS_WARN("Pulse overflow: %d", int(move.pulse));
+								move.pulse = it->ssc_max;
+							} else if (move.pulse < it->ssc_min) {
+								ROS_WARN("Pulse underflow: %d", int(move.pulse));
+								move.pulse = it->ssc_min;
+							}
+							move.speed = 0;
+							command.list.emplace_back(move);
 						}
-						move.speed = 0;
-						command.list.emplace_back(move);
 					}
 					_ssc.publish(command);
 
-					_feedback.percentage = _plan_index/_planner.response.joint_trajectory.points.size();
+					_feedback.percentage = _plan_index/_planner.response.joint_trajectory[0].points.size();
 					_feedback.movement_index = (_movement_index << 1) | 1;
 
 					_plan_index++;
@@ -334,7 +342,7 @@ int main (int argc, char *argv[]) {
 	urdf::Model pumpkinModel;
 	std::string model_name;
 
-	if (!ros::param::get("/pumpkin/_model_name", model_name)) {
+	if (!ros::param::get("/pumpkin/description_file", model_name)) {
 		ROS_FATAL("Could not get model name");
 		ros::shutdown();
 		return -1;

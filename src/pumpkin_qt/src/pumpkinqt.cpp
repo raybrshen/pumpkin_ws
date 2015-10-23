@@ -70,11 +70,11 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 	QObject::connect(&_record, SIGNAL(blockOnRecord(bool)), _ui.stopRecButton, SLOT(setEnabled(bool)));
 	//Linkg signals for blocking on scene
 	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.recordTab, SLOT(setDisabled(bool)));
-	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.playbackFileName, SLOT(setDisabled(bool)));
-	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.stopSceneButton, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.playbackTab, SLOT(setDisabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.playSceneButton, SLOT(setDisabled(bool)));
 	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.addSceneMoveButton, SLOT(setDisabled(bool)));
 	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.removeSceneMoveButton, SLOT(setDisabled(bool)));
-	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.playSceneButton, SLOT(setEnabled(bool)));
+	QObject::connect(&_playback, SIGNAL(blockOnScene(bool)), _ui.stopSceneButton, SLOT(setEnabled(bool)));
 
 	//Link for respond on finishing playback or record (for now, it only reloads the file tree
 	QObject::connect(&_playback, SIGNAL(playbackFinished(int)), this, SLOT(actionFinished(int)));

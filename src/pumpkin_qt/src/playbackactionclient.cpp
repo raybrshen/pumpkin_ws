@@ -112,7 +112,7 @@ void PlaybackActionClient::playbackFeedbackCallback(const pumpkin_messages::Play
 void PlaybackActionClient::sceneActiveCallback()
 {
 	_running = true;
-	Q_EMIT(blockOnPlayback(true));
+	Q_EMIT(blockOnScene(true));
 	Q_EMIT(sendStatusMessage(QString("Start playing scene with %0 movements.").arg(_goal.filenames.size()), 0));
 }
 

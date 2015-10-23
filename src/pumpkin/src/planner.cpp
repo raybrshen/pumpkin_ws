@@ -16,6 +16,7 @@
 #include <moveit/planning_scene/planning_scene.h>
 #include <moveit/kinematic_constraints/utils.h>
 #include <moveit_msgs/DisplayTrajectory.h>
+#include <tinyxml.h>
 
 namespace pmsg = pumpkin_messages;
 
@@ -31,13 +32,14 @@ class PumpkinPlanner {
 	std::vector<int> _indexes;
 
 public:
-	PumpkinPlanner() {
+	PumpkinPlanner() : _nh("~"){
 		robot_model_loader::RobotModelLoader pumpkinModelLoader("robot_description");
 		_model = pumpkinModelLoader.getModel();
 
 		_planningScene.reset(new planning_scene::PlanningScene(_model));
 		std::string plannerName;
 
+		ROS_INFO("Model and scene loaded.");
 		boost::scoped_ptr<pluginlib::ClassLoader<planning_interface::PlannerManager> > plannerLoader;
 
 		if (!_nh.getParam("planning_plugin", plannerName))
@@ -67,45 +69,68 @@ public:
 							 << "Available plugins: " << ss.str());
 		}
 
-		_server = _nh.advertiseService<PumpkinPlanner, pmsg::PlannerRequest, pmsg::PlannerResponse>("planner", &PumpkinPlanner::plan, this);
-
+		_server = _nh.advertiseService("planner", &PumpkinPlanner::plan, this);
+		ROS_INFO("Planner initialized.");
 	}
 
 	bool setJoints(const std::string & group_name, const std::map<std::string, int> & joints ) {
 		_joint_groups.push_back(_model->getJointModelGroup(group_name));
 		const std::vector<std::string> &ordered_names = _joint_groups.back()->getJointModelNames();
 		for (std::vector<std::string>::const_iterator it = ordered_names.begin(); it != ordered_names.end(); ++it) {
-			_indexes.push_back(joints.at(*it));
+			auto it2 = joints.find(*it);
+			if (it2 == joints.end()) {
+				ROS_WARN("Coud not find %s for %s part", it->c_str(), group_name.c_str());
+				_indexes.push_back(-1);
+			} else {
+				//ROS_WARN("Inserted joint %s", it->c_str());
+				_indexes.push_back(it2->second);
+			}
 		}
+		return true;
 	}
 
 	bool plan(pmsg::PlannerRequest& req, pmsg::PlannerResponse& res) {
 
+		ROS_INFO("Calling planner");
+
 		planning_interface::MotionPlanRequest planReq;
 		planning_interface::MotionPlanResponse planRes;
+		moveit_msgs::MotionPlanResponse resMsg;
 
 		robot_state::RobotState & now = _planningScene->getCurrentStateNonConst();
 		robot_state::RobotState after(_model);
 		int i = 0;
 		for (auto it = _joint_groups.begin(); it != _joint_groups.end(); ++it) {
+			planReq.goal_constraints.clear();
 			std::vector<double> joint_now, joint_after;
+			(*it)->getVariableDefaultPositions(joint_now);
 			joint_now.resize((*it)->getVariableCount());
-			joint_after.resize(joint_now.size());
+			joint_after = joint_now;
 			for (int j = 0; j != joint_now.size(); ++j) {
-				joint_now[j] = req.initial_positions[_indexes[i]];
-				joint_after[j] = req.final_positions[_indexes[i++]];
+				int index = _indexes[i++];
+				if (index == -1)
+					continue;
+				joint_now[j] = req.initial_positions[index];
+				joint_after[j] = req.final_positions[index];
 			}
+			planReq.group_name = (*it)->getName();
+			planReq.allowed_planning_time = 1000.0;
 			now.setJointGroupPositions(*it, joint_now);
 			after.setJointGroupPositions(*it, joint_after);
 			planReq.goal_constraints.push_back(kinematic_constraints::constructGoalConstraints(after, *it));
+			planning_interface::PlanningContextPtr context = _planner->getPlanningContext(_planningScene, planReq, planRes.error_code_);
+			ROS_INFO("Get context.");
+			context->solve(planRes);
+			if (planRes.error_code_.val != planRes.error_code_.SUCCESS) {
+				ROS_ERROR("Could not get the planned trajectory. Error: %d", planRes.error_code_.val);
+				return false;
+			} else {
+				ROS_INFO("Planned ok.");
+			}
+			planRes.getMessage(resMsg);
+			res.joint_trajectory.emplace_back(resMsg.trajectory.joint_trajectory);
 		}
-
-		planning_interface::PlanningContextPtr context = _planner->getPlanningContext(_planningScene, planReq, planRes.error_code_);
-		context->solve(planRes);
-		moveit_msgs::MotionPlanResponse resMsg;
-		planRes.getMessage(resMsg);
-		res.joint_trajectory = resMsg.trajectory.joint_trajectory;
-		res.error_codes = planRes.error_code_;
+		return true;
 	}
 };
 
@@ -120,7 +145,6 @@ int main (int argc, char *argv[]) {
 
 	PumpkinPlanner planner;
 
-
 	XmlRpc::XmlRpcValue config;
 	ros::param::get("/pumpkin/config/arduino", config);
 
@@ -129,24 +153,19 @@ int main (int argc, char *argv[]) {
 		for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
 			char side = it->first[0];
 			if (side == 'l' || side == 'r') {
-				joint_names[side + ("_"+it2->first)] = int(it2->second["pin"]);
-			}
-			if (!planner.setJoints(it->first, joint_names)) {
-				ROS_FATAL_STREAM("Could not set joints in" << it->first);
-				return -1;
+				std::string name = side + ("_"+it2->first);
+				//ROS_WARN("%s", name.c_str());
+				joint_names[name] = int(it2->second["pin"]);
 			}
 		}
+		if (joint_names.size() > 0)
+			if (!planner.setJoints(it->first, joint_names)) {
+				ROS_FATAL_STREAM("Could not set joints in " << it->first);
+				return -1;
+			}
 	}
 
-	double rate;
-	ros::param::get("/pumpkin/config/ros_rate", rate);
-	loop = ros::Rate(rate);
-
-	while (ros::ok()) {
-		ros::spinOnce();
-		loop.sleep();
-	}
-
+	ros::spin();
 	ros::shutdown();
 
 	return 0;
