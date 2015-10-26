@@ -6,6 +6,8 @@
 	<param name="$(arg robot_description)" textfile="$(arg robot_urdf_file)"/>
 	<param name="$(arg robot_description)_semantic" textfile="$(arg robot_srdf_file)" />
 
+	<rosparam param="source_list">["playback_joint_states"]</rosparam>
+
 	<param name="/pumpkin/description_file" value="$(arg robot_urdf_file)"/>
 	<param name="/pumpkin/description_srdf" value="$(arg robot_srdf_file)"/>
 
@@ -20,6 +22,12 @@
 	<node name="load_config" pkg="pumpkin" type="load_config" />
 	<node name="playback_action" pkg="pumpkin" type="playback_action" />
 	<node name="recorder" pkg="pumpkin" type="recorder" />
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+		<param name="/use_gui" value="false"/>
+	</node>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
 	<node name="planner" pkg="pumpkin" type="planner" output="screen">
 		<rosparam command="load" file="$(find pumpkin_moveit)/config/kinematics.yaml"/>

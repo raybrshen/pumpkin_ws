@@ -36,7 +36,7 @@ class PlaybackActionServer {
 	};
 	//private members
 	ros::NodeHandle _nh;
-	ros::Publisher _ssc;
+	ros::Publisher _ssc, _joints;
 	ros::ServiceClient _planner_client;
 	std::vector<std::string> _movement_files;
 	actionlib::SimpleActionServer<PlaybackAction> _server;
@@ -44,9 +44,12 @@ class PlaybackActionServer {
 	std::vector<YAML::Node> _movement;
 	std::vector<YAML::Node>::iterator _step_it, _end_it;
 	double _percentage_step;
+
+	sensor_msgs::JointState _joint_state;
 	PlaybackFeedback _feedback;
 	PlaybackResult _result;
 	State _state;
+
 	unsigned int _movement_index, _plan_index;
 	ros::Rate _loop;
 	Planner _planner;
@@ -69,7 +72,7 @@ public:
 		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("/planner/planner");
 
 		_ssc = _nh.advertise<SSCMoveList>("/move_ssc_topic", 32);
-		//_joint = _nh.advertise<sensor_msgs::JointState>("playback_joints", 32);
+		_joints = _nh.advertise<sensor_msgs::JointState>("playback_joint_states", 1024);
 		//_direct = true;
 		_planner_client.waitForExistence();
 
@@ -102,7 +105,7 @@ public:
 		}
 
 		_state = Moving;
-
+		_loop = ros::Rate(100);
         ROS_INFO("New Goal!");
 	}
 
@@ -126,6 +129,7 @@ public:
 		}
 
 		SSCMoveList command;
+		command.list.reserve(32);
 		std::vector<uint16_t> reads;
 
 		switch(_state) {
@@ -152,6 +156,7 @@ public:
 
 				++_step_it;
 
+				double position;
 				for (int i = 0; i < reads.size(); ++i) {
 					SSCMove move;
 					const auxiliar_calibration &aux = _aux_vec[i];
@@ -161,7 +166,7 @@ public:
 						continue;
 					} else {
 						move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
-													  / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
+						                         / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
 						if (move.pulse > aux.ssc_max) {
 							ROS_WARN("Pulse overflow: %d", int(move.pulse));
 							move.pulse = aux.ssc_max;
@@ -169,15 +174,32 @@ public:
 							ROS_WARN("Pulse underflow: %d", int(move.pulse));
 							move.pulse = aux.ssc_min;
 						}
-					}
-						move.speed = 0;
-						command.list.emplace_back(std::move(move));
-				}
 
-				if (command.list.size())
+						position = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+						           / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
+
+						if (position > aux.joint_upper) {
+							ROS_WARN("Pulse overflow.");
+							position = aux.joint_upper;
+						} else if (position < aux.joint_lower) {
+							ROS_WARN("Pulse underflow.");
+							position = aux.joint_lower;
+						}
+
+						_joint_state.position[i] = position;
+					}
+					move.speed = 0;
+					command.list.emplace_back(std::move(move));
+				}
+				command.time = 0;
+
+				_joints.publish(_joint_state);
+				if (command.list.size()) {
 					_ssc.publish(command);
-				else
+					command.list.clear();
+				} else {
 					ROS_WARN("Outbound error!");
+				}
 
 				_feedback.percentage += _percentage_step;
 				_feedback.movement_index = _movement_index << 1;
@@ -201,15 +223,18 @@ public:
 
 					reads = std::move(_movement.back()["an_read"].as<std::vector<uint16_t> >());
 
-					for(int i = 0; i < _aux_vec.size(); ++i) {
+					double value;
+					for(int i = 0; i < reads.size(); ++i) {
 						auxiliar_calibration & aux = _aux_vec[i];
 
-						if (aux.arduino_max == aux.arduino_min == 0)
+						ROS_INFO("%d", reads[i]);
+
+						if (aux.arduino_max == aux.arduino_min)
 							continue;
 
 
-						double value = (double) ((reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
-														/ (aux.arduino_max - aux.arduino_min) + aux.joint_lower);
+						value = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+														/ (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
 						if (value > aux.joint_upper) {
 							ROS_WARN("Pulse overflow.");
 							value = aux.joint_upper;
@@ -225,7 +250,7 @@ public:
 
 					reads = std::move(_movement.front()["an_read"].as<std::vector<uint16_t> >());
 
-					for(int i = 0; i < _aux_vec.size(); ++i) {
+					for(int i = 0; i < reads.size(); ++i) {
 						auxiliar_calibration & aux = _aux_vec[i];
 
 						if (aux.arduino_max == aux.arduino_min == 0)
@@ -242,8 +267,11 @@ public:
 							value = aux.joint_lower;
 						}
 
+						_joint_state.position[i] = value;
 						_planner.request.final_positions.push_back(value);
 					}
+
+					_joints.publish(_joint_state);
 					ROS_WARN("Starting request plan");
 					if (!_planner_client.call(_planner)) {
 						ROS_FATAL("COULD NOT CALL PLANNER SERVICE.");
@@ -253,12 +281,15 @@ public:
 						_state = Moving;
 					}
 					_plan_index = 0;
+					_state = ExecutingPlanning;
 				}
 			break;
 			case ExecutingPlanning:
 				if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
+					_loop = ros::Rate(100);
 					_state = Moving;
 				} else {
+					double position;
 					ROS_WARN("Executing planning");
 					_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
 					for (auto it = _planner.response.joint_trajectory.begin(); it != _planner.response.joint_trajectory.end(); ++it) {
@@ -287,9 +318,26 @@ public:
 							}
 							move.speed = 0;
 							command.list.emplace_back(move);
+
+							position = (trajectory.positions[it - _aux_vec.begin()] - it->arduino_min) * (it->joint_upper - it->joint_lower)
+							           / (it->arduino_max - it->arduino_min) + it->joint_lower;
+
+							if (position > it->joint_upper) {
+								ROS_WARN("Pulse overflow.");
+								position = it->joint_upper;
+							} else if (position < it->joint_lower) {
+								ROS_WARN("Pulse underflow.");
+								position = it->joint_lower;
+							}
+
+							_joint_state.position[i] = position;
 						}
 					}
+
+					command.time = 0;
 					_ssc.publish(command);
+					command.list.clear();
+					_joints.publish(_joint_state);
 
 					_feedback.percentage = _plan_index/_planner.response.joint_trajectory[0].points.size();
 					_feedback.movement_index = (_movement_index << 1) | 1;
@@ -302,17 +350,19 @@ public:
 	}
 
 	void calibrate (int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin,
-					std::string joint_name, double joint_lower, double joint_upper) {
+					const std::string &joint_name, double joint_lower, double joint_upper) {
 		_aux_vec[arduino_pin] = std::move(auxiliar_calibration{
 				arduino_min,
 				arduino_max,
 				ssc_min,
 				ssc_max,
 				ssc_pin,
-				std::move(joint_name),
+				joint_name,
 				joint_lower,
 				joint_upper,
 		});
+		_joint_state.name.push_back(joint_name);
+		_joint_state.position.push_back(0.0);
 	}
 
 	void calibrate(double rate) {

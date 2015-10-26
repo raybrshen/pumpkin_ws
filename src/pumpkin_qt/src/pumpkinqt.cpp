@@ -243,8 +243,10 @@ void PumpkinQT::addSceneFile()
 void PumpkinQT::removeSceneFile()
 {
 	auto list = _ui.sceneList->selectedItems();
-	if (list.size() == 0)
+	if (list.size() == 0) {
+		ROS_WARN("No selected file on the list");
 		return;
+	}
 	_ui.sceneList->removeItemWidget(list[0]);
 }
 

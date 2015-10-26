@@ -32,7 +32,7 @@ class PumpkinPlanner {
 	std::vector<int> _indexes;
 
 public:
-	PumpkinPlanner() : _nh("~"){
+	PumpkinPlanner() : _nh("~") {
 		robot_model_loader::RobotModelLoader pumpkinModelLoader("robot_description");
 		_model = pumpkinModelLoader.getModel();
 
@@ -89,22 +89,29 @@ public:
 		return true;
 	}
 
+	/**
+	 * @brief
+	 */
 	bool plan(pmsg::PlannerRequest& req, pmsg::PlannerResponse& res) {
 
 		ROS_INFO("Calling planner");
 
 		planning_interface::MotionPlanRequest planReq;
 		planning_interface::MotionPlanResponse planRes;
-		moveit_msgs::MotionPlanResponse resMsg;
+		moveit_msgs::RobotTrajectory resMsg;
 
 		robot_state::RobotState & now = _planningScene->getCurrentStateNonConst();
+
 		robot_state::RobotState after(_model);
 		int i = 0;
 		for (auto it = _joint_groups.begin(); it != _joint_groups.end(); ++it) {
 			planReq.goal_constraints.clear();
 			std::vector<double> joint_now, joint_after;
 			(*it)->getVariableDefaultPositions(joint_now);
-			joint_now.resize((*it)->getVariableCount());
+			for(auto it2 = joint_now.begin(); it2 != joint_now.end(); ++it2)
+				std::cout << *it2 << ' ';
+			std::cout << std::endl;
+			//joint_now.resize((*it)->getVariableCount());
 			joint_after = joint_now;
 			for (int j = 0; j != joint_now.size(); ++j) {
 				int index = _indexes[i++];
@@ -113,11 +120,20 @@ public:
 				joint_now[j] = req.initial_positions[index];
 				joint_after[j] = req.final_positions[index];
 			}
-			planReq.group_name = (*it)->getName();
-			planReq.allowed_planning_time = 1000.0;
+			for(auto it2 = joint_now.begin(); it2 != joint_now.end(); ++it2)
+				std::cout << *it2 << ' ';
+			std::cout << std::endl;
+
 			now.setJointGroupPositions(*it, joint_now);
 			after.setJointGroupPositions(*it, joint_after);
-			planReq.goal_constraints.push_back(kinematic_constraints::constructGoalConstraints(after, *it));
+		}
+		planReq.allowed_planning_time = 1.0;
+		planReq.max_velocity_scaling_factor = 0.5;
+		for (auto it = _joint_groups.begin(); it != _joint_groups.end(); ++it) {
+			planReq.group_name = (*it)->getName();
+			planReq.goal_constraints.clear();
+
+			planReq.goal_constraints.push_back(kinematic_constraints::constructGoalConstraints(after, *it, 0.01));
 			planning_interface::PlanningContextPtr context = _planner->getPlanningContext(_planningScene, planReq, planRes.error_code_);
 			ROS_INFO("Get context.");
 			context->solve(planRes);
@@ -127,8 +143,10 @@ public:
 			} else {
 				ROS_INFO("Planned ok.");
 			}
-			planRes.getMessage(resMsg);
-			res.joint_trajectory.emplace_back(resMsg.trajectory.joint_trajectory);
+			_planningScene->setCurrentState(planRes.trajectory_->getLastWayPoint());
+			//planRes.getMessage(resMsg);
+			planRes.trajectory_->getRobotTrajectoryMsg(resMsg);
+			res.joint_trajectory.emplace_back(resMsg.joint_trajectory);
 		}
 		return true;
 	}
@@ -151,6 +169,8 @@ int main (int argc, char *argv[]) {
 	for (auto it = config.begin(); it != config.end(); ++it) {
 		std::map<std::string, int> joint_names;
 		for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
+			if (it2->second["analog_read_max"] == it2->second["analog_read_min"])
+				continue;
 			char side = it->first[0];
 			if (side == 'l' || side == 'r') {
 				std::string name = side + ("_"+it2->first);
