@@ -138,9 +138,7 @@ void PumpkinQT::resizeEvent(QResizeEvent *event)
 void PumpkinQT::fillTable(const QString &base_path, const std::vector<pumpkin_messages::FileList> &file_list)
 {
 	_filename = QString();
-	while(_ui.sceneList->count() > 0) {
-		_ui.sceneList->removeItemWidget(_ui.sceneList->item(0));
-	}
+	_ui.sceneList->clear();
     if (_folder_model)
         delete _folder_model;
     _base_path = base_path;
@@ -221,7 +219,7 @@ void PumpkinQT::runRecord()
 
 void PumpkinQT::runScene()
 {
-	if (_ui.sceneList->count() == 0)
+	if (_ui.sceneList->count() < 2)
 		return;
 	std::vector<std::string> files;
 	for (int i = 0; i < _ui.sceneList->count(); ++i) {
@@ -247,7 +245,10 @@ void PumpkinQT::removeSceneFile()
 		ROS_WARN("No selected file on the list");
 		return;
 	}
-	_ui.sceneList->removeItemWidget(list[0]);
+	for (auto it = list.begin(); it != list.end(); ++it)
+		_ui.sceneList->removeItemWidget(*it);
+	qDeleteAll(list);
+	_ui.sceneList->show();
 }
 
 void PumpkinQT::changeFilename(const QString &filename)

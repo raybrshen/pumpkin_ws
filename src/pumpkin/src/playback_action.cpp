@@ -361,6 +361,7 @@ void PlaybackActionServer::prepare() {
 	}
 	_plan_index = 0;
 	_state = ExecutingPlanning;
+	_loop = ros::Rate(500);
 	ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory[0].points.size());
 }
 
@@ -374,7 +375,7 @@ void PlaybackActionServer::change() {
 	command.list.reserve(32);
 	double position;
 	ROS_WARN("Executing planning");
-	_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
+	//_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
 	for (auto it = _planner.response.joint_trajectory.begin(); it != _planner.response.joint_trajectory.end(); ++it) {
 		trajectory_msgs::JointTrajectoryPoint &trajectory = it->points[_plan_index];
 
