@@ -285,6 +285,10 @@ void PumpkinQT::showAboutDialog()
 void PumpkinQT::updateSceneFeedback(int step, int total, int percentage)
 {
 	_ui.sceneProgress->setValue(percentage);
+	if (total == 0) {
+		_ui.sceneLabel->setText("Scene");
+		return;
+	}
 	int move = step >> 1;
 	if (step & 1) {
 		//If step is even, it means it is between tho movements

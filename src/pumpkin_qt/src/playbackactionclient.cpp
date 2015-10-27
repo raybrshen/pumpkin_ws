@@ -69,14 +69,19 @@ void PlaybackActionClient::stopScene()
 
 void PlaybackActionClient::playbackActiveCallback() {
 	_running = true;
+	_scene = false;
 	Q_EMIT(blockOnPlayback(true));
 	Q_EMIT(sendStatusMessage(QString("Start playback file %0.").arg(QString::fromStdString(_goal.filenames[0])), 1000));
 }
 
 void PlaybackActionClient::playbackDoneCallback(const actionlib::SimpleClientGoalState &goal,
 								 const pumpkin_messages::PlaybackResultConstPtr &result) {
-	Q_EMIT(blockOnPlayback(false));
-	Q_EMIT(blockOnScene(false));
+	_running = false;
+	if (_scene)
+		Q_EMIT(blockOnScene(false));
+	else
+		Q_EMIT(blockOnPlayback(false));
+
 	switch (static_cast<pumpkin_messages::IOState>(result->state)) {
 		case pumpkin_messages::IOState::BadFile:
 			Q_EMIT(sendStatusMessage(QString("Error: BAD. The playback file should be corrupted."), 1000));
@@ -98,8 +103,10 @@ void PlaybackActionClient::playbackDoneCallback(const actionlib::SimpleClientGoa
 			Q_EMIT(sendStatusMessage(QString("Fatal: UNKNOWN ERROR!"), 1000));
 			ROS_FATAL("UNKNOWN ERROR");
 	}
-	_running = false;
-	Q_EMIT(playbackPercentage(0));
+	if (_scene)
+		Q_EMIT(scenePercentage(0, 0, 0));
+	else
+		Q_EMIT(playbackPercentage(0));
 	Q_EMIT(playbackFinished(result->state));
 }
 
@@ -112,6 +119,7 @@ void PlaybackActionClient::playbackFeedbackCallback(const pumpkin_messages::Play
 void PlaybackActionClient::sceneActiveCallback()
 {
 	_running = true;
+	_scene = true;
 	Q_EMIT(blockOnScene(true));
 	Q_EMIT(sendStatusMessage(QString("Start playing scene with %0 movements.").arg(_goal.filenames.size()), 0));
 }

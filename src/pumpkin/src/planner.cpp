@@ -120,15 +120,22 @@ public:
 				joint_now[j] = req.initial_positions[index];
 				joint_after[j] = req.final_positions[index];
 			}
-			for(auto it2 = joint_now.begin(); it2 != joint_now.end(); ++it2)
+			for(auto it2 = joint_after.begin(); it2 != joint_after.end(); ++it2)
 				std::cout << *it2 << ' ';
 			std::cout << std::endl;
+
+			for (auto it2 = (*it)->getActiveJointModelsBounds().begin(); it2 != (*it)->getActiveJointModelsBounds().end(); ++it2) {
+				if ((*it2)->at(0).position_bounded_)
+					std::cout << "Min position: " << (*it2)->at(0).min_position_ << ", max position: " << (*it2)->at(0).max_position_ << std::endl;
+				else
+					std::cout << "Joint not bounded" << std::endl;
+			}
 
 			now.setJointGroupPositions(*it, joint_now);
 			after.setJointGroupPositions(*it, joint_after);
 		}
 		planReq.allowed_planning_time = 1.0;
-		planReq.max_velocity_scaling_factor = 0.5;
+		planReq.max_velocity_scaling_factor = 0.1;
 		for (auto it = _joint_groups.begin(); it != _joint_groups.end(); ++it) {
 			planReq.group_name = (*it)->getName();
 			planReq.goal_constraints.clear();

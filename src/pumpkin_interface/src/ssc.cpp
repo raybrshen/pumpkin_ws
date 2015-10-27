@@ -195,7 +195,7 @@ int main (int argc, char *argv[]) {
 	ros::Rate loop(1000);
 	while(!ros::param::has("/pumpkin/config")) {
 		loop.sleep();
-		ROS_WARN("Cannot find robot configuration. Please run \"load_config\".");
+		//ROS_WARN("Cannot find robot configuration. Please run \"load_config\".");
 	}
 
 	XmlRpc::XmlRpcValue config;

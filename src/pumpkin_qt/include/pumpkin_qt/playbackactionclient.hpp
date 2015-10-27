@@ -38,7 +38,7 @@ public Q_SLOTS:
 private:
 	actionlib::SimpleActionClient<pumpkin_messages::PlaybackAction> *_playback_client;
 	pumpkin_messages::PlaybackGoal _goal;
-	bool _running;
+	bool _running, _scene;
 
 	void playbackDoneCallback(const actionlib::SimpleClientGoalState &goal, const pumpkin_messages::PlaybackResultConstPtr &result);
 	void playbackActiveCallback();

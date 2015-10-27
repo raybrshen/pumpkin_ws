@@ -282,7 +282,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="sceneLabel">
           <property name="text">
-           <string>Scene: 0 of 0.</string>
+           <string>Scene</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

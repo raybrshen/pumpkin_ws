@@ -1,4 +1,6 @@
 <launch>
+	<arg name="visual" value="true" />
+
 	<arg name="robot_description" value="robot_description" />
 	<arg name="robot_urdf_file" value="$(find pumpkin_description)/robots/pumpkin_description.URDF"/>
 	<arg name="robot_srdf_file" value="$(find pumpkin_moveit)/config/pumpkin_description.srdf"/>
@@ -23,9 +25,9 @@
 	<node name="playback_action" pkg="pumpkin" type="playback_action" />
 	<node name="recorder" pkg="pumpkin" type="recorder" />
 
-	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-		<param name="/use_gui" value="false"/>
-	</node>
+	<param name="/use_gui" value="$(arg visual)"/>
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
@@ -34,4 +36,7 @@
     	<param name="/planning_plugin" value="ompl_interface/OMPLPlanner"/>
     	<rosparam command="load" file="$(find pumpkin_moveit)/config/ompl_planning.yaml"/>
 	</node>
+
+	<node if="$(arg visual)" name="rviz" pkg="rviz" type="rviz" args="-d $(find pumpkin)/urdf.rviz" />
+
 </launch>
