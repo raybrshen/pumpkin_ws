@@ -1,0 +1,106 @@
+Alpha: 1
+Class: rviz/RobotModel
+Collision Enabled: false
+Enabled: true
+Links:
+  All Links Enabled: true
+  Expand Joint Details: false
+  Expand Link Details: false
+  Expand Tree: false
+  Link Tree Style: Links in Alphabetic Order
+    base_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    chest_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    head_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    l_forearm_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    l_shoulder1_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    l_shoulder2_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    l_upperarm_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    l_wrist0_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    l_wrist1_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    map:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    neck1_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    neck2_Link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    r_forerarm_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    r_shoulder1_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    r_shoulder2_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    r_upperarm_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    r_wrist0_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+    r_wrist1_link:
+      Alpha: 1
+      Show Axes: false
+      Show Trail: false
+      Value: true
+Name: RobotModel
+Robot Description: robot_description
+TF Prefix: ""
+Update Interval: 0
+Value: true
+Visual Enabled: true

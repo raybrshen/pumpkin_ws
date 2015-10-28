@@ -1,4 +1,5 @@
-#include "../include/pumpkin_qt/loadconfig.hpp"
+#include "loadconfig.hpp"
+
 #include <ros/ros.h>
 
 #include <QComboBox>

@@ -12,7 +12,8 @@
 
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
-#include "../include/pumpkin_qt/qnode.hpp"
+
+#include "qnode.hpp"
 
 /*****************************************************************************
 ** Namespaces

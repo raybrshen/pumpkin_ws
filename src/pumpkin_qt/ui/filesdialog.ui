@@ -145,8 +145,8 @@
          <string>Delete File</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources/images.qrc">
-          <normaloff>:/images/circle-x-8x.png</normaloff>:/images/circle-x-8x.png</iconset>
+         <iconset resource="../resources/resource.qrc">
+          <normaloff>:/images/DeleteFile</normaloff>:/images/DeleteFile</iconset>
         </property>
        </widget>
       </item>
@@ -159,8 +159,8 @@
          <string>Delete Folder</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources/images.qrc">
-          <normaloff>:/images/delete-8x.png</normaloff>:/images/delete-8x.png</iconset>
+         <iconset resource="../resources/resource.qrc">
+          <normaloff>:/images/DeleteFolder</normaloff>:/images/DeleteFolder</iconset>
         </property>
        </widget>
       </item>
@@ -173,8 +173,8 @@
          <string>Create Folder</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources/images.qrc">
-          <normaloff>:/images/folder-8x.png</normaloff>:/images/folder-8x.png</iconset>
+         <iconset resource="../resources/resource.qrc">
+          <normaloff>:/images/AddFolder</normaloff>:/images/AddFolder</iconset>
         </property>
        </widget>
       </item>
@@ -184,8 +184,8 @@
          <string>OK</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources/images.qrc">
-          <normaloff>:/images/check-2x.png</normaloff>:/images/check-2x.png</iconset>
+         <iconset resource="../resources/resource.qrc">
+          <normaloff>:/images/OK</normaloff>:/images/OK</iconset>
         </property>
        </widget>
       </item>
@@ -195,7 +195,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../resources/images.qrc"/>
+  <include location="../resources/resource.qrc"/>
  </resources>
  <connections/>
 </ui>

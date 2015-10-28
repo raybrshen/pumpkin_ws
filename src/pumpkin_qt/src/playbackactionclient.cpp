@@ -1,5 +1,6 @@
 #include <pumpkin_messages/PlaybackGoal.h>
-#include "../include/pumpkin_qt/playbackactionclient.hpp"
+
+#include "playbackactionclient.hpp"
 
 namespace pumpkin_qt {
 

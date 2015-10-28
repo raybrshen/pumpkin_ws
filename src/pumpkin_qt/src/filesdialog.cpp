@@ -1,4 +1,5 @@
-#include "../include/pumpkin_qt/filesdialog.hpp"
+#include "filesdialog.hpp"
+
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>

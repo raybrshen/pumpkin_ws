@@ -8,6 +8,7 @@
 #include "loadconfig.hpp"
 #include "sscmovecommand.hpp"
 #include "filesdialog.hpp"
+#include "rviz.hpp"
 
 #include <QMainWindow>
 #include <QStringListModel>
@@ -72,7 +73,7 @@ class PumpkinQT : public QMainWindow
     Q_OBJECT
 public:
     explicit PumpkinQT(int argc, char *argv[], QWidget *parent = 0);
-    ~PumpkinQT();
+	virtual ~PumpkinQT();
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -110,6 +111,7 @@ private:
 	LoadConfig *_config_dialog;
 	SSCMoveCommand *_move_dialog;
 	FilesDialog *_files_dialog;
+	RViz *_robot_model;
 };
 
 }

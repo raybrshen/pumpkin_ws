@@ -11,7 +11,8 @@
 
 #include <QtGui>
 #include <QApplication>
-#include "../include/pumpkin_qt/pumpkinqt.hpp"
+
+#include "pumpkinqt.hpp"
 
 /*****************************************************************************
 ** Main

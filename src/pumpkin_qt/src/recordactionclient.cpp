@@ -1,4 +1,4 @@
-#include "../include/pumpkin_qt/recordactionclient.hpp"
+#include "recordactionclient.hpp"
 
 namespace pumpkin_qt {
 

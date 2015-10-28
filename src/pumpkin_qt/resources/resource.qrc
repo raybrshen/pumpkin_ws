@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/file-8x.png</file>
+        <file>images/ban-8x.png</file>
+        <file>images/box-8x.png</file>
+        <file>images/circle-check-8x.png</file>
+        <file alias="DeleteFile">images/circle-x-8x.png</file>
+        <file alias="DeleteFolder">images/delete-8x.png</file>
+        <file alias="OK">images/check-8x.png</file>
+        <file alias="AddFolder">images/folder-8x.png</file>
+        <file>images/play-circle-8x.png</file>
+        <file alias="Add">images/plus-8x.png</file>
+        <file alias="Remove">images/minus-8x.png</file>
+        <file>images/x-8x.png</file>
+        <file alias="Play">images/media-play-8x.png</file>
+        <file alias="Pause">images/media-pause-8x.png</file>
+        <file alias="Record">images/media-record-8x.png</file>
+        <file alias="Stop">images/media-stop-8x.png</file>
+        <file>images/media-skip-backward-8x.png</file>
+        <file>images/media-skip-forward-8x.png</file>
+        <file>images/media-step-backward-8x.png</file>
+        <file>images/media-step-forward-8x.png</file>
+    </qresource>
+    <qresource prefix="/rviz">
+        <file alias="Grid">rviz/Grid.rviz</file>
+        <file alias="Pumpkinss">rviz/Pumpkin.rviz</file>
+        <file alias="Viewss">rviz/View.rviz</file>
+    </qresource>
+</RCC>

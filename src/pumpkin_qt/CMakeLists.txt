@@ -30,6 +30,7 @@ find_package(catkin REQUIRED COMPONENTS
  pumpkin_interface
  actionlib_msgs
  actionlib
+ rviz
  std_msgs
 )
 find_package(Boost REQUIRED COMPONENTS system thread)
@@ -53,7 +54,7 @@ include(${QT_USE_FILE})
 # Sections
 ##############################################################################
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR} "usr/include/qt4" "../pumpkin_messages/include")
+include_directories(${CMAKE_CURRENT_BINARY_DIR} "usr/include/qt4" "../pumpkin_messages/include" "include/pumpkin_qt")
 file(GLOB QT_FORMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/*.ui)
 file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
 file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS include/pumpkin_qt/*.hpp)

@@ -1,0 +1,19 @@
+Current:
+  Class: rviz/Orbit
+  Distance: 2.08927
+  Enable Stereo Rendering:
+    Stereo Eye Separation: 0.06
+    Stereo Focal Distance: 1
+    Swap Stereo Eyes: false
+    Value: false
+  Focal Point:
+    X: -0.296824
+    Y: -0.0536458
+    Z: 0.972458
+  Name: "Front view"
+  Near Clip Distance: 0.01
+  Pitch: 0.599797
+  Target Frame: <Fixed Frame>
+  Value: Orbit (rviz)
+  Yaw: 1.59039
+Saved: ~

@@ -1,4 +1,5 @@
-#include "../include/pumpkin_qt/sscmovecommand.hpp"
+#include "sscmovecommand.hpp"
+
 #include <XmlRpcValue.h>
 #include <QScrollArea>
 #include <QTabWidget>

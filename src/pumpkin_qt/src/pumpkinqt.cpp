@@ -1,4 +1,5 @@
-#include "../include/pumpkin_qt/pumpkinqt.hpp"
+#include "pumpkinqt.hpp"
+
 #include <QLineEdit>
 #include <QProgressBar>
 #include <QMessageBox>
@@ -109,6 +110,8 @@ PumpkinQT::PumpkinQT(int argc, char *argv[], QWidget *parent) :
 	//Theses signals (results from the FilesDialog) below can be handled
 	QObject::connect(_files_dialog, SIGNAL(accepted()), &_node, SLOT(callFiles()));
 	QObject::connect(_files_dialog, SIGNAL(rejected()), &_node, SLOT(callFiles()));
+
+	_robot_model = new RViz(_ui.rvizFrame);
 }
 
 PumpkinQT::~PumpkinQT()
@@ -120,11 +123,13 @@ PumpkinQT::~PumpkinQT()
 		delete _config_dialog;
 	if (_move_dialog)
 		delete _move_dialog;
+	if (_robot_model)
+		delete _robot_model;
 }
 
 void PumpkinQT::resizeEvent(QResizeEvent *event)
 {
-    QMainWindow::resizeEvent(event);
+	QMainWindow::resizeEvent(event);
     if (!_filename.isEmpty()) {
 		QFontMetrics metric = _ui.playbackFileName->fontMetrics();
 		if (metric.width(_filename) > _ui.playbackFileName->width()) {
