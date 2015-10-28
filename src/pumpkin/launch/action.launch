@@ -1,5 +1,5 @@
 <launch>
-	<arg name="visual" value="true" />
+	<arg name="visual" value="false" />
 
 	<arg name="robot_description" value="robot_description" />
 	<arg name="robot_urdf_file" value="$(find pumpkin_description)/robots/pumpkin_description.URDF"/>
