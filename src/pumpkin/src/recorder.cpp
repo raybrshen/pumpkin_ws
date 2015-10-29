@@ -32,7 +32,7 @@ class RecordActionServer {
 	pumpkin_messages::RecordResult _result;
 
 public:
-	RecordActionServer(bool setVerbose = false): _server(_nh, "recorder_action", false), _verbose(setVerbose) {
+	RecordActionServer(bool setVerbose = false): _server(_nh, "/pumpkin/recorder_action", false), _verbose(setVerbose) {
 		_server.registerGoalCallback(boost::bind(&RecordActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&RecordActionServer::onPreempt, this));
 

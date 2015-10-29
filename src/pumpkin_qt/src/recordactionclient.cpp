@@ -19,7 +19,7 @@ RecordActionClient::~RecordActionClient()
 
 void RecordActionClient::init()
 {
-	_record_client = new actionlib::SimpleActionClient<pumpkin_messages::RecordAction>("recorder_action", false);
+	_record_client = new actionlib::SimpleActionClient<pumpkin_messages::RecordAction>("/pumpkin/recorder_action", false);
 }
 
 void RecordActionClient::setRecordFilename(const QString &filename)

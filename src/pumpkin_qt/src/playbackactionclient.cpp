@@ -18,7 +18,7 @@ PlaybackActionClient::~PlaybackActionClient()
 
 void PlaybackActionClient::init()
 {
-	_playback_client = new actionlib::SimpleActionClient<pumpkin_messages::PlaybackAction>("playback_action", false);
+	_playback_client = new actionlib::SimpleActionClient<pumpkin_messages::PlaybackAction>("/pumpkin/playback_action", false);
 }
 
 void PlaybackActionClient::setPlaybackFilename(const QString &filename)

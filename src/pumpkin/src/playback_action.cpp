@@ -52,6 +52,7 @@ class PlaybackActionServer {
 
 	unsigned int _movement_index, _plan_index;
 	ros::Rate _loop;
+	ros::Time _translation_start;
 	Planner _planner;
 
 	void loadFile();
@@ -61,16 +62,18 @@ class PlaybackActionServer {
 	void change();
 
 public:
-	PlaybackActionServer() : _server(_nh, "playback_action", false), _aux_vec(32), _loop(1000) {
+	PlaybackActionServer() : _server(_nh, "/pumpkin/playback_action", false), _aux_vec(32), _loop(1000) {
 		_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
 		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
 
-		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("/planner/planner");
+		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("/pumpkin/planner");
 
 		_ssc = _nh.advertise<SSCMoveList>("/move_ssc_topic", 32);
-		_joints = _nh.advertise<sensor_msgs::JointState>("playback_joint_states", 1024);
+		_joints = _nh.advertise<sensor_msgs::JointState>("/playback_joint_states", 1024);
 		//_direct = true;
 		_planner_client.waitForExistence();
+
+		ROS_INFO("Planner started.");
 
 		_joint_state.name = std::vector<std::string>(32);
 		_joint_state.position = std::vector<double>(32);
@@ -304,7 +307,7 @@ void PlaybackActionServer::prepare() {
 	for(int i = 0; i < reads.size(); ++i) {
 		auxiliar_calibration & aux = _aux_vec[i];
 
-		ROS_INFO("%d", reads[i]);
+		//ROS_INFO("%d", reads[i]);
 
 		if (aux.arduino_max == aux.arduino_min)
 			continue;
@@ -361,7 +364,8 @@ void PlaybackActionServer::prepare() {
 	}
 	_plan_index = 0;
 	_state = ExecutingPlanning;
-	_loop = ros::Rate(500);
+	_translation_start = ros::Time::now();
+	//_loop = ros::Rate(1000);
 	ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory[0].points.size());
 }
 
@@ -406,8 +410,11 @@ void PlaybackActionServer::change() {
 			_joint_state.position[i] = position;
 		}
 	}
-
 	command.time = 0;
+	ROS_INFO("Delta T de: %f", _planner.response.joint_trajectory[0].points[_plan_index].time_from_start.toSec());
+
+	(ros::Time::now()-(_translation_start+_planner.response.joint_trajectory[0].points[_plan_index].time_from_start)).sleep();
+
 	_ssc.publish(command);
 	_joints.publish(_joint_state);
 
@@ -415,7 +422,7 @@ void PlaybackActionServer::change() {
 	_feedback.movement_index = (_movement_index << 1) | 1;
 
 	_plan_index++;
-	_loop.sleep();
+	//_loop.sleep();
 }
 
 void PlaybackActionServer::onGoal() {

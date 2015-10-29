@@ -31,10 +31,10 @@
 
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
+	<include file="$(find pumpkin)/launch/ompl_planning.launch" />
+
 	<node name="planner" pkg="pumpkin" type="planner" output="screen">
 		<rosparam command="load" file="$(find pumpkin_moveit)/config/kinematics.yaml"/>
-    	<param name="/planning_plugin" value="ompl_interface/OMPLPlanner"/>
-    	<rosparam command="load" file="$(find pumpkin_moveit)/config/ompl_planning.yaml"/>
 	</node>
 
 	<node if="$(arg visual)" name="rviz" pkg="rviz" type="rviz" args="-d $(find pumpkin)/urdf.rviz" />
