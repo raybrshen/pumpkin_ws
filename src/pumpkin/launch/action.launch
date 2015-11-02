@@ -1,5 +1,9 @@
 <launch>
-	<arg name="visual" value="false" />
+	<arg name="debug" default="false" />
+	<arg unless="$(arg debug)" name="launch_prefix" value="" />
+  	<arg     if="$(arg debug)" name="launch_prefix" value="xterm -e gdb --args" />
+
+	<arg name="visual" default="false" />
 
 	<arg name="robot_description" value="robot_description" />
 	<arg name="robot_urdf_file" value="$(find pumpkin_description)/robots/pumpkin_description.URDF"/>
@@ -27,13 +31,15 @@
 
 	<param name="/use_gui" value="$(arg visual)"/>
 
+	<node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" />
+
 	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
 	<include file="$(find pumpkin)/launch/ompl_planning.launch" />
 
-	<node name="planner" pkg="pumpkin" type="planner" output="screen">
+	<node name="planner" pkg="pumpkin" type="planner" respawn="false" launch-prefix="$(arg launch_prefix)" output="screen">
 		<rosparam command="load" file="$(find pumpkin_moveit)/config/kinematics.yaml"/>
 	</node>
 

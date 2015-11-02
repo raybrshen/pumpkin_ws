@@ -52,7 +52,7 @@ class PlaybackActionServer {
 
 	unsigned int _movement_index, _plan_index;
 	ros::Rate _loop;
-	ros::Time _translation_start;
+	ros::Duration _last_delta;
 	Planner _planner;
 
 	void loadFile();
@@ -240,7 +240,7 @@ void PlaybackActionServer::move() {
 		const auxiliar_calibration &aux = _aux_vec[i];
 		move.channel = aux.ssc_pin;
 		if (aux.arduino_max - aux.arduino_min <= 0) {
-			ROS_WARN("Arduino calibration error");
+			//ROS_WARN("Arduino calibration error");
 			continue;
 		} else {
 			move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
@@ -298,8 +298,9 @@ void PlaybackActionServer::prepare() {
 		return;
 	}
 	std::vector<uint16_t> reads;
-	_planner.request.initial_positions.reserve(_aux_vec.size());
-	_planner.request.final_positions.reserve(_aux_vec.size());
+	_planner.request.initial_positions.clear();
+	_planner.request.final_positions.clear();
+	_planner.response.joint_trajectory.clear();
 
 	reads = std::move(_movement.back()["an_read"].as<std::vector<uint16_t> >());
 
@@ -364,15 +365,20 @@ void PlaybackActionServer::prepare() {
 	}
 	_plan_index = 0;
 	_state = ExecutingPlanning;
-	_translation_start = ros::Time::now();
+	_last_delta = ros::Duration(0);
 	//_loop = ros::Rate(1000);
-	ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory[0].points.size());
+	try {
+		ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory.at(0).points.size());
+	} catch (std::exception &ex) {
+		ROS_FATAL("Error obtaining the response trajectory: %s", ex.what());
+	}
 }
 
 void PlaybackActionServer::change() {
 	if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
 		_loop = ros::Rate(100);
 		_state = Moving;
+		//ROS_ERROR("Mas será possível...");
 		return;
 	}
 	SSCMoveList command;
@@ -411,9 +417,11 @@ void PlaybackActionServer::change() {
 		}
 	}
 	command.time = 0;
-	ROS_INFO("Delta T de: %f", _planner.response.joint_trajectory[0].points[_plan_index].time_from_start.toSec());
+	const ros::Duration &delta = _planner.response.joint_trajectory[0].points[_plan_index].time_from_start;
+	ROS_INFO("Delta T de: %f", delta.toSec());
 
-	(ros::Time::now()-(_translation_start+_planner.response.joint_trajectory[0].points[_plan_index].time_from_start)).sleep();
+	_loop = ros::Rate(delta - _last_delta);
+	_last_delta = delta;
 
 	_ssc.publish(command);
 	_joints.publish(_joint_state);
@@ -422,7 +430,7 @@ void PlaybackActionServer::change() {
 	_feedback.movement_index = (_movement_index << 1) | 1;
 
 	_plan_index++;
-	//_loop.sleep();
+	_loop.sleep();
 }
 
 void PlaybackActionServer::onGoal() {
@@ -478,4 +486,6 @@ void PlaybackActionServer::endCalibrate(double rate) {
 		_joint_state.name.pop_back();
 		_joint_state.position.pop_back();
 	}
+	_planner.request.initial_positions.reserve(_aux_vec.size());
+	_planner.request.final_positions.reserve(_aux_vec.size());
 }
