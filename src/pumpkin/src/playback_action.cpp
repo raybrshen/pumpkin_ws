@@ -428,6 +428,7 @@ void PlaybackActionServer::change() {
 
 	_feedback.percentage = _plan_index/_planner.response.joint_trajectory[0].points.size();
 	_feedback.movement_index = (_movement_index << 1) | 1;
+	_server.publishFeedback(_feedback);
 
 	_plan_index++;
 	_loop.sleep();
