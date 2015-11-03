@@ -23,7 +23,9 @@ namespace pmsg = pumpkin_messages;
 namespace pumpkin {
 
 	/**
-	 * 
+	 * This class is for planning the transitions between movements in a scene.
+	 * It implements a ROS Service from wich is communicated from "playback_action" node.
+	 * And a PlanningPipeline that makes all stuff.
 	 */
 	class PumpkinPlanner {
 		ros::ServiceServer _server;
@@ -39,6 +41,10 @@ namespace pumpkin {
 		std::vector<int> _indexes;
 
 	public:
+		/**
+		 * \brief Constructor. It loads the robot model, the scene (virtual world), the PlanningPipeline...
+		 * and run the server.
+		 */
 		PumpkinPlanner() {
 			ROS_INFO("%s", _nh.getNamespace().c_str());
 			robot_model_loader::RobotModelLoader pumpkinModelLoader("robot_description");
@@ -91,14 +97,29 @@ namespace pumpkin {
 			ROS_INFO("Planner initialized.");
 		}
 
+		/**
+		 * \brief Destructor. Just stops the server.
+		 */
 		~PumpkinPlanner() {
 			_server.shutdown();
 		}
 
+		/**
+		 * \brief This method if for load a joint model group to plan (based on the already calibrated robot joints).
+		 * It also sets up a index vector, for knowing the indexes of the joints that come from the "playback_action".
+		 */
 		bool setJoints(const std::string &group_name, const std::map<std::string, int> &joints);
 
+		/**
+		 * \brief Callback function that is called each time the service is required.
+		 */
 		bool plan(pmsg::PlannerRequest &req, pmsg::PlannerResponse &res);
 
+		/**
+		 * \brief This function should be called in the main loop, since it's using two callbacks
+		 * (one for the callback and other for the service).
+		 * I don't know if it's really needed, but it wasn't working, but it is now.
+		 */
 		inline void rosCall() { _serverQueue.callAvailable(); }
 	};
 
@@ -192,20 +213,25 @@ namespace pumpkin {
 }
 
 int main(int argc, char *argv[]) {
+	//Start ROS
 	ros::init(argc, argv, "pumpkin_planner");
 	ros::start();
 
-
+	//Wait for the config to be loaded
 	ros::Rate loop(1000);
 	while (!ros::param::has("pumpkin/config")) {
 		loop.sleep();
 	}
 
+	//Now we create the planner and all that stuff.
 	pumpkin::PumpkinPlanner planner;
 
+	//We load the pumpkin calib config
 	XmlRpc::XmlRpcValue config;
 	ros::param::get("/pumpkin/config/arduino", config);
 
+	//And now we set the joints
+	//I use a map to identify the joint name and the pin
 	for (auto it = config.begin(); it != config.end(); ++it) {
 		std::map<std::string, int> joint_names;
 		for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2) {

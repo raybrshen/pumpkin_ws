@@ -127,75 +127,6 @@ public:
 
 };
 
-int main (int argc, char *argv[]) {
-
-	ros::init(argc, argv, "playback_action");
-	ros::start();
-
-	ros::Rate loop(1000);
-	while (!ros::param::has("/pumpkin/config") && ros::ok()) {
-		loop.sleep();
-	}
-
-	if (!ros::ok()) {
-		ros::shutdown();
-		return -1;
-	}
-
-	XmlRpc::XmlRpcValue config;
-	ros::param::get("/pumpkin/config", config);
-
-	urdf::Model pumpkinModel;
-	std::string model_name;
-
-	if (!ros::param::get("/pumpkin/description_file", model_name)) {
-		ROS_FATAL("Could not get model name");
-		ros::shutdown();
-		return -1;
-	}
-
-	pumpkinModel.initFile(model_name);
-
-	PlaybackActionServer server;
-
-	/*
-	 * Create calibration changes
-	 * CAUTION!!!
-	 * If the config doesn't have the same parts, in arduino and in ssc, we may have problems here.
-	 */
-	auto joints = pumpkinModel.joints_;
-	for (auto it = config["arduino"].begin(), end_it = config["arduino"].end(); it != end_it; ++it) {
-		for (auto part_it = it->second.begin(), part_end_it = it->second.end(); part_it != part_end_it; ++part_it) {
-			XmlRpc::XmlRpcValue & ssc_ref = config["ssc"][it->first][part_it->first];
-			std::string joint_name = (it->first)[0] + ("_" + part_it->first);
-			server.calibrate(int(part_it->second["pin"]),
-			                 int(part_it->second["analog_read_min"]),
-			                 int(part_it->second["analog_read_max"]),
-			                 int(ssc_ref["pulse_min"]),
-			                 int(ssc_ref["pulse_max"]),
-							 int(ssc_ref["pin"]),
-							 joint_name,
-							 joints[joint_name]->limits->lower,
-							 joints[joint_name]->limits->upper);
-		}
-	}
-
-	ROS_INFO("Adjustments calculated.");
-
-	double ros_rate = double(config["ros_rate"]);
-	//loop = ros::Rate(ros_rate);
-	server.endCalibrate(ros_rate);
-
-	while (ros::ok()) {
-        ros::spinOnce();
-		server.step();
-		//loop.sleep();
-	}
-
-	ros::shutdown();
-	return 0;
-}
-
 void PlaybackActionServer::loadFile() {
 	_movement = std::move(YAML::LoadAllFromFile(_movement_files[_movement_index]));
 	_percentage_step = (double)100/_movement.size();
@@ -490,4 +421,73 @@ void PlaybackActionServer::endCalibrate(double rate) {
 	}
 	_planner.request.initial_positions.reserve(_aux_vec.size());
 	_planner.request.final_positions.reserve(_aux_vec.size());
+}
+
+int main (int argc, char *argv[]) {
+
+	ros::init(argc, argv, "playback_action");
+	ros::start();
+
+	ros::Rate loop(1000);
+	while (!ros::param::has("/pumpkin/config") && ros::ok()) {
+		loop.sleep();
+	}
+
+	if (!ros::ok()) {
+		ros::shutdown();
+		return -1;
+	}
+
+	XmlRpc::XmlRpcValue config;
+	ros::param::get("/pumpkin/config", config);
+
+	urdf::Model pumpkinModel;
+	std::string model_name;
+
+	if (!ros::param::get("/pumpkin/description_file", model_name)) {
+		ROS_FATAL("Could not get model name");
+		ros::shutdown();
+		return -1;
+	}
+
+	pumpkinModel.initFile(model_name);
+
+	PlaybackActionServer server;
+
+	/*
+	 * Create calibration changes
+	 * CAUTION!!!
+	 * If the config doesn't have the same parts, in arduino and in ssc, we may have problems here.
+	 */
+	auto joints = pumpkinModel.joints_;
+	for (auto it = config["arduino"].begin(), end_it = config["arduino"].end(); it != end_it; ++it) {
+		for (auto part_it = it->second.begin(), part_end_it = it->second.end(); part_it != part_end_it; ++part_it) {
+			XmlRpc::XmlRpcValue & ssc_ref = config["ssc"][it->first][part_it->first];
+			std::string joint_name = (it->first)[0] + ("_" + part_it->first);
+			server.calibrate(int(part_it->second["pin"]),
+			                 int(part_it->second["analog_read_min"]),
+			                 int(part_it->second["analog_read_max"]),
+			                 int(ssc_ref["pulse_min"]),
+			                 int(ssc_ref["pulse_max"]),
+			                 int(ssc_ref["pin"]),
+			                 joint_name,
+			                 joints[joint_name]->limits->lower,
+			                 joints[joint_name]->limits->upper);
+		}
+	}
+
+	ROS_INFO("Adjustments calculated.");
+
+	double ros_rate = double(config["ros_rate"]);
+	//loop = ros::Rate(ros_rate);
+	server.endCalibrate(ros_rate);
+
+	while (ros::ok()) {
+		ros::spinOnce();
+		server.step();
+		//loop.sleep();
+	}
+
+	ros::shutdown();
+	return 0;
 }
