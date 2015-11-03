@@ -16,413 +16,465 @@
 
 using namespace pumpkin_messages;
 
-class PlaybackActionServer {
+namespace pumpkin {
 
-	enum State {
-		Moving,
-		RequestPlanning,
-		ExecutingPlanning,
+	/*!
+	 * \brief This class is the action server that handles the playback and scene.
+	 *
+	 * It has a quite complex structure. It creates an Action Server to serve the playback requisitons.
+	 * It has also two publishers (that publish to the SSC and to the Joint State, for the RViz).
+	 * And a Service Client to call the Pumpkin Planner
+	 */
+	class PlaybackActionServer {
+
+		/*!
+		 * \brief Enum to indicate in wich state the playback is.
+		 */
+		enum State {
+			Moving, //!< The playback is in the midle of a movement
+			RequestPlanning, //!< The playback is changing the movement, and calling the planner
+			ExecutingPlanning, //!< The playback is executing the planned trajectory
+		};
+
+		/*!
+		 * \brief Struct to handle the parameters for the linear conversion
+		 */
+		struct auxiliar_calibration {
+			int arduino_min;
+			int arduino_max;
+			int ssc_min;
+			int ssc_max;
+			int ssc_pin;
+			std::string joint_name;
+			double joint_lower;
+			double joint_upper;
+		};
+
+		//private members
+		ros::NodeHandle _nh; //!< ROS node handle
+		ros::Publisher _ssc; //!< Publishes to SSC
+		ros::Publisher _joints; //!< Publishes to Joint States
+		ros::ServiceClient _planner_client; //!< Service Client to the Pumpkin Planner
+		std::vector<std::string> _movement_files; //!< The list of all files of an scene
+		actionlib::SimpleActionServer<PlaybackAction> _server; //!< Action Server
+		std::vector<auxiliar_calibration> _aux_vec; //!< Vector to hold the calibration parameters for each joint, indexed by Arduino PIN
+		std::vector<YAML::Node> _movement; //!< The movements of an file
+		std::vector<YAML::Node>::iterator _step_it, _end_it;
+		double _percentage_step; //!< This hold the completed percentage of an movement
+		double _rate; //!< This holds the rate of the loop
+
+		sensor_msgs::JointState _joint_state;   //!< The joint state message
+		PlaybackFeedback _feedback;             //!< The feedback message
+		PlaybackResult _result;                 //!< The result message
+		State _state;                           //!< Holds the state of the playback
+		Planner _planner;                       //!< Pumplin Planner message
+
+		unsigned int _movement_index;   //!< Holds the index of the actual position in the YAML vector
+		unsigned int _plan_index;       //!< Holds the actual index of the movement in the scene list
+		ros::Rate _loop;                //!< ROS Rate
+		//ros::Duration _last_delta;
+
+		/*!
+		 * \brief This method loads the movement file, based on the `_movement_index`.
+		 *
+		 * It will also close the last movement, and set the iterators.
+		 */
+		void loadFile();
+
+		/*!
+		 * \brief This method runs the move the robot to a specific position in an movement.
+		 *
+		 * This method is called when the Playback is in `Moving` state. It sends the command to SSC and Joint States.
+		 * If the movement ends, this methods sets the server to `RequestPlanning` state, and end the turn.
+		 */
+		void move();
+
+		/*!
+		 * \brief This method check if it is other movement to be done, and, in case, call the planner.
+		 *
+		 * This method is called when the Playback is in `RequestPlanning` state. It first checks if it have any other
+		 * movement to be done. If so, it will calculate the inicial position to plan (based on the last position), open
+		 * the next movement file, and calculate the final position. After, it calls the "Pumpkin Planner", and sets the
+		 * Playback to the `ExecutingPlanning` state.
+		 */
+		void prepare();
+
+		/*!
+		 * \brief This method executes the planned transition between movements.
+		 *
+		 * This method is called when the Playback is in `ExecutingPlanning` state. It will send commands to SSC based on the
+		 * response from the Pumpkin Planner service call. After finishing, it sets the Playback to the `Moving`state.
+		 */
+		void change();
+
+	public:
+		PlaybackActionServer() : _server(_nh, "/pumpkin/playback_action", false), _aux_vec(32), _loop(1000) {
+			_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
+			_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
+
+			_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("/pumpkin/planner");
+
+			_ssc = _nh.advertise<SSCMoveList>("/move_ssc_topic", 32);
+			_joints = _nh.advertise<sensor_msgs::JointState>("/playback_joint_states", 1024);
+			//_direct = true;
+			_planner_client.waitForExistence();
+
+			ROS_INFO("Planner started.");
+
+			_joint_state.name = std::vector<std::string>(32);
+			_joint_state.position = std::vector<double>(32);
+
+			_server.start();
+		}
+
+		~PlaybackActionServer() {
+			_ssc.publish(SSCMoveList());
+			_server.shutdown();
+		}
+
+		///
+		/// \brief onGoal Action Server onGoal callback function
+		///
+		void onGoal();
+
+		///
+		/// \brief onPreempt - Action Server onPreempt callback function
+		///
+		void onPreempt();
+
+		///
+		/// \brief step - This is the main function of this class... It should be called in the main.
+		/// It executes the server loop, seeking for the movements in the playback files
+		///
+		void step() {
+			if (!_server.isActive()) {
+				_loop.sleep();
+				return;
+			}
+
+			switch (_state) {
+				case Moving:
+					move();
+					break;
+				case RequestPlanning:
+					prepare();
+					break;
+				case ExecutingPlanning:
+					change();
+					break;
+			}
+		}
+
+		void calibrate(int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin,
+		               const std::string &joint_name, double joint_lower, double joint_upper);
+
+
+		void endCalibrate(double rate);
+
 	};
 
-	struct auxiliar_calibration {
-		int arduino_min;
-		int arduino_max;
-		int ssc_min;
-		int ssc_max;
-		int ssc_pin;
-		std::string joint_name;
-		double joint_lower;
-		double joint_upper;
-	};
-	//private members
-	ros::NodeHandle _nh;
-	ros::Publisher _ssc, _joints;
-	ros::ServiceClient _planner_client;
-	std::vector<std::string> _movement_files;
-	actionlib::SimpleActionServer<PlaybackAction> _server;
-	std::vector<auxiliar_calibration> _aux_vec;
-	std::vector<YAML::Node> _movement;
-	std::vector<YAML::Node>::iterator _step_it, _end_it;
-	double _percentage_step, _rate;
+	void PlaybackActionServer::loadFile() {
+		_movement = std::move(YAML::LoadAllFromFile(_movement_files[_movement_index]));
+		_percentage_step = (double) 100 / _movement.size();
+		_step_it = std::begin(_movement);
+		_end_it = std::end(_movement);
 
-	sensor_msgs::JointState _joint_state;
-	PlaybackFeedback _feedback;
-	PlaybackResult _result;
-	State _state;
-
-	unsigned int _movement_index, _plan_index;
-	ros::Rate _loop;
-	ros::Duration _last_delta;
-	Planner _planner;
-
-	void loadFile();
-
-	void move();
-	void prepare();
-	void change();
-
-public:
-	PlaybackActionServer() : _server(_nh, "/pumpkin/playback_action", false), _aux_vec(32), _loop(1000) {
-		_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
-		_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
-
-		_planner_client = _nh.serviceClient<Planner::Request, Planner::Response>("/pumpkin/planner");
-
-		_ssc = _nh.advertise<SSCMoveList>("/move_ssc_topic", 32);
-		_joints = _nh.advertise<sensor_msgs::JointState>("/playback_joint_states", 1024);
-		//_direct = true;
-		_planner_client.waitForExistence();
-
-		ROS_INFO("Planner started.");
-
-		_joint_state.name = std::vector<std::string>(32);
-		_joint_state.position = std::vector<double>(32);
-
-        _server.start();
+		_feedback.percentage = 0.0;
+		_feedback.movement_index = _movement_index << 1;
 	}
 
-	~PlaybackActionServer() {
-		_ssc.publish(SSCMoveList());
-        _server.shutdown();
-	}
+	void PlaybackActionServer::move() {
 
-	///
-	/// \brief onGoal Action Server onGoal callback function
-	///
-	void onGoal();
+		if (_step_it->IsNull()) {
+			_result.state = static_cast<uint8_t>(IOState::BadFile);
+			_server.setAborted(_result);
+			_step_it = _end_it;
+			_ssc.publish(SSCMoveList());
+			return;
+		} else if ((*_step_it)["an_read"].IsNull()) {
+			_result.state = static_cast<uint8_t>(IOState::BadFile);
+			_server.setAborted(_result);
+			_step_it = _end_it;
 
-	///
-	/// \brief onPreempt - Action Server onPreempt callback function
-	///
-	void onPreempt();
-
-	///
-	/// \brief step - This is the main function of this class... It should be called in the main.
-	/// It executes the server loop, seeking for the movements in the playback files
-	///
-	void step() {
-		if (!_server.isActive()) {
-			_loop.sleep();
+			//if (_direct)
+			_ssc.publish(SSCMoveList());
 			return;
 		}
 
-		switch(_state) {
-			case Moving:
-				move();
-			break;
-			case RequestPlanning:
-				prepare();
-			break;
-			case ExecutingPlanning:
-				change();
-			break;
-		}
-	}
+		std::vector<uint16_t> reads;
+		SSCMoveList command;
+		command.list.reserve(32);
 
-	void calibrate (int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin,
-					const std::string &joint_name, double joint_lower, double joint_upper);
+		//ROS_INFO("New step.");
 
+		reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
 
-	void endCalibrate(double rate);
+		++_step_it;
 
-};
-
-void PlaybackActionServer::loadFile() {
-	_movement = std::move(YAML::LoadAllFromFile(_movement_files[_movement_index]));
-	_percentage_step = (double)100/_movement.size();
-	_step_it = std::begin(_movement);
-	_end_it = std::end(_movement);
-
-	_feedback.percentage = 0.0;
-	_feedback.movement_index = _movement_index << 1;
-}
-
-void PlaybackActionServer::move() {
-
-	if (_step_it->IsNull()) {
-		_result.state = static_cast<uint8_t>(IOState::BadFile);
-		_server.setAborted(_result);
-		_step_it = _end_it;
-		_ssc.publish(SSCMoveList());
-		return;
-	} else if ((*_step_it)["an_read"].IsNull()) {
-		_result.state = static_cast<uint8_t>(IOState::BadFile);
-		_server.setAborted(_result);
-		_step_it = _end_it;
-
-		//if (_direct)
-		_ssc.publish(SSCMoveList());
-		return;
-	}
-
-	std::vector<uint16_t> reads;
-	SSCMoveList command;
-	command.list.reserve(32);
-
-	//ROS_INFO("New step.");
-
-	reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
-
-	++_step_it;
-
-	double position;
-	for (int i = 0; i < reads.size(); ++i) {
-		SSCMove move;
-		const auxiliar_calibration &aux = _aux_vec[i];
-		move.channel = aux.ssc_pin;
-		if (aux.arduino_max - aux.arduino_min <= 0) {
-			//ROS_WARN("Arduino calibration error");
-			continue;
-		} else {
-			move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
-			                         / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
-			if (move.pulse > aux.ssc_max) {
-				ROS_WARN("Pulse overflow: %d", int(move.pulse));
-				move.pulse = aux.ssc_max;
-			} else if (move.pulse < aux.ssc_min) {
-				ROS_WARN("Pulse underflow: %d", int(move.pulse));
-				move.pulse = aux.ssc_min;
-			}
-
-			position = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
-			           / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
-
-			if (position > aux.joint_upper) {
-				ROS_WARN("Pulse overflow.");
-				position = aux.joint_upper;
-			} else if (position < aux.joint_lower) {
-				ROS_WARN("Pulse underflow.");
-				position = aux.joint_lower;
-			}
-
-			_joint_state.position[i] = position;
-		}
-		move.speed = 0;
-		command.list.emplace_back(std::move(move));
-	}
-	command.time = 0;
-
-	_joints.publish(_joint_state);
-	if (command.list.size()) {
-		_ssc.publish(command);
-	} else {
-		ROS_WARN("Outbound error!");
-	}
-
-	_feedback.percentage += _percentage_step;
-	_feedback.movement_index = _movement_index << 1;
-	_server.publishFeedback(_feedback);
-
-	if (_step_it == _end_it) {
-		++_movement_index;
-		_state = RequestPlanning;
-	} else {
-		_loop.sleep();
-	}
-}
-
-void PlaybackActionServer::prepare() {
-	if (_movement_index == _movement_files.size()) {
-		_result.state = static_cast<uint8_t>(IOState::OK);
-		_server.setSucceeded(_result);
-		_ssc.publish(SSCMoveList());
-		return;
-	}
-	std::vector<uint16_t> reads;
-	_planner.request.initial_positions.clear();
-	_planner.request.final_positions.clear();
-	_planner.response.joint_trajectory.clear();
-
-	reads = std::move(_movement.back()["an_read"].as<std::vector<uint16_t> >());
-
-	double value;
-	for(int i = 0; i < reads.size(); ++i) {
-		auxiliar_calibration & aux = _aux_vec[i];
-
-		//ROS_INFO("%d", reads[i]);
-
-		if (aux.arduino_max == aux.arduino_min)
-			continue;
-
-
-		value = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
-		        / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
-		if (value > aux.joint_upper) {
-			ROS_WARN("Pulse overflow.");
-			value = aux.joint_upper;
-		} else if (value < aux.joint_lower) {
-			ROS_WARN("Pulse underflow.");
-			value = aux.joint_lower;
-		}
-
-		_planner.request.initial_positions.push_back(value);
-	}
-
-	loadFile();
-
-	reads.clear();  //Much probably unecessary, but, just for sure
-	reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
-
-	for(int i = 0; i < reads.size(); ++i) {
-		auxiliar_calibration & aux = _aux_vec[i];
-
-		if (aux.arduino_max == aux.arduino_min)
-			continue;
-
-
-		value = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
-		               / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
-		if (value > aux.joint_upper) {
-			ROS_WARN("Pulse overflow: %lf", value);
-			value = aux.joint_upper;
-		} else if (value < aux.joint_lower) {
-			ROS_WARN("Pulse underflow: %lf", value);
-			value = aux.joint_lower;
-		}
-
-		//_joint_state.position[i] = value;
-		_planner.request.final_positions.push_back(value);
-	}
-
-	//_joints.publish(_joint_state);
-	ROS_WARN("Starting request plan");
-	if (!_planner_client.call(_planner)) {
-		ROS_FATAL("COULD NOT CALL PLANNER SERVICE.");
-		_ssc.publish(SSCMoveList());
-		_result.state = static_cast<uint8_t>(IOState::BadFile);//Has to change here for a new code
-		_server.setAborted(_result);
-		_state = Moving;
-		return;
-	}
-	_plan_index = 0;
-	_state = ExecutingPlanning;
-	//_last_delta = ros::Duration(0);
-	_loop = ros::Rate(_rate/10);
-	try {
-		ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory.at(0).points.size());
-	} catch (std::exception &ex) {
-		ROS_FATAL("Error obtaining the response trajectory: %s", ex.what());
-	}
-}
-
-void PlaybackActionServer::change() {
-	if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
-		_loop = ros::Rate(_rate);
-		_state = Moving;
-		//ROS_ERROR("Mas será possível...");
-		return;
-	}
-	SSCMoveList command;
-	command.list.reserve(32);
-	double position;
-	ROS_WARN("Executing planning");
-	//_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
-	for (auto it = _planner.response.joint_trajectory.begin(); it != _planner.response.joint_trajectory.end(); ++it) {
-		trajectory_msgs::JointTrajectoryPoint &trajectory = it->points[_plan_index];
-
-		std::vector<std::string> &names = it->joint_names;
-
-		for (int i = 0, size = names.size(); i < size; ++i) {
+		double position;
+		for (int i = 0; i < reads.size(); ++i) {
 			SSCMove move;
-			const std::string &name = names[i];
-			auto it = std::find_if(_aux_vec.begin(), _aux_vec.end(),
-			                       [name](const auxiliar_calibration &x) {
-				                       return name == x.joint_name;
-			                       });
-			position = trajectory.positions[it - _aux_vec.begin()];
+			const auxiliar_calibration &aux = _aux_vec[i];
+			move.channel = aux.ssc_pin;
+			if (aux.arduino_max - aux.arduino_min <= 0) {
+				//ROS_WARN("Arduino calibration error");
+				continue;
+			} else {
+				move.pulse = (uint16_t) ((reads[i] - aux.arduino_min) * (aux.ssc_max - aux.ssc_min)
+				                         / (aux.arduino_max - aux.arduino_min) + aux.ssc_min);
+				if (move.pulse > aux.ssc_max) {
+					ROS_WARN("Pulse overflow: %d", int(move.pulse));
+					move.pulse = aux.ssc_max;
+				} else if (move.pulse < aux.ssc_min) {
+					ROS_WARN("Pulse underflow: %d", int(move.pulse));
+					move.pulse = aux.ssc_min;
+				}
 
-			move.channel = it->ssc_pin;
-			move.pulse = (uint16_t) ((position - it->joint_lower) * (it->ssc_max - it->ssc_min)
-			                         / (it->joint_upper - it->joint_lower) + it->ssc_min);
-			if (move.pulse > it->ssc_max) {
-				ROS_WARN("Pulse overflow: %d", int(move.pulse));
-				move.pulse = it->ssc_max;
-			} else if (move.pulse < it->ssc_min) {
-				ROS_WARN("Pulse underflow: %d", int(move.pulse));
-				move.pulse = it->ssc_min;
+				position = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+				           / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
+
+				if (position > aux.joint_upper) {
+					ROS_WARN("Pulse overflow.");
+					position = aux.joint_upper;
+				} else if (position < aux.joint_lower) {
+					ROS_WARN("Pulse underflow.");
+					position = aux.joint_lower;
+				}
+
+				_joint_state.position[i] = position;
 			}
 			move.speed = 0;
-			command.list.emplace_back(move);
+			command.list.emplace_back(std::move(move));
+		}
+		command.time = 0;
 
-			_joint_state.position[i] = position;
+		_joints.publish(_joint_state);
+		if (command.list.size()) {
+			_ssc.publish(command);
+		} else {
+			ROS_WARN("Outbound error!");
+		}
+
+		_feedback.percentage += _percentage_step;
+		_feedback.movement_index = _movement_index << 1;
+		_server.publishFeedback(_feedback);
+
+		if (_step_it == _end_it) {
+			++_movement_index;
+			_state = RequestPlanning;
+		} else {
+			_loop.sleep();
 		}
 	}
-	command.time = 0;
-	//const ros::Duration &delta = _planner.response.joint_trajectory[0].points[_plan_index].time_from_start;
-	//ROS_INFO("Delta T de: %f", delta.toSec());
 
-	//_loop = ros::Rate(delta - _last_delta);
-	//_last_delta = delta;
+	void PlaybackActionServer::prepare() {
+		if (_movement_index == _movement_files.size()) {
+			_result.state = static_cast<uint8_t>(IOState::OK);
+			_server.setSucceeded(_result);
+			_ssc.publish(SSCMoveList());
+			return;
+		}
+		std::vector<uint16_t> reads;
+		_planner.request.initial_positions.clear();
+		_planner.request.final_positions.clear();
+		_planner.response.joint_trajectory.clear();
 
-	_ssc.publish(command);
-	_joints.publish(_joint_state);
+		reads = std::move(_movement.back()["an_read"].as<std::vector<uint16_t> >());
 
-	_feedback.percentage = _plan_index/_planner.response.joint_trajectory[0].points.size();
-	_feedback.movement_index = (_movement_index << 1) | 1;
-	_server.publishFeedback(_feedback);
+		double value;
+		for (int i = 0; i < reads.size(); ++i) {
+			auxiliar_calibration &aux = _aux_vec[i];
 
-	_plan_index++;
-	_loop.sleep();
-}
+			//ROS_INFO("%d", reads[i]);
 
-void PlaybackActionServer::onGoal() {
-	if (_step_it != _end_it) {
-		_ssc.publish(SSCMoveList());
-	}
-	auto goal = _server.acceptNewGoal();
-	_movement_files = std::move(goal->filenames);
-	//_direct = goal->direct;
-	_movement_index = 0;
+			if (aux.arduino_max == aux.arduino_min)
+				continue;
 
-	try {
+
+			value = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+			        / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
+			if (value > aux.joint_upper) {
+				ROS_WARN("Pulse overflow.");
+				value = aux.joint_upper;
+			} else if (value < aux.joint_lower) {
+				ROS_WARN("Pulse underflow.");
+				value = aux.joint_lower;
+			}
+
+			_planner.request.initial_positions.push_back(value);
+		}
+
 		loadFile();
-	} catch (YAML::BadFile) {
-		_result.state = static_cast<uint8_t>(IOState::BadFile);
+
+		reads.clear();  //Much probably unecessary, but, just for sure
+		reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
+
+		for (int i = 0; i < reads.size(); ++i) {
+			auxiliar_calibration &aux = _aux_vec[i];
+
+			if (aux.arduino_max == aux.arduino_min)
+				continue;
+
+
+			value = (reads[i] - aux.arduino_min) * (aux.joint_upper - aux.joint_lower)
+			        / (aux.arduino_max - aux.arduino_min) + aux.joint_lower;
+			if (value > aux.joint_upper) {
+				ROS_WARN("Pulse overflow: %lf", value);
+				value = aux.joint_upper;
+			} else if (value < aux.joint_lower) {
+				ROS_WARN("Pulse underflow: %lf", value);
+				value = aux.joint_lower;
+			}
+
+			//_joint_state.position[i] = value;
+			_planner.request.final_positions.push_back(value);
+		}
+
+		//_joints.publish(_joint_state);
+		ROS_WARN("Starting request plan");
+		if (!_planner_client.call(_planner)) {
+			ROS_FATAL("COULD NOT CALL PLANNER SERVICE.");
+			_ssc.publish(SSCMoveList());
+			_result.state = static_cast<uint8_t>(IOState::BadFile);//Has to change here for a new code
+			_server.setAborted(_result);
+			_state = Moving;
+			return;
+		}
+		_plan_index = 0;
+		_state = ExecutingPlanning;
+		//_last_delta = ros::Duration(0);
+		_loop = ros::Rate(_rate / 10);
+		try {
+			ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory.at(0).points.size());
+		} catch (std::exception &ex) {
+			ROS_FATAL("Error obtaining the response trajectory: %s", ex.what());
+		}
+	}
+
+	void PlaybackActionServer::change() {
+		if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
+			_loop = ros::Rate(_rate);
+			_state = Moving;
+			//ROS_ERROR("Mas será possível...");
+			return;
+		}
+		SSCMoveList command;
+		command.list.reserve(32);
+		double position;
+		ROS_WARN("Executing planning");
+		//_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
+		for (auto it = _planner.response.joint_trajectory.begin();
+		     it != _planner.response.joint_trajectory.end(); ++it) {
+			trajectory_msgs::JointTrajectoryPoint &trajectory = it->points[_plan_index];
+
+			std::vector<std::string> &names = it->joint_names;
+
+			for (int i = 0, size = names.size(); i < size; ++i) {
+				SSCMove move;
+				const std::string &name = names[i];
+				auto it = std::find_if(_aux_vec.begin(), _aux_vec.end(),
+				                       [name](const auxiliar_calibration &x) {
+					                       return name == x.joint_name;
+				                       });
+				position = trajectory.positions[it - _aux_vec.begin()];
+
+				move.channel = it->ssc_pin;
+				move.pulse = (uint16_t) ((position - it->joint_lower) * (it->ssc_max - it->ssc_min)
+				                         / (it->joint_upper - it->joint_lower) + it->ssc_min);
+				if (move.pulse > it->ssc_max) {
+					ROS_WARN("Pulse overflow: %d", int(move.pulse));
+					move.pulse = it->ssc_max;
+				} else if (move.pulse < it->ssc_min) {
+					ROS_WARN("Pulse underflow: %d", int(move.pulse));
+					move.pulse = it->ssc_min;
+				}
+				move.speed = 0;
+				command.list.emplace_back(move);
+
+				_joint_state.position[i] = position;
+			}
+		}
+		command.time = 0;
+		//const ros::Duration &delta = _planner.response.joint_trajectory[0].points[_plan_index].time_from_start;
+		//ROS_INFO("Delta T de: %f", delta.toSec());
+
+		//_loop = ros::Rate(delta - _last_delta);
+		//_last_delta = delta;
+
+		_ssc.publish(command);
+		_joints.publish(_joint_state);
+
+		_feedback.percentage = _plan_index / _planner.response.joint_trajectory[0].points.size();
+		_feedback.movement_index = (_movement_index << 1) | 1;
+		_server.publishFeedback(_feedback);
+
+		_plan_index++;
+		_loop.sleep();
+	}
+
+	void PlaybackActionServer::onGoal() {
+		if (_step_it != _end_it) {
+			_ssc.publish(SSCMoveList());
+		}
+		auto goal = _server.acceptNewGoal();
+		_movement_files = std::move(goal->filenames);
+		//_direct = goal->direct;
+		_movement_index = 0;
+
+		try {
+			loadFile();
+		} catch (YAML::BadFile) {
+			_result.state = static_cast<uint8_t>(IOState::BadFile);
+			_server.setAborted(_result);
+			ROS_FATAL("ERROR OPENING FILE");
+		}
+
+		_state = Moving;
+		_loop = ros::Rate(100);
+		ROS_INFO("New Goal!");
+	}
+
+	void PlaybackActionServer::onPreempt() {
+		_ssc.publish(SSCMoveList());
+		_result.state = static_cast<uint8_t>(IOState::OK);
 		_server.setAborted(_result);
-		ROS_FATAL("ERROR OPENING FILE");
 	}
 
-	_state = Moving;
-	_loop = ros::Rate(100);
-	ROS_INFO("New Goal!");
-}
-
-void PlaybackActionServer::onPreempt() {
-	_ssc.publish(SSCMoveList());
-	_result.state = static_cast<uint8_t>(IOState::OK);
-	_server.setAborted(_result);
-}
-
-void PlaybackActionServer::calibrate (int arduino_pin, int arduino_min, int arduino_max, int ssc_min,
-                                      int ssc_max, int ssc_pin, const std::string &joint_name,
-                                      double joint_lower, double joint_upper) {
-	_aux_vec[arduino_pin] = std::move(auxiliar_calibration{
-			arduino_min,
-			arduino_max,
-			ssc_min,
-			ssc_max,
-			ssc_pin,
-			joint_name,
-			joint_lower,
-			joint_upper,
-	});
-	_joint_state.name[arduino_pin] = joint_name;
-	ROS_INFO("Created joint %s", joint_name.c_str());
-}
-
-void PlaybackActionServer::endCalibrate(double rate) {
-	_rate = rate;
-	_loop = ros::Rate(rate);
-	while(_aux_vec.back().arduino_max == 0)
-		_aux_vec.pop_back();
-	while(_joint_state.name.back().empty()) {
-		_joint_state.name.pop_back();
-		_joint_state.position.pop_back();
+	void PlaybackActionServer::calibrate(int arduino_pin, int arduino_min, int arduino_max, int ssc_min,
+	                                     int ssc_max, int ssc_pin, const std::string &joint_name,
+	                                     double joint_lower, double joint_upper) {
+		_aux_vec[arduino_pin] = std::move(auxiliar_calibration{
+				arduino_min,
+				arduino_max,
+				ssc_min,
+				ssc_max,
+				ssc_pin,
+				joint_name,
+				joint_lower,
+				joint_upper,
+		});
+		_joint_state.name[arduino_pin] = joint_name;
+		ROS_INFO("Created joint %s", joint_name.c_str());
 	}
-	_planner.request.initial_positions.reserve(_aux_vec.size());
-	_planner.request.final_positions.reserve(_aux_vec.size());
+
+	void PlaybackActionServer::endCalibrate(double rate) {
+		_rate = rate;
+		_loop = ros::Rate(rate);
+		while (_aux_vec.back().arduino_max == 0)
+			_aux_vec.pop_back();
+		while (_joint_state.name.back().empty()) {
+			_joint_state.name.pop_back();
+			_joint_state.position.pop_back();
+		}
+		_planner.request.initial_positions.reserve(_aux_vec.size());
+		_planner.request.final_positions.reserve(_aux_vec.size());
+	}
+
 }
 
+/*!
+ * \brief This node runs a Playback Action Server, calibrate the action server, and runs it.
+ */
 int main (int argc, char *argv[]) {
 
 	ros::init(argc, argv, "playback_action");
@@ -452,7 +504,7 @@ int main (int argc, char *argv[]) {
 
 	pumpkinModel.initFile(model_name);
 
-	PlaybackActionServer server;
+	pumpkin::PlaybackActionServer server;
 
 	/*
 	 * Create calibration changes
