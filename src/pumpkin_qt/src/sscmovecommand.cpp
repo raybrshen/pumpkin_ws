@@ -43,12 +43,12 @@ SSCMoveCommand::SSCMoveCommand(QWidget *parent) :
 			QWidget *block_widget = new QWidget(tabContent);
 			block->setupUi(block_widget);
 			block->blockLabel->setText(QString::fromStdString(part_it->first));
-			block->activeButton->setText(QString("Active ") + QString::fromStdString(part_it->first));
+			block->activeBox->setText(QString("Active ") + QString::fromStdString(part_it->first));
 			block->pulseSpin->setRange(min, max);
 			block->pulseSpin->setValue(def);
 			block->pulseSlider->setRange(min, max);
 			block->pulseSlider->setValue(def);
-			block->activeButton->setChecked(false);
+			//block->activeButton->setChecked(false);
 			box->addWidget(block_widget);
 			_blocks.insert(pin, block);
 		}
@@ -74,7 +74,7 @@ void SSCMoveCommand::sendCommand()
 		Ui::SSCMoveBlocksDesign *design = _blocks[i];
 		if (design == nullptr)
 			continue;
-		if (!design->activeButton->isChecked())
+		if (!design->activeBox->isChecked())
 			continue;
 		pumpkin_messages::SSCMove move;
 		move.channel = i;

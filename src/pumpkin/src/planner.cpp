@@ -250,12 +250,15 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	ROS_INFO("Joints set");
+	ROS_DEBUG("Joints set");
 
+	//Main loop. Let it go.
 	while (ros::ok()) {
 		planner.rosCall();
 		ros::spinOnce();
 	}
+
+	//Bye ROS
 	ros::shutdown();
 
 	return 0;
