@@ -22,6 +22,9 @@ namespace pmsg = pumpkin_messages;
 
 namespace pumpkin {
 
+	/**
+	 * 
+	 */
 	class PumpkinPlanner {
 		ros::ServiceServer _server;
 		ros::NodeHandle _nh, _snh;

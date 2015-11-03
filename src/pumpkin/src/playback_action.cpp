@@ -43,7 +43,7 @@ class PlaybackActionServer {
 	std::vector<auxiliar_calibration> _aux_vec;
 	std::vector<YAML::Node> _movement;
 	std::vector<YAML::Node>::iterator _step_it, _end_it;
-	double _percentage_step;
+	double _percentage_step, _rate;
 
 	sensor_msgs::JointState _joint_state;
 	PlaybackFeedback _feedback;
@@ -365,8 +365,8 @@ void PlaybackActionServer::prepare() {
 	}
 	_plan_index = 0;
 	_state = ExecutingPlanning;
-	_last_delta = ros::Duration(0);
-	//_loop = ros::Rate(1000);
+	//_last_delta = ros::Duration(0);
+	_loop = ros::Rate(_rate/10);
 	try {
 		ROS_INFO("Planned with %d movements.", (int) _planner.response.joint_trajectory.at(0).points.size());
 	} catch (std::exception &ex) {
@@ -376,7 +376,7 @@ void PlaybackActionServer::prepare() {
 
 void PlaybackActionServer::change() {
 	if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
-		_loop = ros::Rate(100);
+		_loop = ros::Rate(_rate);
 		_state = Moving;
 		//ROS_ERROR("Mas será possível...");
 		return;
@@ -417,11 +417,11 @@ void PlaybackActionServer::change() {
 		}
 	}
 	command.time = 0;
-	const ros::Duration &delta = _planner.response.joint_trajectory[0].points[_plan_index].time_from_start;
-	ROS_INFO("Delta T de: %f", delta.toSec());
+	//const ros::Duration &delta = _planner.response.joint_trajectory[0].points[_plan_index].time_from_start;
+	//ROS_INFO("Delta T de: %f", delta.toSec());
 
-	_loop = ros::Rate(delta - _last_delta);
-	_last_delta = delta;
+	//_loop = ros::Rate(delta - _last_delta);
+	//_last_delta = delta;
 
 	_ssc.publish(command);
 	_joints.publish(_joint_state);
@@ -480,6 +480,7 @@ void PlaybackActionServer::calibrate (int arduino_pin, int arduino_min, int ardu
 }
 
 void PlaybackActionServer::endCalibrate(double rate) {
+	_rate = rate;
 	_loop = ros::Rate(rate);
 	while(_aux_vec.back().arduino_max == 0)
 		_aux_vec.pop_back();

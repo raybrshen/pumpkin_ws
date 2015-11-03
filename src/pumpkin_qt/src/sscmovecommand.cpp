@@ -48,7 +48,7 @@ SSCMoveCommand::SSCMoveCommand(QWidget *parent) :
 			block->pulseSpin->setValue(def);
 			block->pulseSlider->setRange(min, max);
 			block->pulseSlider->setValue(def);
-			block->activeButton->setChecked(true);
+			block->activeButton->setChecked(false);
 			box->addWidget(block_widget);
 			_blocks.insert(pin, block);
 		}

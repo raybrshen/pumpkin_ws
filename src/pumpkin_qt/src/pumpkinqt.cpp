@@ -149,6 +149,8 @@ void PumpkinQT::fillTable(const QString &base_path, const std::vector<pumpkin_me
     _base_path = base_path;
     _model_list.clear();
 	_model_list.reserve(file_list.size());
+	_ui.fileView->clearSelection();
+	_ui.fileView->setModel(nullptr);
     FolderListType folders;
     for (int i = 0; i < file_list.size(); ++i) {
 		const pumpkin_messages::FileList &files = file_list[i];
@@ -197,16 +199,16 @@ void PumpkinQT::fileSelected(const QModelIndex &index) {
 	if (!filename.contains(".yaml"))
 		filename = filename + ".yaml";
 	_filename = _base_path + "/" + _relative_path + "/" + filename;
-	if (_ui.mainBlock->currentWidget()->objectName().contains("playback")) {
-		QFontMetrics metric = _ui.playbackFileName->fontMetrics();
-		if (metric.width(_filename) > _ui.playbackFileName->width()) {
-			_ui.playbackFileName->setText(metric.elidedText(_filename, Qt::ElideLeft, _ui.playbackFileName->width()));
-		} else {
-			_ui.playbackFileName->setText(_filename);
-		}
+
+	QFontMetrics metric = _ui.playbackFileName->fontMetrics();
+	if (metric.width(_filename) > _ui.playbackFileName->width()) {
+		_ui.playbackFileName->setText(metric.elidedText(_filename, Qt::ElideLeft, _ui.playbackFileName->width()));
 	} else {
-		_ui.recordFileName->setText(filename.remove(filename.size()-5, 5));
+		_ui.playbackFileName->setText(_filename);
 	}
+
+	_ui.recordFileName->setText(filename.remove(filename.size()-5, 5));
+
 	Q_EMIT(selectFile(filename));
 }
 

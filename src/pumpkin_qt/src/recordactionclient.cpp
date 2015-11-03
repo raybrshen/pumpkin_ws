@@ -5,7 +5,8 @@ namespace pumpkin_qt {
 RecordActionClient::RecordActionClient(QObject *parent) :
 	QObject(parent), _running(false)
 {
-	_minutes = _seconds = 0;
+	_minutes = 1;
+	_seconds = 0;
 	_goal.filename = std::string();
 	_goal.max_time = 0.0;
 	_running = false;
@@ -102,7 +103,7 @@ void RecordActionClient::recordDoneCallback(const actionlib::SimpleClientGoalSta
 
 void RecordActionClient::recordFeedbackCallback(const pumpkin_messages::RecordFeedbackConstPtr &feedback) {
 	ros::Time elapsed(feedback->time_elapsed);
-	ROS_INFO("Passed %lf time", feedback->time_elapsed);
+	ROS_DEBUG("Passed %lf time", feedback->time_elapsed);
 	Q_EMIT(recordMinuteFeedback(elapsed.sec / 60));
 	Q_EMIT(recordSecondFeedback(elapsed.sec % 60));
 }

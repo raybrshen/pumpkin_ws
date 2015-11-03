@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
 	QFont mainFont("Ubuntu", 20);
-	app.setFont(mainFont);
+	app.setFont(mainFont); 
 
     //pumpkin_qt::MainWindow w(argc,argv);
     pumpkin_qt::PumpkinQT w(argc, argv);
