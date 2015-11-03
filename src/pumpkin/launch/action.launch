@@ -1,9 +1,7 @@
 <launch>
-	<arg name="debug" default="false" />
+	
 	<arg unless="$(arg debug)" name="launch_prefix" value="" />
   	<arg     if="$(arg debug)" name="launch_prefix" value="xterm -e gdb --args" />
-
-	<arg name="visual" default="false" />
 
 	<arg name="robot_description" value="robot_description" />
 	<arg name="robot_urdf_file" value="$(find pumpkin_description)/robots/pumpkin_description.URDF"/>
