@@ -1,5 +1,8 @@
 <launch>
-	<param name="~pumpkin_path" value="$(find pumpkin)"/>
+	<arg name="pumpkin_path" default="$(find pumpkin)"/>
+
+	<param name="~pumpkin_path" value="$(arg pumpkin_path)"/>
+
 	<node name="file_lister" pkg="pumpkin_interface" type="file_lister"/>
 	<node name="setup_arduino" pkg="pumpkin_interface" type="setup_arduino"/>
 	<node name="setup_ssc" pkg="pumpkin_interface" type="setup_ssc"/>

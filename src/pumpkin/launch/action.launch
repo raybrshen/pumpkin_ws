@@ -1,5 +1,8 @@
 <launch>
 	
+	<arg name="debug" default="false"/>
+	<arg name="visual" default="false"/>
+
 	<arg unless="$(arg debug)" name="launch_prefix" value="" />
   	<arg     if="$(arg debug)" name="launch_prefix" value="xterm -e gdb --args" />
 
