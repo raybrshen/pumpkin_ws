@@ -1,4 +1,7 @@
+#The type of the files required (see FileType enum)
 uint8 type
 ---
+#base_path: The base path that all files come from
 string base_path
+#files: The list of files and the path that they're inside
 FileList[] files

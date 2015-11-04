@@ -1,0 +1,24 @@
+actions: []
+authors: Rafael Paiva <paiva.rafael@outlook.com>
+brief: ''
+bugtracker: ''
+depends:
+- pumpkin_interface
+- catkin
+- roscpp
+- actionlib_msgs
+- std_msgs
+- libqt4-dev
+- pumpkin_messages
+- qt_build
+- actionlib
+- pumpkin
+description: PumpkinQT is the GUI for the Pumpkin. It is able to playback, record,
+  and order a scene to the Pumpkin.
+license: BSD
+maintainers: Rafael Paiva <paiva.rafael@outlook.com>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''

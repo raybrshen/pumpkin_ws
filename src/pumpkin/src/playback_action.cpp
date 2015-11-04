@@ -60,7 +60,7 @@ namespace pumpkin {
 		std::vector<auxiliar_calibration> _aux_vec; //!< Vector to hold the calibration parameters for each joint, indexed by Arduino PIN
 		std::vector<YAML::Node> _movement; //!< The movements of an file
 		std::vector<YAML::Node>::iterator _step_it, _end_it;
-		double _percentage_step; //!< This hold the completed percentage of an movement
+		double _percentage_step; //!< This hold the percentage incremental value
 		double _rate; //!< This holds the rate of the loop
 
 		sensor_msgs::JointState _joint_state;   //!< The joint state message
@@ -108,6 +108,9 @@ namespace pumpkin {
 		void change();
 
 	public:
+		/*!
+		 * \brief Constructor. This creates the Action Server and the client to the pumpkin planner.
+		 */
 		PlaybackActionServer() : _server(_nh, "/pumpkin/playback_action", false), _aux_vec(32), _loop(1000) {
 			_server.registerGoalCallback(boost::bind(&PlaybackActionServer::onGoal, this));
 			_server.registerPreemptCallback(boost::bind(&PlaybackActionServer::onPreempt, this));
@@ -127,25 +130,28 @@ namespace pumpkin {
 			_server.start();
 		}
 
+		/*!
+		 * \brief Destructor. Just send an "Turn OFF" message to the SSC and shutsdown the server.
+		 */
 		~PlaybackActionServer() {
 			_ssc.publish(SSCMoveList());
 			_server.shutdown();
 		}
 
-		///
-		/// \brief onGoal Action Server onGoal callback function
-		///
+		/*!
+		 * \brief Action Server onGoal callback function
+		 */
 		void onGoal();
 
-		///
-		/// \brief onPreempt - Action Server onPreempt callback function
-		///
+		/*!
+		 * \brief Action Server onPreempt callback function
+		 */
 		void onPreempt();
 
-		///
-		/// \brief step - This is the main function of this class... It should be called in the main.
-		/// It executes the server loop, seeking for the movements in the playback files
-		///
+		/*!
+		 * \brief This is the main function of this class... It should be called in the main.
+		 * It executes the server loop, seeking for the movements in the playback files
+		 */
 		void step() {
 			if (!_server.isActive()) {
 				_loop.sleep();
@@ -165,14 +171,37 @@ namespace pumpkin {
 			}
 		}
 
+		/*!
+		 * \brief This function is fot setting the `auxiliar_calibration` structure. Each call set one joint.
+		 *
+		 * \param arduino_pin   The related PIN on Arduino. That is used for indexing the calibration vector.
+		 * \param arduino_min   The minimum value the Arduino can read from this joint.
+		 * \param arduino_max   The maximum value the Arduino can read from this joint.
+		 * \param ssc_min       The value sent to SSC to put the joint to its lower bound.
+		 * \param ssc_max       The value sent to SSC to put the joint to its upper bound.
+		 * \param ssc_pin       The SSC pin to send the position of the joint.
+		 * \param joint_name    The name of the joint *AS IT APPEARS ON THE ROBOT MODEL*.
+		 * \param joint_lower   The lower bound angle that the joint is able to be.
+		 * \param joint_upper   The upper bount angle that the joint is able to be.
+		 */
 		void calibrate(int arduino_pin, int arduino_min, int arduino_max, int ssc_min, int ssc_max, int ssc_pin,
 		               const std::string &joint_name, double joint_lower, double joint_upper);
 
 
+		/*!
+		 * \brief Finish adjustments on calibration.
+		 *
+		 * This method is required to the server acts ok. __Call it only after calling *calibrate* to all the joints__.
+		 */
 		void endCalibrate(double rate);
 
 	};
 
+	/*
+	 * It load the movements from the next file. (THE MOVEMENT INDEX IS INCREMENTED BEFORE CALLING THIS METHOD).
+	 * Sets the percentage step, and the iterators.
+	 * And also the feedback message.
+	 */
 	void PlaybackActionServer::loadFile() {
 		_movement = std::move(YAML::LoadAllFromFile(_movement_files[_movement_index]));
 		_percentage_step = (double) 100 / _movement.size();
@@ -183,6 +212,10 @@ namespace pumpkin {
 		_feedback.movement_index = _movement_index << 1;
 	}
 
+	/*
+	 * This method is the move function. It will abort the service if it finds any error on the YAML file loaded
+	 * before (on loadFile).
+	 */
 	void PlaybackActionServer::move() {
 
 		if (_step_it->IsNull()) {
@@ -207,10 +240,12 @@ namespace pumpkin {
 
 		//ROS_INFO("New step.");
 
+		//Extracts the info here
 		reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
 
 		++_step_it;
 
+		//Calculate the SSC command and the joint state.
 		double position;
 		for (int i = 0; i < reads.size(); ++i) {
 			SSCMove move;
@@ -248,6 +283,7 @@ namespace pumpkin {
 		}
 		command.time = 0;
 
+		//Lets publish this thing
 		_joints.publish(_joint_state);
 		if (command.list.size()) {
 			_ssc.publish(command);
@@ -255,10 +291,12 @@ namespace pumpkin {
 			ROS_WARN("Outbound error!");
 		}
 
+		//Send feedback
 		_feedback.percentage += _percentage_step;
 		_feedback.movement_index = _movement_index << 1;
 		_server.publishFeedback(_feedback);
 
+		//Check if the movement has ended
 		if (_step_it == _end_it) {
 			++_movement_index;
 			_state = RequestPlanning;
@@ -268,12 +306,15 @@ namespace pumpkin {
 	}
 
 	void PlaybackActionServer::prepare() {
+		//Check if there is still any movement
+		//If not, sent and "Turn OFF" message to SSC, and succeed this goal.
 		if (_movement_index == _movement_files.size()) {
 			_result.state = static_cast<uint8_t>(IOState::OK);
 			_server.setSucceeded(_result);
 			_ssc.publish(SSCMoveList());
 			return;
 		}
+		//But, if not...
 		std::vector<uint16_t> reads;
 		_planner.request.initial_positions.clear();
 		_planner.request.final_positions.clear();
@@ -281,6 +322,8 @@ namespace pumpkin {
 
 		reads = std::move(_movement.back()["an_read"].as<std::vector<uint16_t> >());
 
+		//Calculates the joint state of the last step of the movement
+		//AS THE INITIAL POSITION OF THE PLANNED TRAJECTORY
 		double value;
 		for (int i = 0; i < reads.size(); ++i) {
 			auxiliar_calibration &aux = _aux_vec[i];
@@ -304,11 +347,14 @@ namespace pumpkin {
 			_planner.request.initial_positions.push_back(value);
 		}
 
+		//Load next movement
 		loadFile();
 
 		reads.clear();  //Much probably unecessary, but, just for sure
 		reads = std::move((*_step_it)["an_read"].as<std::vector<uint16_t> >());
 
+		//Calculates the first step of the next movement
+		//AS THE FINAL POSITION OF THE PLANNED TRAJECTORY
 		for (int i = 0; i < reads.size(); ++i) {
 			auxiliar_calibration &aux = _aux_vec[i];
 
@@ -330,16 +376,18 @@ namespace pumpkin {
 			_planner.request.final_positions.push_back(value);
 		}
 
-		//_joints.publish(_joint_state);
-		ROS_WARN("Starting request plan");
+		//Now, let us call the planner
+		ROS_INFO("Starting request plan");
 		if (!_planner_client.call(_planner)) {
+			//If the planner is not possible, abort
 			ROS_FATAL("COULD NOT CALL PLANNER SERVICE.");
 			_ssc.publish(SSCMoveList());
-			_result.state = static_cast<uint8_t>(IOState::BadFile);//Has to change here for a new code
+			_result.state = static_cast<uint8_t>(IOState::Other);
 			_server.setAborted(_result);
 			_state = Moving;
 			return;
 		}
+		//If the planner is a success, prepare to send messages of the trajectory
 		_plan_index = 0;
 		_state = ExecutingPlanning;
 		//_last_delta = ros::Duration(0);
@@ -351,18 +399,25 @@ namespace pumpkin {
 		}
 	}
 
+	/*
+	 * This method will send the messages for the trajectory
+	 */
 	void PlaybackActionServer::change() {
+		//First, check if the trajectory is finished
+		//If so, set the state to Moving, and reset the rate
 		if (_plan_index == _planner.response.joint_trajectory[0].points.size()) {
 			_loop = ros::Rate(_rate);
 			_state = Moving;
 			//ROS_ERROR("Mas será possível...");
 			return;
 		}
+		//Otherwise...
 		SSCMoveList command;
 		command.list.reserve(32);
 		double position;
 		ROS_WARN("Executing planning");
 		//_loop = ros::Rate(_planner.response.joint_trajectory[0].points[_plan_index].time_from_start);
+		//Each element the joint_trajectory vector is a planned trajectory for a specific joint group
 		for (auto it = _planner.response.joint_trajectory.begin();
 		     it != _planner.response.joint_trajectory.end(); ++it) {
 			trajectory_msgs::JointTrajectoryPoint &trajectory = it->points[_plan_index];
@@ -404,6 +459,7 @@ namespace pumpkin {
 		_ssc.publish(command);
 		_joints.publish(_joint_state);
 
+		//Send the feedback
 		_feedback.percentage = _plan_index / _planner.response.joint_trajectory[0].points.size();
 		_feedback.movement_index = (_movement_index << 1) | 1;
 		_server.publishFeedback(_feedback);
@@ -412,6 +468,9 @@ namespace pumpkin {
 		_loop.sleep();
 	}
 
+	/*
+	 * When accepting a new goal, load the file list to the inner vector, ajusts the members and so on...
+	 */
 	void PlaybackActionServer::onGoal() {
 		if (_step_it != _end_it) {
 			_ssc.publish(SSCMoveList());
@@ -434,6 +493,9 @@ namespace pumpkin {
 		ROS_INFO("New Goal!");
 	}
 
+	/*
+	 * On preempt, abort!
+	 */
 	void PlaybackActionServer::onPreempt() {
 		_ssc.publish(SSCMoveList());
 		_result.state = static_cast<uint8_t>(IOState::OK);
@@ -476,7 +538,7 @@ namespace pumpkin {
  * \brief This node runs a Playback Action Server, calibrate the action server, and runs it.
  */
 int main (int argc, char *argv[]) {
-
+	//Init ROS and wait the config to be set
 	ros::init(argc, argv, "playback_action");
 	ros::start();
 
@@ -490,6 +552,7 @@ int main (int argc, char *argv[]) {
 		return -1;
 	}
 
+	//Load config
 	XmlRpc::XmlRpcValue config;
 	ros::param::get("/pumpkin/config", config);
 
@@ -532,8 +595,10 @@ int main (int argc, char *argv[]) {
 
 	double ros_rate = double(config["ros_rate"]);
 	//loop = ros::Rate(ros_rate);
+	//That end calibrate set the ROS rate and adjusts the inner vectors
 	server.endCalibrate(ros_rate);
 
+	//That server `step` is for the server to the stuff. The ROS rate is inside that
 	while (ros::ok()) {
 		ros::spinOnce();
 		server.step();

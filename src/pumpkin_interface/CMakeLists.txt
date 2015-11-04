@@ -139,14 +139,14 @@ include_directories(
 #add_executable(file_listener_sample_client src/file_listener_sample.cpp)
 add_executable(setup_arduino src/arduino.cpp)
 add_executable(setup_ssc src/ssc.cpp)
-add_executable(file_lister src/file_lister.cpp)
+add_executable(file_server src/file_server.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(pumpkin_interface_node pumpkin_interface_generate_messages_cpp)
 add_dependencies(setup_arduino ${catkin_EXPORTED_TARGETS})
 add_dependencies(setup_ssc ${catkin_EXPORTED_TARGETS})
-add_dependencies(file_lister ${catkin_EXPORTED_TARGETS})
+add_dependencies(file_server ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(pumpkin_interface_node
@@ -157,7 +157,7 @@ add_dependencies(file_lister ${catkin_EXPORTED_TARGETS})
 #target_link_libraries(file_listener_sample_client ${catkin_LIBRARIES})
 target_link_libraries(setup_arduino ${catkin_LIBRARIES})
 target_link_libraries(setup_ssc ${catkin_LIBRARIES})
-target_link_libraries(file_lister ${catkin_LIBRARIES})
+target_link_libraries(file_server ${catkin_LIBRARIES})
 
 # set_target_properties(pumpkin_rosserial_launcher PROPERTIES OUTPUT_NAME serial_node PREFIX "")
 

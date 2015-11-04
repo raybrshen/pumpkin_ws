@@ -1,11 +1,16 @@
-#Goal
+#The list of files to do the playback/scene
+#If that list contains just one file, it is just a playback
+#Otherwise, the list are the movement that compose the scene
 string[] filenames
-#bool stop
 ---
-#Result
+#The result is a code to identify if it was ok, or if it occurs any error
+#The codes are in the IOState struct (see file_type.h)
 uint8 state
 ---
-#Feedback
+#The feedback is composed of the the index of the movement in the scene
+#(disconsidered in case of a just playback), and the percentage of the movement completed
+#If the movement_index is even, it is the double of actual movement (move = movement_index/2)
+#It it is odd, it represents the planned trajectory between the (movement_index-1)/2 and (movement_index+1)/2
 uint32 movement_index
 float64 percentage
 

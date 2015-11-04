@@ -1,12 +1,16 @@
-#Goal
+#The goal consist of the name of the file (including the full path)
+#And the maximum allowed time for the record
 string filename
 float64 max_time
 ---
-#Result
+#The result consists of the state of the record, and the final number of steps and the time of
+#the movement
+#The state is a code of type IOState (see file_type.h)
 uint8 state
 uint32 num_steps
 float64 time_elapsed
 ---
-#Feedback
+#The feedback consists of the number of steps already done
+#And the time elapsed from the beginning
 uint32 num_steps
 float64 time_elapsed

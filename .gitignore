@@ -1,5 +1,6 @@
 build*/
 devel/
+src/old
 
 #Image files (the images are obtained from .qrc)
 *.png

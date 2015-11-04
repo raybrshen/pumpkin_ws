@@ -1,0 +1,6 @@
+<map id="arduino.cpp" name="arduino.cpp">
+<area shape="rect" id="node6" href="$serial__session_8h.html" title="Single, reconnecting class for a serial rosserial session. " alt="" coords="889,81,1037,122"/>
+<area shape="rect" id="node8" href="$session_8h.html" title="Class representing a session between this node and a templated rosserial client. " alt="" coords="723,171,897,197"/>
+<area shape="rect" id="node14" href="$async__read__buffer_8h.html" title="Helper object for successive reads from a ReadStream. " alt="" coords="874,246,1027,287"/>
+<area shape="rect" id="node15" href="$topic__handlers_8h.html" title="Classes which manage the Publish and Subscribe relationships that a Session has with its client..." alt="" coords="587,246,733,287"/>
+</map>

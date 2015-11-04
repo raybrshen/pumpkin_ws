@@ -1,7 +1,6 @@
 /*
- *  playback_joint_states.cpp
- *  Implements playback recorded files from real robot to joint state publisher in the model
- *  Created on: 2015-03-03
+ *  arduino_to_rviz
+ *  Implements playback recorded files from real robot to joint state publisher in the models
  *      Author: Rafael de Paula Paiva (08.paiva@gmail.com)
  */
 

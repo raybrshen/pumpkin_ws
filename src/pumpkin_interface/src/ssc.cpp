@@ -1,4 +1,3 @@
-//#include "simple_serial.h"
 #include "pumpkin_messages/SSCMove.h"
 #include "pumpkin_messages/SSCMoveList.h"
 #include "pumpkin_messages/SSCMoveCommand.h"
@@ -8,23 +7,50 @@
 #include <ros/callback_queue.h>
 #include "serial/serial.h"
 
-//SimpleSerial *ssc = NULL;
-serial::Serial *ssc = nullptr;
-std::string port;
-bool debug_flag = false;
+/*!
+ * The SSC Node
+ * ============
+ *
+ * This node is for sending commands to SSC.
+ *
+ * As the SSC is a serial device, this node is intended to check the serial connections regularly, and sets the string command
+ * (yeah, the SSC operates sending string commands), checking the bounds in the middle time.
+ *
+ * This node will shut off if it doesn't find any SSC connected on the startup. But the robot (and also the SSC) should be
+ * turned off after that initialization.
+ *
+ * Each time a command is sent, it will check if SSC is running and if it is not busy.
+ */
 
+serial::Serial *ssc = nullptr;  //< This is the serial. It is global to be accessed within every function
+std::string port;               //< This is the port family
+bool debug_flag = false;        //< This boolean holds if this node should send the command to SSC, or just show on screen
+
+/*!
+ * \brief Function to setup the SSC.
+ *
+ * This function will seek for any connected serial port with a specific device location (by default is /dev/ttyUSB)
+ * If any device is encountered, this will try to see if it is an SSC. If it is, this function creates the Serial object.
+ * And exits successfully
+ *
+ * \return True if it succeeded in connecting to an SSC. False otherwise.
+ */
 bool setupSSC();
 
-/**
- * Service function. Receive a group of arm commands and send it to SSC.
- * /param &req request
- * /param &res response
- */
+
 
 int min_pulse[32];
 int max_pulse[32];
 //int rest_pulse[32];
 
+/*!
+ * \brief Auxiliar function to generate the _string command_ based on the respective message command.
+ *
+ * This function will also check the configured bounds, and also check if it will send the _string_ to the SSC,
+ * or to the screen.
+ *
+ * \param move  The movement, in message format.
+ */
 void generate_move(const pumpkin_messages::SSCMoveList & move) {
 	if (move.list.size() > 0) {
 		std::stringstream comm_mount;
@@ -61,6 +87,20 @@ void generate_move(const pumpkin_messages::SSCMoveList & move) {
 	}
 }
 
+/*!
+ * \brief Callback service function. Receive a group of arm commands and send it to SSC.
+ *
+ * First, this function see if the SSC is idle. If it is busy, it waits. But if the board doesn't respont, it will try to
+ * restart the SSC.
+ *
+ * Then, it will try to send the message.
+ *
+ * /param req   The message request. It consists a list of movement and the time to do it.
+ * /param res   The response should be the state of the SSC channels. But it is unused for now.
+ *
+ * \return False if it will try to reconnect and fails (in case of it seeing the board is not busy nor idle),
+ * or if this doesn't suceeded sending the command directly to SSC. True otherwise.
+ */
 bool moveSSC(pumpkin_messages::SSCMoveCommand::Request &req, pumpkin_messages::SSCMoveCommand::Response &res) {
 	unsigned char serial_in = '+';
 	ros::Duration d(0.01);
@@ -169,6 +209,15 @@ bool setupSSC() {
 	return false;
 }
 
+/*!
+ * The main function of the node.
+ *
+ * It will try to setup the SSC. If it fails, this node will go down.
+ *
+ * If the SSC is up, it will setup the parameters for the limits.
+ *
+ * And then, runs the both server and subscriber. Each with separated callback queues.
+ */
 int main (int argc, char *argv[]) {
 	// Initialize ROS.
 	ros::init(argc, argv, "setup_ssc");
