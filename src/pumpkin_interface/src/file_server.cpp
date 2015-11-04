@@ -17,9 +17,9 @@ using namespace pumpkin_messages;
 namespace bfs = boost::filesystem;
 
 
-constexpr std::string CONFIG_FOLDER("/config"); //< Configuration subfolder
-constexpr std::string DESCRIPTION_FOLDER("_description/robots"); //< URDF Robot Description subfolder
-constexpr std::string PLAYBACK_FOLDER("/playback"); //< Playback subfolder
+const std::string CONFIG_FOLDER("/config"); //< Configuration subfolder
+const std::string DESCRIPTION_FOLDER("_description/robots"); //< URDF Robot Description subfolder
+const std::string PLAYBACK_FOLDER("/playback"); //< Playback subfolder
 
 std::string pumpkin_path; //< The path of the pumpkin package get from ROS Param or Environment variable
 
