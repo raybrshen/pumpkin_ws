@@ -10,16 +10,27 @@
 
 namespace pumpkin_qt {
 
+/*!
+ * \brief The RViz class is the widget to handle and display the 3D robot model in a virtual world.
+ */
 class RViz
 {
 public:
+	/*!
+	 * \brief Constructs the widget. Also load, and displays the robot model.
+	 * \param parent	The parent widget. It should be some container in the main window.
+	 */
 	explicit RViz(QWidget *parent = 0);
+	/*!
+	 * \brief Destroy the views and the child widgets.
+	 */
 	virtual ~RViz();
 
 private:
-	rviz::VisualizationManager *_manager;
-	rviz::Display *_grid, *_robot;
-	rviz::RenderPanel *_render;
+	rviz::VisualizationManager *_manager;	//!< The manager to render and display the RViz data
+	rviz::Display *_grid;					//!< Render a grid to be a virtual ground.
+	rviz::Display *_robot;					//!< Render the 3D Pumpkin Model
+	rviz::RenderPanel *_render;				//!< The widget where the rendered data is showed
 
 };
 

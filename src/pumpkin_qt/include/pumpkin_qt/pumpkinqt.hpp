@@ -32,10 +32,10 @@ namespace pumpkin_qt {
  */
 class FolderItem {
 private:
-	FolderItem *_parent;			//< The pointer to the parent
-	QList<FolderItem *> _children;	//< The list of pointers to the children
-	int _id;						//< The ID of the folder
-	QString _folder;				//< The name of the folder
+	FolderItem *_parent;			//!< The pointer to the parent
+	QList<FolderItem *> _children;	//!< The list of pointers to the children
+	int _id;						//!< The ID of the folder
+	QString _folder;				//!< The name of the folder
 
 	/*!
 	 * \brief Append a child folder to this folder.
@@ -202,10 +202,30 @@ protected:
     void resizeEvent(QResizeEvent *event);
 
 Q_SIGNALS:
+	/*!
+	 * \brief Send a request to `PlaybackActionClient` to change the playback filename.
+	 * \param str The playback filename, with full path.
+	 */
 	void changePlaybackFilename(const QString & str);
+	/*!
+	 * \brief Send a request to `RecordActionClient` to change the record filename.
+	 * \param str The record filename, with full path.
+	 */
 	void changeRecordFilename(const QString & str);
+	/*!
+	 * \brief Send a signal with selected folder. Used when selecting on Folder Tree.
+	 * \param folder The name of the folder.
+	 */
 	void selectFolder(const QString &folder);
+	/*!
+	 * \brief Send a signal with selected file. Used when selecting on File List.
+	 * \param file The filename (without folder).
+	 */
 	void selectFile(const QString &file);
+	/*!
+	 * \brief Send a request to `PlaybackActionClient` with the list of movements to play scene.
+	 * \param filenames The list of filenames, each with respective full path.
+	 */
 	void setSceneFilenames(const std::vector<std::string>& filenames);
 
 public Q_SLOTS:
@@ -272,17 +292,17 @@ public Q_SLOTS:
 	void updateSceneFeedback(int step, int total, int percentage);
 
 private:
-	Ui::PumpkinQTDesign _ui;	//< The Design (auto-generated code)
-	QNode _node;				//< The QNode
-	QString _base_path, _relative_path, _filename;	//< The paths and filename
-	QList<QStringListModel *> _model_list;			//< The list of file list models
-	FolderModel *_folder_model;						//< The Folder model
-	PlaybackActionClient _playback;					//< The playback action client
-	RecordActionClient _record;						//< The record action client
-	LoadConfig *_config_dialog;						//< The dialog that loads the config file
-	SSCMoveCommand *_move_dialog;					//< The dialog to sent direct commands to SSC
-	FilesDialog *_files_dialog;						//< The dialog to handle files
-	RViz *_robot_model;								//< The Robot 3D Model widget
+	Ui::PumpkinQTDesign _ui;						//!< The Design (auto-generated code)
+	QNode _node;									//!< The QNode
+	QString _base_path, _relative_path, _filename;	//!< The paths and filename
+	QList<QStringListModel *> _model_list;			//!< The list of file list models
+	FolderModel *_folder_model;						//!< The Folder model
+	PlaybackActionClient _playback;					//!< The playback action client
+	RecordActionClient _record;						//!< The record action client
+	LoadConfig *_config_dialog;						//!< The dialog that loads the config file
+	SSCMoveCommand *_move_dialog;					//!< The dialog to sent direct commands to SSC
+	FilesDialog *_files_dialog;						//!< The dialog to handle files
+	RViz *_robot_model;								//!< The Robot 3D Model widget
 };
 
 }
