@@ -48,33 +48,43 @@ Inheritance diagram for pumpkin_qt::FolderModel:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f249742616fa0f0db13c7d9af99b7c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a4f249742616fa0f0db13c7d9af99b7c5">columnCount</a> (const QModelIndex &amp;<a class="el" href="classpumpkin__qt_1_1FolderModel.html#ac5a6a8b80fc4bf046f54b87e6abc4a06">parent</a>) const </td></tr>
+<tr class="memdesc:a4f249742616fa0f0db13c7d9af99b7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of columns.  <a href="#a4f249742616fa0f0db13c7d9af99b7c5">More...</a><br/></td></tr>
 <tr class="separator:a4f249742616fa0f0db13c7d9af99b7c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a759d07107f052de4b02b274aa8b99d67"><td class="memItemLeft" align="right" valign="top">QVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a759d07107f052de4b02b274aa8b99d67">data</a> (const QModelIndex &amp;<a class="el" href="classpumpkin__qt_1_1FolderModel.html#af4e8a7355dd12d00fe4948f100979159">index</a>, int role) const </td></tr>
+<tr class="memdesc:a759d07107f052de4b02b274aa8b99d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets some info from an folder. This is intended to be used in the Tree View.  <a href="#a759d07107f052de4b02b274aa8b99d67">More...</a><br/></td></tr>
 <tr class="separator:a759d07107f052de4b02b274aa8b99d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55bafdd0cd79d6b8968ce94350015f00"><td class="memItemLeft" align="right" valign="top">Qt::ItemFlags&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a55bafdd0cd79d6b8968ce94350015f00">flags</a> (const QModelIndex &amp;<a class="el" href="classpumpkin__qt_1_1FolderModel.html#af4e8a7355dd12d00fe4948f100979159">index</a>) const </td></tr>
+<tr class="memdesc:a55bafdd0cd79d6b8968ce94350015f00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the flags that identify wich type of model is this. This is intended to be used by the Tree View.  <a href="#a55bafdd0cd79d6b8968ce94350015f00">More...</a><br/></td></tr>
 <tr class="separator:a55bafdd0cd79d6b8968ce94350015f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3616eeb93c0d3a6a1c14ac814c2a5667"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a3616eeb93c0d3a6a1c14ac814c2a5667">FolderModel</a> (const <a class="el" href="namespacepumpkin__qt.html#a8568383d3f8fd9f7d761d33545b362ca">FolderListType</a> &amp;folders, QObject *<a class="el" href="classpumpkin__qt_1_1FolderModel.html#ac5a6a8b80fc4bf046f54b87e6abc4a06">parent</a>=nullptr)</td></tr>
+<tr class="memdesc:a3616eeb93c0d3a6a1c14ac814c2a5667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the folder model with the list of folders.  <a href="#a3616eeb93c0d3a6a1c14ac814c2a5667">More...</a><br/></td></tr>
 <tr class="separator:a3616eeb93c0d3a6a1c14ac814c2a5667"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48dd6d36d20a32798797c591d0df0d5d"><td class="memItemLeft" align="right" valign="top">QVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a48dd6d36d20a32798797c591d0df0d5d">headerData</a> (int section, Qt::Orientation orientation, int role) const </td></tr>
+<tr class="memdesc:a48dd6d36d20a32798797c591d0df0d5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets some header data, like title and other stuff. Actually just print a <b>Folder</b> header.  <a href="#a48dd6d36d20a32798797c591d0df0d5d">More...</a><br/></td></tr>
 <tr class="separator:a48dd6d36d20a32798797c591d0df0d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4e8a7355dd12d00fe4948f100979159"><td class="memItemLeft" align="right" valign="top">QModelIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#af4e8a7355dd12d00fe4948f100979159">index</a> (int row, int column, const QModelIndex &amp;<a class="el" href="classpumpkin__qt_1_1FolderModel.html#ac5a6a8b80fc4bf046f54b87e6abc4a06">parent</a>) const </td></tr>
+<tr class="memdesc:af4e8a7355dd12d00fe4948f100979159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the element index in the Model. This is like a reference to work with it.  <a href="#af4e8a7355dd12d00fe4948f100979159">More...</a><br/></td></tr>
 <tr class="separator:af4e8a7355dd12d00fe4948f100979159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5a6a8b80fc4bf046f54b87e6abc4a06"><td class="memItemLeft" align="right" valign="top">QModelIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#ac5a6a8b80fc4bf046f54b87e6abc4a06">parent</a> (const QModelIndex &amp;<a class="el" href="classpumpkin__qt_1_1FolderModel.html#af4e8a7355dd12d00fe4948f100979159">index</a>) const </td></tr>
+<tr class="memdesc:ac5a6a8b80fc4bf046f54b87e6abc4a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the parent of this element in the Model.  <a href="#ac5a6a8b80fc4bf046f54b87e6abc4a06">More...</a><br/></td></tr>
 <tr class="separator:ac5a6a8b80fc4bf046f54b87e6abc4a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65084cddd29baf89fbf5164cc6809b6c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a65084cddd29baf89fbf5164cc6809b6c">rowCount</a> (const QModelIndex &amp;<a class="el" href="classpumpkin__qt_1_1FolderModel.html#ac5a6a8b80fc4bf046f54b87e6abc4a06">parent</a>) const </td></tr>
+<tr class="memdesc:a65084cddd29baf89fbf5164cc6809b6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell the number of children a folder has.  <a href="#a65084cddd29baf89fbf5164cc6809b6c">More...</a><br/></td></tr>
 <tr class="separator:a65084cddd29baf89fbf5164cc6809b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24fd3a7e0b600557caa8ffcf403b175c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a24fd3a7e0b600557caa8ffcf403b175c">~FolderModel</a> ()</td></tr>
+<tr class="memitem:a24fd3a7e0b600557caa8ffcf403b175c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a24fd3a7e0b600557caa8ffcf403b175c">~FolderModel</a> ()</td></tr>
+<tr class="memdesc:a24fd3a7e0b600557caa8ffcf403b175c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. Delete de model, and the folders it holds.  <a href="#a24fd3a7e0b600557caa8ffcf403b175c">More...</a><br/></td></tr>
 <tr class="separator:a24fd3a7e0b600557caa8ffcf403b175c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a6e8a82c3ace0befe640f87203a51f17e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpumpkin__qt_1_1FolderItem.html">FolderItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1FolderModel.html#a6e8a82c3ace0befe640f87203a51f17e">_root</a></td></tr>
+<tr class="memdesc:a6e8a82c3ace0befe640f87203a51f17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The root folder.  <a href="#a6e8a82c3ace0befe640f87203a51f17e">More...</a><br/></td></tr>
 <tr class="separator:a6e8a82c3ace0befe640f87203a51f17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classpumpkin__qt_1_1FolderModel.html" title="The FolderModel is the implement of the abstract model to use on the Tree View. ">FolderModel</a> is the implement of the abstract model to use on the Tree View. </p>
 
-<p>Definition at line <a class="el" href="pumpkinqt_8hpp_source.html#l00052">52</a> of file <a class="el" href="pumpkinqt_8hpp_source.html">pumpkinqt.hpp</a>.</p>
+<p>Definition at line <a class="el" href="pumpkinqt_8hpp_source.html#l00104">104</a> of file <a class="el" href="pumpkinqt_8hpp_source.html">pumpkinqt.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a3616eeb93c0d3a6a1c14ac814c2a5667"></a>
 <div class="memitem">
@@ -108,6 +118,16 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Create the folder model with the list of folders. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">folders</td><td>The list of folders </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent QObject.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="namespacepumpkin__qt.html#a8568383d3f8fd9f7d761d33545b362ca" title="FolderListType if the type to identify a list of folders. ">FolderListType</a> </dd></dl>
+
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00346">346</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
 </div>
@@ -115,6 +135,9 @@ Private Attributes</h2></td></tr>
 <a class="anchor" id="a24fd3a7e0b600557caa8ffcf403b175c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">pumpkin_qt::FolderModel::~FolderModel </td>
@@ -123,7 +146,14 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Destructor. Delete de model, and the folders it holds. </p>
 
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00374">374</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
@@ -143,6 +173,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The number of columns. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The element. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>2. </dd></dl>
 
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00422">422</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
@@ -172,6 +211,16 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets some info from an folder. This is intended to be used in the Tree View. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The related folder </td></tr>
+    <tr><td class="paramname">role</td><td>The type of info. Actualy it only gets the related folder data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The required info. </dd></dl>
+
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00429">429</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
 </div>
@@ -189,6 +238,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get the flags that identify wich type of model is this. This is intended to be used by the Tree View. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The element. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The element flags. Actualy just say the item is editable and enabled. </dd></dl>
 
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00441">441</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
@@ -224,6 +282,17 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets some header data, like title and other stuff. Actually just print a <b>Folder</b> header. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The header section </td></tr>
+    <tr><td class="paramname">orientation</td><td>The Orientation. Only Horizontal is accepted here. </td></tr>
+    <tr><td class="paramname">role</td><td>The type of data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The header. </dd></dl>
+
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00448">448</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
 </div>
@@ -258,6 +327,17 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets the element index in the Model. This is like a reference to work with it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row</td><td>The index of this folder as child of another. </td></tr>
+    <tr><td class="paramname">column</td><td>The column info (0 for ID, 1 for name) </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent element, if any. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the folder in the Model and View. </dd></dl>
+
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00378">378</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
 </div>
@@ -276,6 +356,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get the parent of this element in the Model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The element. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The parent, as a Model reference. </dd></dl>
+
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00396">396</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
 </div>
@@ -293,6 +382,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Tell the number of children a folder has. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The element. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The numbe of children. </dd></dl>
 
 <p>Definition at line <a class="el" href="pumpkinqt_8cpp_source.html#l00409">409</a> of file <a class="el" href="pumpkinqt_8cpp_source.html">pumpkinqt.cpp</a>.</p>
 
@@ -317,7 +415,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="pumpkinqt_8hpp_source.html#l00055">55</a> of file <a class="el" href="pumpkinqt_8hpp_source.html">pumpkinqt.hpp</a>.</p>
+<p>The root folder. </p>
+<p>This is a virtual folder. It is now shown, it is just do handle the other real folders. </p>
+
+<p>Definition at line <a class="el" href="pumpkinqt_8hpp_source.html#l00112">112</a> of file <a class="el" href="pumpkinqt_8hpp_source.html">pumpkinqt.hpp</a>.</p>
 
 </div>
 </div>
@@ -331,7 +432,7 @@ Private Attributes</h2></td></tr>
 <hr size="1"><div style="align: right;">
 <a href="http://wiki.ros.org/pumpkin_qt">pumpkin_qt</a><br />
 Author(s): Rafael Paiva <paiva.rafael@outlook.com></br />
-<small>autogenerated on Wed Nov 4 2015 16:13:13</small>
+<small>autogenerated on Thu Nov 5 2015 15:21:37</small>
 </div>
 </body>
 </html>

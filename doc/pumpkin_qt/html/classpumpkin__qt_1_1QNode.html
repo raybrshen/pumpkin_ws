@@ -37,6 +37,9 @@
 </div><!--header-->
 <div class="contents">
 
+<p>The <a class="el" href="classpumpkin__qt_1_1QNode.html" title="The QNode class holds a thread that runs some of the ROS system, as the main ROS loop, and the file server. ">QNode</a> class holds a thread that runs some of the ROS system, as the main ROS loop, and the file server.  
+ <a href="classpumpkin__qt_1_1QNode.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for pumpkin_qt::QNode:</div>
@@ -47,44 +50,58 @@ Inheritance diagram for pumpkin_qt::QNode:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
 <tr class="memitem:a471c78dfbb70d1229f63c7120049cdab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a471c78dfbb70d1229f63c7120049cdab">callConfigFiles</a> ()</td></tr>
+<tr class="memdesc:a471c78dfbb70d1229f63c7120049cdab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the <code>file_lister</code> service to list config files.  <a href="#a471c78dfbb70d1229f63c7120049cdab">More...</a><br/></td></tr>
 <tr class="separator:a471c78dfbb70d1229f63c7120049cdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40d56305d5082fcf6bd5bddb62b67feb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a40d56305d5082fcf6bd5bddb62b67feb">callFiles</a> ()</td></tr>
+<tr class="memdesc:a40d56305d5082fcf6bd5bddb62b67feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the <code>file_lister</code> service to list playback files.  <a href="#a40d56305d5082fcf6bd5bddb62b67feb">More...</a><br/></td></tr>
 <tr class="separator:a40d56305d5082fcf6bd5bddb62b67feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a48e404a6bd5029d2d740c14e5c788da7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a48e404a6bd5029d2d740c14e5c788da7">configFilesReady</a> (const QString &amp;base_path, const std::vector&lt; std::string &gt; &amp;msg)</td></tr>
+<tr class="memdesc:a48e404a6bd5029d2d740c14e5c788da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send the list of config files, and the path of them, as a result of <code>file_lister</code> call.  <a href="#a48e404a6bd5029d2d740c14e5c788da7">More...</a><br/></td></tr>
 <tr class="separator:a48e404a6bd5029d2d740c14e5c788da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71e0efb3408817501ae70692c99d6ec8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a71e0efb3408817501ae70692c99d6ec8">filesReady</a> (const QString &amp;base_path, const std::vector&lt; pumpkin_messages::FileList &gt; &amp;file_list)</td></tr>
+<tr class="memdesc:a71e0efb3408817501ae70692c99d6ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send the list of playback files and respective folder, as a result of <code>file_lister</code> call.  <a href="#a71e0efb3408817501ae70692c99d6ec8">More...</a><br/></td></tr>
 <tr class="separator:a71e0efb3408817501ae70692c99d6ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47381889907434e60f712d350c446300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a47381889907434e60f712d350c446300">rosShutdown</a> ()</td></tr>
+<tr class="memdesc:a47381889907434e60f712d350c446300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a signal indicating that it was requested to shutdown (i.e. pressing <em>Ctrl-C</em>).  <a href="#a47381889907434e60f712d350c446300">More...</a><br/></td></tr>
 <tr class="separator:a47381889907434e60f712d350c446300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0f832522a9f467810ab7b49c55cba9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#ae0f832522a9f467810ab7b49c55cba9a">sendStatusMessage</a> (const QString &amp;msg, int timeout)</td></tr>
+<tr class="memdesc:ae0f832522a9f467810ab7b49c55cba9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message to the status bar.  <a href="#ae0f832522a9f467810ab7b49c55cba9a">More...</a><br/></td></tr>
 <tr class="separator:ae0f832522a9f467810ab7b49c55cba9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abb34d476c1d1cf6fb43ab7729c265dc6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#abb34d476c1d1cf6fb43ab7729c265dc6">init</a> ()</td></tr>
+<tr class="memdesc:abb34d476c1d1cf6fb43ab7729c265dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the stuff the ROS need. And start <code>file_server</code> client.  <a href="#abb34d476c1d1cf6fb43ab7729c265dc6">More...</a><br/></td></tr>
 <tr class="separator:abb34d476c1d1cf6fb43ab7729c265dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0fd77e440584093baf747921bd2f67e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#aa0fd77e440584093baf747921bd2f67e">QNode</a> (int argc, char **argv, QObject *parent=nullptr)</td></tr>
+<tr class="memdesc:aa0fd77e440584093baf747921bd2f67e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. Init ROS.  <a href="#aa0fd77e440584093baf747921bd2f67e">More...</a><br/></td></tr>
 <tr class="separator:aa0fd77e440584093baf747921bd2f67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a216920519611373a5a9d0f3c5b57b5d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a216920519611373a5a9d0f3c5b57b5d8">run</a> ()</td></tr>
+<tr class="memdesc:a216920519611373a5a9d0f3c5b57b5d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The run thread method.  <a href="#a216920519611373a5a9d0f3c5b57b5d8">More...</a><br/></td></tr>
 <tr class="separator:a216920519611373a5a9d0f3c5b57b5d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b78e61e8294a7b6bc5e7e4ae48879b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#ad1b78e61e8294a7b6bc5e7e4ae48879b">~QNode</a> ()</td></tr>
+<tr class="memdesc:ad1b78e61e8294a7b6bc5e7e4ae48879b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. Finishes ROS.  <a href="#ad1b78e61e8294a7b6bc5e7e4ae48879b">More...</a><br/></td></tr>
 <tr class="separator:ad1b78e61e8294a7b6bc5e7e4ae48879b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a989c8c6b5d9d17878d8131c30b745d17"><td class="memItemLeft" align="right" valign="top">ros::ServiceClient&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a989c8c6b5d9d17878d8131c30b745d17">_file_client</a></td></tr>
+<tr class="memdesc:a989c8c6b5d9d17878d8131c30b745d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <code>file_lister</code> service client.  <a href="#a989c8c6b5d9d17878d8131c30b745d17">More...</a><br/></td></tr>
 <tr class="separator:a989c8c6b5d9d17878d8131c30b745d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a562622aab378a6c9b263d723a6a2cc15"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a562622aab378a6c9b263d723a6a2cc15">init_argc</a></td></tr>
+<tr class="memdesc:a562622aab378a6c9b263d723a6a2cc15"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of command_line arguments.  <a href="#a562622aab378a6c9b263d723a6a2cc15">More...</a><br/></td></tr>
 <tr class="separator:a562622aab378a6c9b263d723a6a2cc15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31e188a3c86cfbd100afc39f92da2535"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpumpkin__qt_1_1QNode.html#a31e188a3c86cfbd100afc39f92da2535">init_argv</a></td></tr>
+<tr class="memdesc:a31e188a3c86cfbd100afc39f92da2535"><td class="mdescLeft">&#160;</td><td class="mdescRight">The array of command_line arguments.  <a href="#a31e188a3c86cfbd100afc39f92da2535">More...</a><br/></td></tr>
 <tr class="separator:a31e188a3c86cfbd100afc39f92da2535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00037">37</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
+<div class="textblock"><p>The <a class="el" href="classpumpkin__qt_1_1QNode.html" title="The QNode class holds a thread that runs some of the ROS system, as the main ROS loop, and the file server. ">QNode</a> class holds a thread that runs some of the ROS system, as the main ROS loop, and the file server. </p>
+
+<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00041">41</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa0fd77e440584093baf747921bd2f67e"></a>
 <div class="memitem">
@@ -116,6 +133,16 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Constructor. Init ROS. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Number of command-line arguments. </td></tr>
+    <tr><td class="paramname">argv</td><td>Array of command-line arguments. </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent QObject (as this class is a QThread). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="qnode_8cpp_source.html#l00028">28</a> of file <a class="el" href="qnode_8cpp_source.html">qnode.cpp</a>.</p>
 
 </div>
@@ -140,6 +167,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Destructor. Finishes ROS. </p>
 
 <p>Definition at line <a class="el" href="qnode_8cpp_source.html#l00034">34</a> of file <a class="el" href="qnode_8cpp_source.html">qnode.cpp</a>.</p>
 
@@ -167,6 +196,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Call the <code>file_lister</code> service to list config files. </p>
+
 <p>Definition at line <a class="el" href="qnode_8cpp_source.html#l00086">86</a> of file <a class="el" href="qnode_8cpp_source.html">qnode.cpp</a>.</p>
 
 </div>
@@ -191,6 +222,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Call the <code>file_lister</code> service to list playback files. </p>
 
 <p>Definition at line <a class="el" href="qnode_8cpp_source.html#l00074">74</a> of file <a class="el" href="qnode_8cpp_source.html">qnode.cpp</a>.</p>
 
@@ -228,6 +261,15 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Send the list of config files, and the path of them, as a result of <code>file_lister</code> call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base_path</td><td>The path of the config files. </td></tr>
+    <tr><td class="paramname">msg</td><td>The list of config files (without path). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a71e0efb3408817501ae70692c99d6ec8"></a>
@@ -262,6 +304,15 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Send the list of playback files and respective folder, as a result of <code>file_lister</code> call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base_path</td><td>The base path of all listed file and folders. </td></tr>
+    <tr><td class="paramname">file_list</td><td>The serialized tree of folder and files. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="abb34d476c1d1cf6fb43ab7729c265dc6"></a>
@@ -276,6 +327,9 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Configure all the stuff the ROS need. And start <code>file_server</code> client. </p>
+<dl class="section return"><dt>Returns</dt><dd>False if there is no ROS Master running. True otherwise. </dd></dl>
 
 <p>Definition at line <a class="el" href="qnode_8cpp_source.html#l00044">44</a> of file <a class="el" href="qnode_8cpp_source.html">qnode.cpp</a>.</p>
 
@@ -302,6 +356,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Send a signal indicating that it was requested to shutdown (i.e. pressing <em>Ctrl-C</em>). </p>
+
 </div>
 </div>
 <a class="anchor" id="a216920519611373a5a9d0f3c5b57b5d8"></a>
@@ -316,6 +372,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The run thread method. </p>
 
 <p>Definition at line <a class="el" href="qnode_8cpp_source.html#l00060">60</a> of file <a class="el" href="qnode_8cpp_source.html">qnode.cpp</a>.</p>
 
@@ -353,6 +411,15 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Send a message to the status bar. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>The message string. </td></tr>
+    <tr><td class="paramname">timeout</td><td>The time that the message is shown. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -374,7 +441,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00059">59</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
+<p>The <code>file_lister</code> service client. </p>
+
+<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00103">103</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +465,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00057">57</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
+<p>The number of command_line arguments. </p>
+
+<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00101">101</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
 
 </div>
 </div>
@@ -418,7 +489,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00058">58</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
+<p>The array of command_line arguments. </p>
+
+<p>Definition at line <a class="el" href="qnode_8hpp_source.html#l00102">102</a> of file <a class="el" href="qnode_8hpp_source.html">qnode.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,7 +505,7 @@ Private Attributes</h2></td></tr>
 <hr size="1"><div style="align: right;">
 <a href="http://wiki.ros.org/pumpkin_qt">pumpkin_qt</a><br />
 Author(s): Rafael Paiva <paiva.rafael@outlook.com></br />
-<small>autogenerated on Wed Nov 4 2015 16:13:13</small>
+<small>autogenerated on Thu Nov 5 2015 15:21:37</small>
 </div>
 </body>
 </html>
