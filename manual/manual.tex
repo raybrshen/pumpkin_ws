@@ -1,4 +1,4 @@
-\documentclass[twoside,a4paper,titlepage]{article}
+\documentclass[oneside,a4paper,titlepage]{article}
 \usepackage{color}
 \usepackage{hyperref}
 \usepackage{graphicx}
@@ -34,7 +34,7 @@ The system is intended to be run into, at least, two different devices. One of t
 
 The ROS, by default, runs on Linux, but there is possible to install ROS in other systems. The Pumpkin was developed and tested in the Ubuntu distro, so this is the recommended disto, although it can be used other distros. But the recomendation to Linux stills.
 
-The installation guide can be found in: \url{http://wiki.ros.org/indigo/Installation}.
+The installation guide can be found in: \href{http://wiki.ros.org/indigo/Installation}{ROS Indigo installation guide page}.
 
 The Pumpkin was developed in the ROS Indigo, since it has more support. So, it's sugested that install this version. To be sure to have everything OK, try to install the desktop-full version.
 
@@ -188,7 +188,7 @@ As said, this dialog only show once. So, after selecting the configuration file,
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{main_window}
-	\caption{Main Window}
+	\caption[Main Window]{the PumpkinQT main window, an ease way to use the Pumpkin}
 	\label{fig:main_window}
 \end{figure}
 
@@ -204,15 +204,16 @@ Under this view, there are thre lists:
 	\item The right one is the list of selected playback files to play a scene. The scene is covered after.
 \end{itemize}
 
-And the bottom part of the window are the actions controls. They're displayed in different tabs, each one representing a diferent functions.
+And the bottom part of the window are the actions controls. They're displayed in different tabs, each one representing a different functions.
 
-\paragraph{Playback}
+\subsubsection{Playback}
+\label{subsec:playback}
 	This function is to order the robot to execute a previous recorded playback. To do this, first, an playback file must be selected. As it's selected, the name of the file will be displayed where initially is written \textbf{Playback file}.
 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\textwidth]{playback_tab}
-		\caption{The playback tab is to execute one movement}
+		\caption[Playback Tab]{The playback tab is to execute one movement}
 		\label{fig:playback_tab}
 	\end{figure}
 	
@@ -220,13 +221,14 @@ And the bottom part of the window are the actions controls. They're displayed in
 	
 	While the robot is executing the movement, you can press the stop button, to stop the execution of the movement. Obviously, the button will only be clicable when the robot is executing a movement.
 	
-\paragraph{Record}
+\subsubsection{Record}
+\label{subsec:record}
 	This function is to record a new movement. To this, you have, first, to select a folder. You can, also, select a file in the playback file list to override a playback file.
 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\textwidth]{record_tab}
-		\caption{The record tab is to record new movements}
+		\caption[Record Tab]{The record tab is to record new movements}
 		\label{fig:record_tab}
 	\end{figure}
 	
@@ -236,14 +238,14 @@ And the bottom part of the window are the actions controls. They're displayed in
 	
 	As the record starts, you will see that the entries for the time limit will not be able to modify, but the values in there will start changing. This is because these entries will show the elapsed time since the begining of the recording.
 	
-\paragraph{Scene}
-
+\subsubsection{Scene}
+\label{subsec:scene}
 	This is, for now, is the most advance function of the robot. This is the only function that will use the right list (in the middle part of the \ref{fig:main_window}).
 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\textwidth]{scene_tab}
-		\caption{The scene tab is to play a sequence of movements}
+		\caption[Scene Tab]{The scene tab is to play a sequence of movements}
 		\label{fig:scene_tab}
 	\end{figure}
 	
@@ -255,6 +257,70 @@ And the bottom part of the window are the actions controls. They're displayed in
 	
 	And to change the order of the movement, just ``drag and drop'' the \emph{playback file} from the \emph{scene list} and put it in the desired position.
 	
-	After that, play the scene clicking the \emph{Play} button. This is like a playback, but all the movements are executed in order. 
+	After that, play the scene clicking the \emph{Play} button. This is like a playback, but all the movements are executed in order they appear in the \emph{scene list}. Remember that, as the playback, you can stop at any moment.
+	
+	The progress bar and the text that you see is to indicate the overall completion of the scene. The progress bar is equal to the playback, indicate the completed percentage of the movement, or the planning, and the text indicate each movement (or planning between movements) is being executed in that moment.
+	
+\subsection{Other PumpkinQT ...}
+
+There are other two ... that the PumpkinQT is able to do. They're accessed by the menu of the \emph{Main Window} (\ref{fig:main_window}). 
+
+\subsubsection{Manage files and folders}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{manage_files}
+	\caption[Files Manager]{The files manager dialog is to manage the files and folders of playback}
+	\label{fig:manage_files}
+\end{figure}
+
+The \emph{Files manager dialog} (Figure \ref{fig:manage_files}) is used to manage the files and folders. To organize the \emph{playback files} better, they're disposed in different folders. So, you are able to create, and delete these folders. And also delete any movement file thay you doesn't want anymore.
+
+{\color{red}
+\paragraph{ATENTION!} As this system runs in a network environment, all these actions are request to the OS that runs the core of the Pumpkin. So, it is not possible to recover a deleted movement, or folder.
+}
+
+If you open the dialog without selecting any folder, you will see it as shown in the figure \ref{fig:manage_files}. But, as soon you select a folder, in the space you see ``No folder selected'', you will see the name of the selected folder. In the same way, as soon you select a file, you see the name of the selected file (in this case, with the full path), where is shown ``No file selected''.
+
+The entry, in the botton left part of the dialog, is where you write the name of a new folder, in case you want to create one.
+
+To do any job, just click on the respect button in the right part of the dialog window:
+
+\begin{description}
+	\item[Delete File] Delete the selected file. This button will not be clickable until you select a file.
+	
+	\item[Delete Folder] Delete the selected folder. This button will not be clickable until you select a folder.
+	
+	\item[Create Folder] Create a new folder under the selected folder (as a child folder). First, you have to select a folder to do that.
+\end{description}
+
+To close the dialog, just click the \emph{OK} button.
+
+\paragraph{Note: } Creating a new playback file is done in the \emph{Record} (Section \ref{subsec:record}).
+
+\subsubsection{SSC Move Command Sender}
+
+The other resource is more advanced, and was created to debugging purpose. You can test it too, but is \textbf{\color{red} HIGHLY NOT RECOMMENDED} in case you are not developing for Pumpkin.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ssc}
+	\caption[SSC Move Command Sender]{The SSC Move Command Sender is a more advanced resource, to send commands directly to the servos}
+	\label{fig:ssc}
+\end{figure}
+
+First of all, if you don't know what is a Servo, it probably is not for you. Just don't touch in this window. Press the \emph{Cancel} button and close it.
+
+This is a raw command sender to the robot servos. As, until now, the robot use an SSC to send command to this joints, this dialog is used to that: send commands to the joint.
+
+The command dialog is divided into tabs, each tab contains a robot part (this is just to organize better the joint panel). Each pannel inside a tab is designed for one joint.
+
+The first thing to notice, for each panel, is there is a check box. Leave it checked to send the specific command to the servo related to that joint, but if you want to leave that servo out of the command, uncheck it. After that, just set the value for the pulse width. If you wish to set a speed to the servo, just set the speed value over $0$ (zero).
+
+The last thing before sending the command is the time value (the time limit to each servo have to be). If you want to send the time among the info, just set the value above $0$ (zero).
+
+Click the \emph{Send Command} button to send the button. You can send any ammount of commands you wish. After that, click on the \emph{Cancel} button to close the dialog.
+
+\section{Understanding the project}
 
 \end{document}

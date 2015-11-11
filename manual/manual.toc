@@ -1,0 +1,25 @@
+\contentsline {section}{\numberline {1}First steps}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Environment}{2}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Installing ROS}{2}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Necessary ROS packages}{2}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}QT}{3}{subsubsection.1.1.3}
+\contentsline {subsection}{\numberline {1.2}Pumpkin Installation}{3}{subsection.1.2}
+\contentsline {paragraph}{Atention: }{3}{section*.2}
+\contentsline {paragraph}{Note: }{3}{section*.3}
+\contentsline {subsubsection}{\numberline {1.2.1}Building the core packages}{3}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Building the GUI packages}{3}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}Last environment settings}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Running Pumpkin}{4}{subsection.1.4}
+\contentsline {section}{\numberline {2}Using Pumpkin}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Basics}{4}{subsection.2.1}
+\contentsline {paragraph}{Note: }{4}{section*.4}
+\contentsline {subsection}{\numberline {2.2}The PumpkinQT}{5}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Playback}{5}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Record}{6}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Scene}{7}{subsubsection.2.2.3}
+\contentsline {subsection}{\numberline {2.3}Other PumpkinQT ...}{8}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Manage files and folders}{8}{subsubsection.2.3.1}
+\contentsline {paragraph}{ATENTION!}{8}{section*.5}
+\contentsline {paragraph}{Note: }{9}{section*.6}
+\contentsline {subsubsection}{\numberline {2.3.2}SSC Move Command Sender}{9}{subsubsection.2.3.2}
+\contentsline {section}{\numberline {3}Understanding the project}{9}{section.3}
