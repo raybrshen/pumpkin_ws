@@ -22,4 +22,6 @@
 \contentsline {paragraph}{ATENTION!}{8}{section*.5}
 \contentsline {paragraph}{Note: }{9}{section*.6}
 \contentsline {subsubsection}{\numberline {2.3.2}SSC Move Command Sender}{9}{subsubsection.2.3.2}
-\contentsline {section}{\numberline {3}Understanding the project}{9}{section.3}
+\contentsline {section}{\numberline {3}Understanding the project}{10}{section.3}
+\contentsline {paragraph}{Topic}{10}{section*.7}
+\contentsline {paragraph}{Service}{10}{section*.8}

@@ -174,7 +174,7 @@ Now, for the basic usage of the Pumpkin system. The GUI was designed to help for
 
 The first window that you may see is the configuration window. This window run only once as the core system still runs in the main machine, it may appear if the core system restarts.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{load_config}
 	\caption{Load Config dialog}
@@ -185,7 +185,7 @@ The only thing to do here is select a configuration file from the list, and pres
 
 As said, this dialog only show once. So, after selecting the configuration file, you go to the main window. If you have ran the configuration before, the main window will be shown directly.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{main_window}
 	\caption[Main Window]{the PumpkinQT main window, an ease way to use the Pumpkin}
@@ -210,7 +210,7 @@ And the bottom part of the window are the actions controls. They're displayed in
 \label{subsec:playback}
 	This function is to order the robot to execute a previous recorded playback. To do this, first, an playback file must be selected. As it's selected, the name of the file will be displayed where initially is written \textbf{Playback file}.
 	
-	\begin{figure}[h]
+	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.8\textwidth]{playback_tab}
 		\caption[Playback Tab]{The playback tab is to execute one movement}
@@ -225,7 +225,7 @@ And the bottom part of the window are the actions controls. They're displayed in
 \label{subsec:record}
 	This function is to record a new movement. To this, you have, first, to select a folder. You can, also, select a file in the playback file list to override a playback file.
 	
-	\begin{figure}[h]
+	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.8\textwidth]{record_tab}
 		\caption[Record Tab]{The record tab is to record new movements}
@@ -242,7 +242,7 @@ And the bottom part of the window are the actions controls. They're displayed in
 \label{subsec:scene}
 	This is, for now, is the most advance function of the robot. This is the only function that will use the right list (in the middle part of the \ref{fig:main_window}).
 
-	\begin{figure}[h]
+	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.8\textwidth]{scene_tab}
 		\caption[Scene Tab]{The scene tab is to play a sequence of movements}
@@ -267,7 +267,7 @@ There are other two ... that the PumpkinQT is able to do. They're accessed by th
 
 \subsubsection{Manage files and folders}
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{manage_files}
 	\caption[Files Manager]{The files manager dialog is to manage the files and folders of playback}
@@ -302,7 +302,7 @@ To close the dialog, just click the \emph{OK} button.
 
 The other resource is more advanced, and was created to debugging purpose. You can test it too, but is \textbf{\color{red} HIGHLY NOT RECOMMENDED} in case you are not developing for Pumpkin.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{ssc}
 	\caption[SSC Move Command Sender]{The SSC Move Command Sender is a more advanced resource, to send commands directly to the servos}
@@ -322,5 +322,33 @@ The last thing before sending the command is the time value (the time limit to e
 Click the \emph{Send Command} button to send the button. You can send any ammount of commands you wish. After that, click on the \emph{Cancel} button to close the dialog.
 
 \section{Understanding the project}
+
+For now on, the basic usage is already covered. This part is for the ones that are developing for the pumpkin, or for enthusiasts that want to know more about.
+
+The ROS way of working is by a distributed system that run by a web of nodes. A node is just a small program that do a specific task. The concept of small programs come by the idea: if any program is enough big, it should have high computational time that may compromite the communication among the nodes.
+
+The ROS have, besides, another program that controls the nodes execution, and do the communication among them (all the network task and so on), that is the \emph{ROS Core}, or \emph{roscore}.
+
+The communication is a key of ROS. By the ROS communication system, each node can send and receive info from the others. There are two tipes of communication that ROS can do:
+
+\paragraph{Topic} The ROS topic system is composed as a Queue server. Some nodes send the information to the \emph{roscore}, into a specific topic (like each topic is a queue), and other nodes listen to the refered topic. Each time a new information is available in the topic, the \emph{roscore} send them to the nodes that are listening. {\color{blue} It can be compared to a newsletter: when you subscribe to one of them, you receive the each news that are published.}
+
+\paragraph{Service} The ROS Service acts more like an RPC. A node tells the \emph{roscore} that it is running a specicic service, becoming the server node, and then some nodes can call this service, sending some info to the server node (as the parameters for the RPC), and the server node processes and send the response to the call (as a return). {\color{blue} Is is compared to a function call in a code.}
+
+Each information that goes across the nodes (in topic or services) are called \textbf{messages}. A message is a data structure that can be serialized. The ROS have a message build system to easily create a message, and the code to handle it in a specific programming language (naturally in C++ and Python).
+
+And, also, the ROS have a system to save some information directly into the \emph{roscore}, the ROS Parameter Server. It is like a properties part of the system. And it is more often used to save configuration parameters.
+
+For futher understanding on the ROS, please follow the tutorials in this page:
+\href{http://wiki.ros.org/ROS/Tutorials}{ROS Tutorials}.
+
+\begin{figure}[ht!]
+	\centering
+	%\includegraphics[width=0.8\textwidth]{file}
+	\caption[Pumpkin Nodes]{The Pumpkin nodes graph}
+	\label{fig:nodes}
+\end{figure}
+
+The image \ref{fig:nodes} show the nodes that make the pumpkin running. A
 
 \end{document}
