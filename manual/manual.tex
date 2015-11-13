@@ -2,6 +2,7 @@
 \usepackage{color}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
 \usepackage[utf8]{inputenc}
 
 \title{Pumpkin basic Manual}
@@ -304,7 +305,7 @@ The other resource is more advanced, and was created to debugging purpose. You c
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ssc}
+	\includegraphics[height=0.5\textheight]{ssc}
 	\caption[SSC Move Command Sender]{The SSC Move Command Sender is a more advanced resource, to send commands directly to the servos}
 	\label{fig:ssc}
 \end{figure}
@@ -342,13 +343,65 @@ And, also, the ROS have a system to save some information directly into the \emp
 For futher understanding on the ROS, please follow the tutorials in this page:
 \href{http://wiki.ros.org/ROS/Tutorials}{ROS Tutorials}.
 
+\subsection{Pumpkin nodes overview}
+
 \begin{figure}[ht!]
 	\centering
-	%\includegraphics[width=0.8\textwidth]{file}
-	\caption[Pumpkin Nodes]{The Pumpkin nodes graph}
-	\label{fig:nodes}
+	\includegraphics[width=0.8\textwidth]{graph1}
+	\caption[Pumpkin Nodes 1]{This graph represents the Pumpkin nodes before loading the configuration, obtained in rqt-graph}
+	\label{fig:nodes1}
 \end{figure}
 
-The image \ref{fig:nodes} show the nodes that make the pumpkin running. A
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graph2}
+	\caption[Pumpkin Nodes 2]{This graph represents the Pumpkin nodes after loading the configuration, obtained in rqt-graph}
+	\label{fig:nodes2}
+\end{figure}
+
+The images \ref{fig:nodes1} and \ref{fig:nodes2} show the nodes that make the pumpkin running. The first (\ref{fig:nodes1}) one is when the configuration was not done yet (Is when the \ref{fig:load_config} dialog is shown). The second (\ref{fig:nodes2}) one is when the configuration is done, and the system is running.
+
+\paragraph{Note: } To understand better the graphs, there are what the forms represents:
+
+\begin{itemize}
+	\item The small boxes represents a topic.
+	\item The ellipsis represents a node.
+	\item The larger boxes (the ones that have others elements inside) represents namespace (and it's just for better organization of the nodes).
+	\item The arrows represents the way that the nodes communicates (the tip of the arrow indicate the receiver, the other side, the sender). If the arrow connects two nodes, it represents the two nodes are in a service communication. If the arrow connect a node and a topic, it represents this node publishes to it, or subscribe from it (the way of the arrow indicates each one is).
+\end{itemize}
+
+It's clear that, before load the configuration, the system is much simpler. Some topics doesn't even exist, and a lot of nodes are not communicating to each other. Nonetheless, even the second graph (\ref{fig:nodes2}) is not complete, since the \texttt{playback-action} is not in a service to the \texttt{planner}, as the service is only done if a scene is in execution.
+
+The Pumpkin are divided into five packages:
+
+\begin{description}
+	\item[pumpkin] This main package controls the robot behavior and functionalities
+	\item[pumpkin\_interface] This package contains interface nodes, or interface between the ROS and the robot sensors and servos, or between the GUI and the OS (since they maybe in different machines).
+	\item[pumpkin\_qt] This package is for the robot GUI
+	\item[pumpkin\_messages] This package holds the messages for topics, services, or action services, that pumpkin has and uses.
+	\item[pumpkin\_moveit] This package has the \emph{MoveIt!} configuration files and sources, that was made in a setup for the robot. There are, also, some movements from a first stage of the planning.
+\end{description}
+
+\paragraph{Note: } There are another folder under the \texttt{src} that was not covered above: the \texttt{pumpkin\_description}. That is because this is not a ROS package. It is the 3D data of the robot, to be rendered or to be used in the kinectics processing (as the planning).
+
+The nodes of the Pumpkin are described below, except those generated from the MoveIt! setup, since it is almost automatic code.
+
+\subsection{Pumpkin Interface}
+
+This package is the simplest, only has three nodes. Its meaning is already viewed in the above section
+
+\subsubsection{The ``file\_server'' node}
+
+This node is intended for making some tasks related to files.
+It has two different services:
+
+\begin{description}
+	\item[file\_lister] This service is to seek files in a specific directory (and all of inside folders). It is intended to show specific file types, as: playback files and configuration files.
+	\item[file\_handle] This service is to create and delete a file or a folder.
+\end{description}
+
+\paragraph{\color{red} Atention! }
+
+Before running this node correctly, it is needed to pass to the node the path of the pumpkin package folder. To do that, there is two options: by environment variable, or by ROS parameter.
 
 \end{document}

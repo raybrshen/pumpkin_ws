@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.11.3)  11 NOV 2015 16:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.11.3)  13 NOV 2015 17:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -178,10 +178,25 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@height=\dimen107
 \Gin@req@width=\dimen108
 )
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+\Gm@cnth=\count98
+\Gm@cntv=\count99
+\c@Gm@tempcnt=\count100
+\Gm@bindingoffset=\dimen109
+\Gm@wd@mp=\dimen110
+\Gm@odd@mp=\dimen111
+\Gm@even@mp=\dimen112
+\Gm@layoutwidth=\dimen113
+\Gm@layoutheight=\dimen114
+\Gm@layouthoffset=\dimen115
+\Gm@layoutvoffset=\dimen116
+\Gm@dimlist=\toks15
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
-\inpenc@prehook=\toks15
-\inpenc@posthook=\toks16
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
@@ -399,48 +414,48 @@ Now handling font encoding PD1 ...
 )) (./manual.aux)
 \openout1 = `manual.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count98
-\scratchdimen=\dimen109
+\scratchcounter=\count101
+\scratchdimen=\dimen117
 \scratchbox=\box26
-\nofMPsegments=\count99
-\nofMParguments=\count100
-\everyMPshowfont=\toks17
-\MPscratchCnt=\count101
-\MPscratchDim=\dimen110
-\MPnumerator=\count102
-\makeMPintoPDFobject=\count103
-\everyMPtoPDFconversion=\toks18
+\nofMPsegments=\count102
+\nofMParguments=\count103
+\everyMPshowfont=\toks18
+\MPscratchCnt=\count104
+\MPscratchDim=\dimen118
+\MPnumerator=\count105
+\makeMPintoPDFobject=\count106
+\everyMPtoPDFconversion=\toks19
 )
 \AtBeginShipoutBox=\box27
-Package hyperref Info: Link coloring OFF on input line 19.
+Package hyperref Info: Link coloring OFF on input line 20.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count104
+\c@section@level=\count107
 )
-LaTeX Info: Redefining \ref on input line 19.
-LaTeX Info: Redefining \pageref on input line 19.
-LaTeX Info: Redefining \nameref on input line 19.
+LaTeX Info: Redefining \ref on input line 20.
+LaTeX Info: Redefining \pageref on input line 20.
+LaTeX Info: Redefining \nameref on input line 20.
 
 (./manual.out) (./manual.out)
 \@outlinefile=\write3
@@ -462,13 +477,46 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 22.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 22.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 22.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(90.3375pt, 416.83289pt, 90.3375pt)
+* v-part:(T,H,B)=(72.26999pt, 682.43936pt, 90.3375pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=416.83289pt
+* \textheight=682.43936pt
+* \oddsidemargin=18.0675pt
+* \evensidemargin=18.0675pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 23.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./manual.toc
@@ -484,110 +532,98 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.23 \newpage
+l.24 \newpage
               [1]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 46.
-
-Overfull \hbox (9.22208pt too wide) in paragraph at lines 50--51
-\OT1/cmr/m/n/10 run the In-digo dis-tro, the pack-ages to be in-stalled will be
- named: \OT1/cmtt/m/n/10 ros-indigo-...\OT1/cmr/m/n/10 ,
- []
-
-
-Overfull \hbox (6.3333pt too wide) in paragraph at lines 50--51
-\OT1/cmr/m/n/10 but if you are run-ning the Jade dis-tro, the pack-ages will be
- named: \OT1/cmtt/m/n/10 ros-jade-...\OT1/cmr/m/n/10 . 
- []
-
-[2] [3] [4] <load_config.png, id=137, 470.75874pt x 207.77625pt>
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 47.
+ [2] [3] <load_config.png, id=147, 470.75874pt x 207.77625pt>
 File: load_config.png Graphic file (type png)
 
 <use load_config.png>
-Package pdftex.def Info: load_config.png used on input line 179.
-(pdftex.def)             Requested size: 276.00105pt x 121.8165pt.
- <main_window.png, id=138, 655.44875pt x 877.2775pt>
+Package pdftex.def Info: load_config.png used on input line 180.
+(pdftex.def)             Requested size: 333.46758pt x 147.18292pt.
+ <main_window.png, id=148, 655.44875pt x 877.2775pt>
 File: main_window.png Graphic file (type png)
 
 <use main_window.png>
-Package pdftex.def Info: main_window.png used on input line 190.
-(pdftex.def)             Requested size: 276.00105pt x 369.40445pt.
+Package pdftex.def Info: main_window.png used on input line 191.
+(pdftex.def)             Requested size: 333.46758pt x 446.32133pt.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 201.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 200.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 200.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 201.
 
-<playback_tab.png, id=139, 588.1975pt x 224.84pt>
+[4 <./load_config.png>] <playback_tab.png, id=157, 588.1975pt x 224.84pt>
 File: playback_tab.png Graphic file (type png)
- <use playback_tab.png>
-Package pdftex.def Info: playback_tab.png used on input line 215.
-(pdftex.def)             Requested size: 276.00105pt x 105.50327pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5 <./load_config.png>] <record_tab.png, id=148, 588.1975pt x 221.82875pt>
+<use playback_tab.png>
+Package pdftex.def Info: playback_tab.png used on input line 216.
+(pdftex.def)             Requested size: 333.46758pt x 127.47054pt.
+ [5 <./main_window.png>]
+<record_tab.png, id=165, 588.1975pt x 221.82875pt>
 File: record_tab.png Graphic file (type png)
+ <use record_tab.png>
+Package pdftex.def Info: record_tab.png used on input line 231.
+(pdftex.def)             Requested size: 333.46758pt x 125.76334pt.
 
-<use record_tab.png>
-Package pdftex.def Info: record_tab.png used on input line 230.
-(pdftex.def)             Requested size: 276.00105pt x 104.09027pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6 <./main_window.png>] <scene_tab.png, id=157, 588.1975pt x 221.82875pt>
+<scene_tab.png, id=167, 588.1975pt x 221.82875pt>
 File: scene_tab.png Graphic file (type png)
-
-<use scene_tab.png>
-Package pdftex.def Info: scene_tab.png used on input line 247.
-(pdftex.def)             Requested size: 276.00105pt x 104.09027pt.
- [7 <./playback_tab.png (PNG copy)> <./record_tab.png (PNG copy)> <./scene_tab.
-png (PNG copy)>]
-<manage_files.png, id=165, 518.93875pt x 320.19624pt>
+ <use scene_tab.png>
+Package pdftex.def Info: scene_tab.png used on input line 248.
+(pdftex.def)             Requested size: 333.46758pt x 125.76334pt.
+ [6 <./playback_tab.png (PNG copy)> <./record_tab.png (PNG copy)>]
+<manage_files.png, id=175, 518.93875pt x 320.19624pt>
 File: manage_files.png Graphic file (type png)
  <use manage_files.png>
-Package pdftex.def Info: manage_files.png used on input line 272.
-(pdftex.def)             Requested size: 276.00105pt x 170.30414pt.
+Package pdftex.def Info: manage_files.png used on input line 273.
+(pdftex.def)             Requested size: 333.46758pt x 205.76524pt.
 
-[8 <./manage_files.png>] <ssc.png, id=175, 351.3125pt x 803.0pt>
+[7 <./scene_tab.png (PNG copy)> <./manage_files.png>]
+<ssc.png, id=185, 351.3125pt x 803.0pt>
 File: ssc.png Graphic file (type png)
  <use ssc.png>
-Package pdftex.def Info: ssc.png used on input line 307.
-(pdftex.def)             Requested size: 276.00105pt x 630.90778pt.
+Package pdftex.def Info: ssc.png used on input line 308.
+(pdftex.def)             Requested size: 149.28706pt x 341.21968pt.
+ [8]
+<graph1.png, id=193, 1196.47pt x 734.745pt>
+File: graph1.png Graphic file (type png)
+ <use graph1.png>
+Package pdftex.def Info: graph1.png used on input line 350.
+(pdftex.def)             Requested size: 333.46758pt x 204.78545pt.
 
+<graph2.png, id=194, 1197.47375pt x 494.84875pt>
+File: graph2.png Graphic file (type png)
+ <use graph2.png>
+Package pdftex.def Info: graph2.png used on input line 357.
+(pdftex.def)             Requested size: 333.46758pt x 137.80162pt.
+ [9 <./ssc.png>] [10 <./graph1.png> <./graph2.png>]
+Overfull \hbox (31.52277pt too wide) in paragraph at lines 385--386
+ []\OT1/cmr/bx/n/10 Note: [] \OT1/cmr/m/n/10 There are an-other folder un-der t
+he \OT1/cmtt/m/n/10 src \OT1/cmr/m/n/10 that was not cov-ered above: the \OT1/c
+mtt/m/n/10 pumpkin[]description\OT1/cmr/m/n/10 .
+ []
 
-LaTeX Warning: Float too large for page by 68.85222pt on input line 310.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 343.
- [10] [11 <./ssc.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 343.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 407.
+[11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 407.
  (./manual.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 343.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 343.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 407.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 407.
 Package rerunfilecheck Info: File `manual.out' has not changed.
-(rerunfilecheck)             Checksum: 72964B98C44A58E66D55109A2FC3A383;1362.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 343.
+(rerunfilecheck)             Checksum: 58E8498666613AEB5CA34CA2B32ED1DE;1588.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 407.
  ) 
 Here is how much of TeX's memory you used:
- 5443 strings out of 495028
- 79825 string characters out of 6181497
- 159200 words of memory out of 5000000
- 8556 multiletter control sequences out of 15000+600000
+ 5903 strings out of 495028
+ 86450 string characters out of 6181497
+ 175122 words of memory out of 5000000
+ 9002 multiletter control sequences out of 15000+600000
  8578 words of font info for 31 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,6n,28p,502b,338s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,6n,28p,502b,385s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -597,10 +633,10 @@ fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmtt12.pfb>
-Output written on manual.pdf (12 pages, 351658 bytes).
+Output written on manual.pdf (12 pages, 570789 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 47 named destinations out of 1000 (max. 500000)
- 196 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 267 PDF objects out of 1000 (max. 8388607)
+ 232 compressed objects within 3 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
