@@ -141,8 +141,12 @@ For now, the both systems may run, but we need to configure the network environm
 The first thing to do is to be sure that both machines are on the same local network, i. e. they are on the same WiFi network.
 
 \subsection{Running Pumpkin}
+\label{sec:run}
+To easily run the Pumpkin, it was created two scrips. Both are on the project base directory.
 
+For the \emph{core}, run the \texttt{pumpkin.sh}. And for the \emph{GUI}, run the \texttt{gui.sh}.
 
+\newpage
 \section{Using Pumpkin}
 
 \subsection{Basics}
@@ -322,6 +326,7 @@ The last thing before sending the command is the time value (the time limit to e
 
 Click the \emph{Send Command} button to send the button. You can send any ammount of commands you wish. After that, click on the \emph{Cancel} button to close the dialog.
 
+\newpage
 \section{Understanding the project}
 
 For now on, the basic usage is already covered. This part is for the ones that are developing for the pumpkin, or for enthusiasts that want to know more about.
@@ -402,6 +407,99 @@ It has two different services:
 
 \paragraph{\color{red} Atention! }
 
-Before running this node correctly, it is needed to pass to the node the path of the pumpkin package folder. To do that, there is two options: by environment variable, or by ROS parameter.
+Before running this node correctly, it is needed to pass to the node the path of the pumpkin package folder. To do that, there is two options: by environment variable, or by ROS parameter. If you run the system by the script (\ref{sec:run}), this is done automatically.
+
+\subsubsection{The ``setup\_arduino'' node}
+
+This node does all the communication to the Arduinos that are connected to the core system.
+
+The functionalities that the Arduino does are coded inside them. This node is just to maintain the communication online.
+
+\subsubsection{The ``setup\_ssc'' node}
+
+This node does almost the same thing that the \texttt{setup\_arduino} does, but this one also process the information, since there is no program running the SSC. The SSC just receive a string command via serial port to create a PWM pulse. This pulse sets the position of a servo.
+
+To send a command to SSC, there is two ways: by service or by node.
+The service has preference over the topic, but the topic is better to ordered sequencial commands, like the ones in a movement. So, the service is better to send a secure order, or by debugging/testing.
+
+\paragraph{Note: } To run this node, the SSC must be powered on. This is automatically done if the robot is powered on. This is for security, since it alerts the robot, or the SSC, is powered, showing a possible disconected cable (or other problem).
+
+The node tries to maintain the communication to the SSC on. So, after the node is running, the SSC can be powered off, and powered on later (The only exception is in the node initialization, as seen above).
+
+Also, this node checks the command limits, to prevent harming the robot. But it not process the command, just get the message and transform it in a SSC understandanble command. To know better how the SSC command works, see the SSC reference manual.
+
+\subsection{Pumpkin}
+
+\subsubsection{The ``load\_config'' node}
+
+This node is for load the robot configuration file. When using the \emph{GUI}, this is done by selecing a file in the \emph{Load config dialog} (\ref{fig:load_config}).
+
+After selecting a configuration file, this node loads it in the ROS Parameter Server, and closes itself.
+
+\subsubsection{The ``recorder'' node}
+
+This node records a movement into a \emph{playback file}. This node is run when the user starts a record (see \ref{subsec:record}).
+
+It saves the values comming from the Arduino(s) into a \emph{playback file} when in a record. It controls the file handling, and other stuffs.
+
+The files are, now, in the YAML file type.
+
+\subsubsection{The ``playback\_action'' node}
+
+This node handles the \emph{playback} and \emph{scene}. When the user commands a playback (see \ref{subsec:playback}) or scene (see \ref{subsec:scene}), this node starts sending commands to the SSC based on the values inside the \emph{playback file}.
+
+\paragraph{Note: }It also publishes the commands as joint values, to update the 3D robot model.
+
+\paragraph{Note(2): }The conversions to one value to another is made linearly.
+
+This node also does the communication to the \emph{planner} node, to get the planned trajectory between two movements, and send them to the SSC.
+
+To run this node, first the configuration must be set (as this node will wait for it), and other parameters. This is done automatically if you run the script (\ref{sec:run}).
+
+\subsubsection{The ``planner'' node}
+
+This node uses the \emph{MoveIt!} planner pipeline to plan the robot trajectory between two movements.
+
+It initialize all the \emph{MoveIt!} stuff, and set up a ROS service server. This service is for receive a request from the \emph{playback\_action}, plan, and response with the joint positions trajectory.
+
+To run this node, first the configuration must be set, and a bunch of ROS parameters (required for the \emph{MoveIt!}). This is also done automatically if you run the sript (\ref{sec:run}).
+
+\subsection{PumpkinQT}
+
+This package contains only the \emph{pumpkin\_qt} node. It holds all the GUI to run the Pumpkin.
+
+It has classes to comunicate with the core, and classes that displays the windows with the widgets.
+
+\subsection{Pumpkin description \& Pumpkin Moveit}
+
+The \texttt{pumpkin\_moveit} package is created automatically with the MoveIt! setup.
+But it also contains some codes to send specific commands to the robot, and try to plan them.
+
+The \texttt{pumpkin\_description} has the \emph{URDF} model for the Robot, so the ROS and \emph{MoveIt!} can recognize the robot. It has, also, the 3D model meshes, so the robot can be displayed, and the collision detection can work; and it has other configuration files used in \emph{MoveIt!}, like the kinectics configuration.
+
+\subsection{Pumpkin Messages}
+
+This package holds the message that all the \emph{Pumpkin} uses. It has no code.
+
+The message are data structure that can be serialized. To help creating classes, the ROS have a message generator package. To generate a package, a ``message description file'' must be created, inside a specific folder (indicating the message type):
+
+\begin{description}
+	\item[msg] For a simple message, that will be used into a Topic, or to be inside another message.
+	\item[srv] Service message, containing exactly two messages: the first for the request, and the second for the response.
+	\item[action] For Action Service, containing exactly three messages: the first for the goal (like a request), the second for the response, and the third for the feedback.
+\end{description}
+
+To understand what the messages are, the easiest way is to see the documentation files.
+
+\newpage
+\section{Futher Information}
+
+For futher information about the code, you can see the documentation about the source code.
+
+The documentation is in doc folder. Each package has its own documentation. This doc is auto-generated.
+
+The documentation is in HTML format, so, to view it, open the \emph{index.html} files. There are links to the indexes in each package to make it easier to find the file and open it.
+
+\paragraph{Note: } To the \texttt{pumpkin\_messages} package, the index page is the \emph{index-msg.html}, to the messages documentation.
 
 \end{document}

@@ -21,3 +21,14 @@
 \BOOKMARK [2][-]{subsection.3.1}{Pumpkin nodes overview}{section.3}% 21
 \BOOKMARK [2][-]{subsection.3.2}{Pumpkin Interface}{section.3}% 22
 \BOOKMARK [3][-]{subsubsection.3.2.1}{The ``file\137server'' node}{subsection.3.2}% 23
+\BOOKMARK [3][-]{subsubsection.3.2.2}{The ``setup\137arduino'' node}{subsection.3.2}% 24
+\BOOKMARK [3][-]{subsubsection.3.2.3}{The ``setup\137ssc'' node}{subsection.3.2}% 25
+\BOOKMARK [2][-]{subsection.3.3}{Pumpkin}{section.3}% 26
+\BOOKMARK [3][-]{subsubsection.3.3.1}{The ``load\137config'' node}{subsection.3.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.2}{The ``recorder'' node}{subsection.3.3}% 28
+\BOOKMARK [3][-]{subsubsection.3.3.3}{The ``playback\137action'' node}{subsection.3.3}% 29
+\BOOKMARK [3][-]{subsubsection.3.3.4}{The ``planner'' node}{subsection.3.3}% 30
+\BOOKMARK [2][-]{subsection.3.4}{PumpkinQT}{section.3}% 31
+\BOOKMARK [2][-]{subsection.3.5}{Pumpkin description \046 Pumpkin Moveit}{section.3}% 32
+\BOOKMARK [2][-]{subsection.3.6}{Pumpkin Messages}{section.3}% 33
+\BOOKMARK [1][-]{section.4}{Futher Information}{}% 34
