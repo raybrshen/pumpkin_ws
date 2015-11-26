@@ -18,7 +18,7 @@
 
 #include <ros/ros.h>
 #include "pumpkin_messages/Files.h"
-#include "file_type.h"
+#include "pumpkin_messages/file_type.h"
 #include <string>
 #include <QThread>
 #include <QStringListModel>

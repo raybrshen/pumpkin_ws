@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "file_type.h"
+#include "pumpkin_messages/file_type.h"
 #include "pumpkin_messages/Files.h"
 #include "pumpkin_messages/FilesHandler.h"
 #include <boost/filesystem.hpp>

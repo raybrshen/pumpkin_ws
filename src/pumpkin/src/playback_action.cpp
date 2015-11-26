@@ -7,7 +7,7 @@
 #include <urdf/model.h>
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
-#include <file_type.h>
+#include "pumpkin_messages/file_type.h"
 
 #include "pumpkin_messages/PlaybackAction.h"
 #include "sensor_msgs/JointState.h"

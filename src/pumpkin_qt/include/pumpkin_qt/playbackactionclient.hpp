@@ -4,7 +4,7 @@
 #include <QObject>
 
 #include <ros/ros.h>
-#include "file_type.h"
+#include "pumpkin_messages/file_type.h"
 #include "pumpkin_messages/PlaybackAction.h"
 #include <actionlib/client/simple_action_client.h>
 

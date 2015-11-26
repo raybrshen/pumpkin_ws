@@ -6,7 +6,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/server/simple_action_server.h>
 #include "pumpkin_messages/Planner.h"
-#include "file_type.h"
+#include "pumpkin_messages/file_type.h"
 
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_model/joint_model.h>

@@ -1,20 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(pumpkin_messages)
+project(pumpkin_description)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED
-  roscpp
-  message_generation
-  message_runtime
-  std_msgs
-  genmsg
-  actionlib_msgs
-#  actionlib
-  trajectory_msgs
-  moveit_msgs
-)
+#find_package(catkin REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -49,41 +39,6 @@ find_package(catkin REQUIRED
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
-## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  analog_array.msg
-  SSCMove.msg
-  SSCMoveList.msg
-  FileList.msg
-)
-
-## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  Files.srv
-  Planner.srv
-  SSCMoveCommand.srv
-  FilesHandler.srv
-)
-
-## Generate actions in the 'action' folder
-add_action_files(
-  FILES
-  Record.action
-  Playback.action
-# Scene.action
-)
-
-## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs  # Or other packages containing msgs
-  actionlib_msgs
-  trajectory_msgs
-  moveit_msgs
-)
-
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -94,9 +49,9 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+#  INCLUDE_DIRS include
 #  LIBRARIES pumpkin_library
-  CATKIN_DEPENDS std_msgs actionlib_msgs trajectory_msgs moveit_msgs
+#  CATKIN_DEPENDS std_msgs actionlib_msgs trajectory_msgs moveit_msgs
 #  DEPENDS system_lib
 )
 
@@ -106,7 +61,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include)
+#include_directories(include)
 
 ## Declare a cpp library
 #add_library(pumpkin_messages
@@ -146,10 +101,24 @@ include_directories(include)
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.h"
+## Launch files
+install(DIRECTORY launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  FILES_MATCHING PATTERN "*.launch"
+  PATTERN ".svn" EXCLUDE
+)
+
+#Robot URDF
+install(DIRECTORY robots
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  FILES_MATCHING PATTERN "*.URDF"
+  PATTERN ".svn" EXCLUDE
+)
+
+#Robot meshes
+install(DIRECTORY meshes
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  FILES_MATCHING PATTERN "*.STL"
   PATTERN ".svn" EXCLUDE
 )
 

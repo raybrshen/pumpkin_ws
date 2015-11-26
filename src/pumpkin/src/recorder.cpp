@@ -13,7 +13,7 @@
 #include <ros/callback_queue.h>
 #include <actionlib/server/simple_action_server.h>
 #include <pumpkin_messages/RecordAction.h>
-#include "file_type.h"
+#include "pumpkin_messages/file_type.h"
 
 using namespace pumpkin_messages;
 

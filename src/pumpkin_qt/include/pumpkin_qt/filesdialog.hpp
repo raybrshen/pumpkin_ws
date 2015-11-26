@@ -7,7 +7,7 @@
 
 #include <ros/ros.h>
 #include "pumpkin_messages/FilesHandler.h"
-#include "file_type.h"
+#include "pumpkin_messages/file_type.h"
 
 namespace pumpkin_qt {
 
