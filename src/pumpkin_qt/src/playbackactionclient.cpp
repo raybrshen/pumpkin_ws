@@ -30,11 +30,13 @@ void PlaybackActionClient::setPlaybackFilename(const QString &filename)
 void PlaybackActionClient::setSceneFilenames(const std::vector<std::string> &filenames)
 {
 	_goal.filenames.clear();
+	if (filenames.size() < 2)
+		return;
 	_goal.filenames = filenames;
 }
 
 void PlaybackActionClient::playbackFile() {
-	if (_goal.filenames.empty()) {
+	if (_goal.filenames.size() != 1) {
 		return;
 	}
 	ROS_INFO("Starting playback file %s", _goal.filenames[0].c_str());
@@ -45,7 +47,7 @@ void PlaybackActionClient::playbackFile() {
 
 void PlaybackActionClient::playScene()
 {
-	if (_goal.filenames.empty())
+	if (_goal.filenames.size() < 2)
 		return;
 	ROS_INFO("Start playing scene.");
 	_playback_client->sendGoal(_goal, boost::bind(&PlaybackActionClient::playbackDoneCallback, this, _1, _2),
@@ -54,14 +56,17 @@ void PlaybackActionClient::playScene()
 }
 
 void PlaybackActionClient::playbackStop() {
+	if (_scene)
+		return;
 	Q_EMIT(blockOnPlayback(false));
 	if (_running)
 		_playback_client->cancelGoal();
 	_running = false;
 }
 
-void PlaybackActionClient::stopScene()
-{
+void PlaybackActionClient::stopScene() {
+	if (!_scene)
+		return;
 	Q_EMIT(blockOnScene(false));
 	if (_running)
 		_playback_client->cancelGoal();

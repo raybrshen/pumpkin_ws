@@ -1,9 +1,9 @@
 /**
  * @file /src/main.cpp
  *
- * @brief Qt based gui.
+ * @brief The PumpkinQT main source.
  *
- * @date November 2010
+ * @date October 2015
  **/
 /*****************************************************************************
 ** Includes

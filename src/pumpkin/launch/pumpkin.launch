@@ -1,1 +1,19 @@
-# TODO: This launch
+<launch>
+
+	<!-- Set "debug" arg to true to launch the node "planner" node in the debug mode -->
+	<!-- Set "visual" arg to true to launch a complete RViz window -->
+
+	<!-- Set "ssc_verbose" to true to set the node "setup_ssc" node to display the commands, instead of sending them to ssc -->
+	<arg name="ssc_verbose" default="false"/>
+
+	<include file="$(find pumpkin)/launch/action.launch"/>
+
+	<include unless="$(arg ssc_verbose)" file="$(find pumpkin_interface)/launch/interface.launch">
+		<param name="~pumpkin_path" value="$(arg pumpkin)"/>
+	</include>
+
+	<include if="$(arg ssc_verbose)" file="$(find pumpkin_interface)/launch/test.launch">
+		<arg name="pumpkin_path" value="$(find pumpkin)"/>
+	</include>
+
+</launch>

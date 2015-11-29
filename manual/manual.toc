@@ -1,0 +1,48 @@
+\contentsline {section}{\numberline {1}First steps}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Environment}{2}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Installing ROS}{2}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Necessary ROS packages}{2}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}QT}{2}{subsubsection.1.1.3}
+\contentsline {subsection}{\numberline {1.2}Pumpkin Installation}{3}{subsection.1.2}
+\contentsline {paragraph}{Atention: }{3}{section*.2}
+\contentsline {paragraph}{Note: }{3}{section*.3}
+\contentsline {subsubsection}{\numberline {1.2.1}Building the core packages}{3}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Building the GUI packages}{3}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}Last environment settings}{3}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Running Pumpkin}{3}{subsection.1.4}
+\contentsline {section}{\numberline {2}Using Pumpkin}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Basics}{4}{subsection.2.1}
+\contentsline {paragraph}{Note: }{4}{section*.4}
+\contentsline {subsection}{\numberline {2.2}The PumpkinQT}{4}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Playback}{6}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Record}{6}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Scene}{7}{subsubsection.2.2.3}
+\contentsline {subsection}{\numberline {2.3}Other PumpkinQT ...}{7}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Manage files and folders}{7}{subsubsection.2.3.1}
+\contentsline {paragraph}{ATENTION!}{7}{section*.5}
+\contentsline {paragraph}{Note: }{8}{section*.6}
+\contentsline {subsubsection}{\numberline {2.3.2}SSC Move Command Sender}{8}{subsubsection.2.3.2}
+\contentsline {section}{\numberline {3}Understanding the project}{9}{section.3}
+\contentsline {paragraph}{Topic}{9}{section*.7}
+\contentsline {paragraph}{Service}{9}{section*.8}
+\contentsline {subsection}{\numberline {3.1}Pumpkin nodes overview}{10}{subsection.3.1}
+\contentsline {paragraph}{Note: }{10}{section*.9}
+\contentsline {paragraph}{Note: }{11}{section*.10}
+\contentsline {subsection}{\numberline {3.2}Pumpkin Interface}{11}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}The ``file\_server'' node}{11}{subsubsection.3.2.1}
+\contentsline {paragraph}{\color {red} Atention! }{11}{section*.11}
+\contentsline {subsubsection}{\numberline {3.2.2}The ``setup\_arduino'' node}{11}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}The ``setup\_ssc'' node}{12}{subsubsection.3.2.3}
+\contentsline {paragraph}{Note: }{12}{section*.12}
+\contentsline {subsection}{\numberline {3.3}Pumpkin}{12}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}The ``load\_config'' node}{12}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}The ``recorder'' node}{12}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}The ``playback\_action'' node}{12}{subsubsection.3.3.3}
+\contentsline {paragraph}{Note: }{12}{section*.13}
+\contentsline {paragraph}{Note(2): }{12}{section*.14}
+\contentsline {subsubsection}{\numberline {3.3.4}The ``planner'' node}{12}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}PumpkinQT}{13}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Pumpkin description \& Pumpkin Moveit}{13}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Pumpkin Messages}{13}{subsection.3.6}
+\contentsline {section}{\numberline {4}Futher Information}{14}{section.4}
+\contentsline {paragraph}{Note: }{14}{section*.15}

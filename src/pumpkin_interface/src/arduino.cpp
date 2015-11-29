@@ -6,6 +6,18 @@
 
 #include "rosserial_server/serial_session.h"
 
+/*!
+ * Arduino node
+ * ============
+ *
+ * This node is a modification of the code of the *rosserial_server*.
+ * It will look for any active serial port of an determined standard. (The default is _/dev/ttyACM_)
+ * After that, it will try to run a rosserial communication with the device connected to this serial port.
+ * If it respond, it is a programmed Arduino.
+ *
+ * Each Arduino connected will be ran into a specific thread. (1 Thread for 1 Arduino)
+ */
+
 int main(int argc, char* argv[])
 {
 	// Initialize ROS.

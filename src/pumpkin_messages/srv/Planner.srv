@@ -1,8 +1,8 @@
-#Request
-#string[] joint_names
+#List of joint positions that identify the initial and the final state of the robot
+#These positions are ordered by the Arduino PIN
 float64[] initial_positions
 float64[] final_positions
 ---
-#Response
+#The planned trajectory
+#We just get the joint_trajectory
 trajectory_msgs/JointTrajectory[] joint_trajectory
-#moveit_msgs/MoveItErrorCodes error_codes

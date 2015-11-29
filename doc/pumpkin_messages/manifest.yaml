@@ -1,0 +1,31 @@
+actions:
+- Scene
+- Playback
+- Record
+authors: Rafael de Paula Paiva <paiva.rafael@outlook.com>
+brief: ''
+bugtracker: ''
+depends:
+- message_runtime
+- catkin
+- actionlib_msgs
+- trajectory_msgs
+- std_msgs
+- message_generation
+- moveit_msgs
+description: The pumpkin_messages package
+license: GPLv2
+maintainers: Rafael de Paula Paiva <paiva.rafael@outlook.com>
+msgs:
+- SSCMove
+- FileList
+- SSCMoveList
+- analog_array
+package_type: package
+repo_url: ''
+srvs:
+- SSCMoveCommand
+- Planner
+- Files
+- FilesHandler
+url: ''

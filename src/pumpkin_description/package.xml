@@ -1,0 +1,16 @@
+<package>
+  <name>pumpkin_description</name>
+  <version>0.0.0</version>
+  <description>Pumpkin robot description</description>
+
+  <license>BSD</license>
+
+  <maintainer email="thiagoeustakio@gmail.com">Thiago Eustakio</maintainer>
+  <maintainer email="vncprado@gmail.com">Vinicius Prado</maintainer>
+  <maintainer email="paiva.rafael@outlook.com">Rafael Paiva</maintainer>
+
+  <author email="thiagoeustakio@gmail.com">Thiago Eustakio</author>
+  <author email="vncprado@gmail.com">Vinicius Prado</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

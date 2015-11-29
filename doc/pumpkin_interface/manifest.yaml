@@ -1,0 +1,22 @@
+actions: []
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- pumpkin_description
+- catkin
+- roscpp
+- message_runtime
+- std_msgs
+- pumpkin_moveit
+- rospy
+- message_generation
+- pumpkin
+description: The pumpkin_interface package
+license: TODO
+maintainers: labrob <labrob@todo.todo>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''

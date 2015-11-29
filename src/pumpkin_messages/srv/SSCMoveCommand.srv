@@ -1,3 +1,7 @@
+#Command to send to the SSC, as a service
+#This should preempt the commands sent by topic
 SSCMoveList move
 ---
+#This is the final positions of the motors that SSC will put
+#(Unused for now)
 uint16[] positions

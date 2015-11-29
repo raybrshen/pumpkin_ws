@@ -1,6 +1,12 @@
 #include "ros/ros.h"
 #include "yaml-cpp/yaml.h"
 
+/*!
+ * \brief This node loads the calibration config file for the Pumpkin into the ROS Parameter server.
+ *
+ * This node waits for the existence of a param containing the configuration file, it loads the file, and saves it into
+ * the ROS Parameter Server. It reorganizes the configuration tree structure to best fit the others nodes.
+ */
 int main(int argc, char *argv[]) {
 	//Init ROS Node
 	ros::init(argc, argv, "load_config");

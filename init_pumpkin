@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# This file must be copied to /etc/init.d/ and chmod to execute
+# remember to change user and location then run:
+# update-rc.d init_pumpkin defaults 99
+
+su ubuntu -c "nohup /home/ubuntu/workspace/pumpkin_ws/pumpkin.sh &"
