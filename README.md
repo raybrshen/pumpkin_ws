@@ -4,17 +4,34 @@ Dr Robot Hawk Robot (A.K.A Pumpkin) catkin workspace
 This repository contains catkin source files to Dr Robot Hawk Robot (A.K.A Pumpkin).
 
 There are the following packages:
-* analog_array: Which implements arduino analog servo reads messages.
+* analog_array: Which implements arduino analog servo reads messages. (moved to pumpkin_messages)
 * pumpkin: All applications to record and playback movements with pumpkin.
 * pumpkin_moveit: Moveit package for pumpkin.
 * pumpkin_description: Description package for pumpkin.
+* pumpkin_messages: Contains all messages and actions used in our solution.
+* pumpkin_interface: Main interface code for Arduino, SSC-32 and some remote file operations.
+* pumpkin_qt: GUI for pumpkin.
 
-To build run:
+To build:
 
-    catkin_make
+    $ catkin_make
     
-You need to run `catkin_make` twice because analog\_array and pumpking_messages packages have self references.
+Maybe you will need to run `catkin_make` twice because analog\_array and pumpking_messages packages may have self references.
 
-To configure your IDE there are some instruction (here)[http://wiki.ros.org/IDEs].
+Basically you can run the main software on the robot using:
 
-We are working in a full Wiki for our modified version of this robot (here)[https://bitbucket.org/bioinroboticsuottawa/pumpkin_ws/wiki/Home]
+    $ roslaunch pumpkin pumpkin.launch
+
+And the GUI node:
+
+    $ rosrun pumpkin_qt pumpkin_qt
+    
+Some configuration files and initialization scripts can be found in the root directory:
+
+* gui.sh: GUI script that configures ROS_MASTER and run pumpkin_qt.
+* pumpkin.sh: Configuration and launch of pumpkin.launch
+* init_pumpkin: script that must be copied to /etc/init.rc in order to have a standalone computer booting the pumpkin master code.
+
+To configure your IDE there are some instruction [here](http://wiki.ros.org/IDEs). After some tests we start using [Clion](https://www.jetbrains.com/clion/).
+
+Documentation and manual can be found under doc/ and manual/ respectively.
